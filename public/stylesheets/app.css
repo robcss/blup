@@ -14,3 +14,9 @@
   overflow: hidden;
   text-overflow: ellipsis;
 } */
+
+#navbar-logo {
+  background: url(../media/logo_transparent.png) no-repeat center center;
+  background-size: cover;
+  width: 152px;
+}
