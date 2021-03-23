@@ -1,0 +1,39 @@
+<% layout('layouts/boilerplate')%>
+
+    <div class="columns">
+        <div class="column is-10 is-offset-1">
+            <div class="columns is-multiline">
+                <% for(let fountain of fountains){ %>
+                    <div class="column is-one-third">
+                        <div class="card bm--card-equal-height">
+                            <div class="card-image">
+                                <figure class="image is-4by3">
+                                    <img src="https://bulma.io/images/placeholders/1280x960.png"
+                                        alt="Placeholder image">
+                                </figure>
+                            </div>
+                            <div class="card-content">
+                                <div class="content">
+                                    <p class="title is-4">
+                                        <%= fountain.address.city %>,
+                                            <%= fountain.address.state %>
+                                    </p>
+                                    <p class="subtitle is-5">
+                                        <%= fountain.address.street %>
+                                            <%= fountain.address.number %>
+                                    </p>
+                                    <p class="subtitle is-4">
+                                        <%= fountain.address.country %>
+                                    </p>
+                                    <p class="subtitle is-6">Found by User</p>
+                                </div>
+                            </div>
+                            <footer class="card-footer">
+                                <a href="#" class="card-footer-item">Show</a>
+                            </footer>
+                        </div>
+                    </div>
+                    <% } %>
+            </div>
+        </div>
+    </div>
