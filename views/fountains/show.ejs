@@ -1,0 +1,73 @@
+<% layout('layouts/boilerplate')%>
+
+
+    <div class="container is-fluid">
+        <div class="block">
+            <p class="title is-4">
+                <%= fountain.address.city %>
+                    <%= fountain.address.state %>,
+                        <%= fountain.address.country %>
+            </p>
+            <p class="subtitle">
+                <%= fountain.address.street %>
+                    <%= fountain.address.number %>
+            </p>
+        </div>
+        <div class="block">
+            <a href="" class="button is-success">Confirm presence</a>
+
+            <a href="" class="button is-warning">Report problem</a>
+
+            <a href="/fountains/<%= fountain._id %>/edit" class="button">Edit</a>
+        </div>
+
+        <div class="block">
+            <form action="/fountains/<%=fountain._id%>?_method=DELETE" method="POST">
+                <button class="button is-danger">Delete</button>
+            </form>
+        </div>
+
+        <div class="block">
+            <article class="media">
+                <figure class="media-left">
+                    <p class="image is-64x64">
+                        <img src="https://bulma.io/images/placeholders/128x128.png">
+                    </p>
+                </figure>
+                <div class="media-content">
+                    <div class="content">
+                        <p>
+                            <strong>Barbara Middleton</strong>
+                            <br>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis porta eros lacus, nec
+                            ultricies
+                            elit blandit non. Suspendisse pellentesque mauris sit amet dolor blandit rutrum. Nunc in
+                            tempus
+                            turpis.
+                            <br>
+                            <small>3 hrs</small>
+                        </p>
+                    </div>
+            </article>
+
+            <article class="media">
+                <figure class="media-left">
+                    <p class="image is-64x64">
+                        <img src="https://bulma.io/images/placeholders/128x128.png">
+                    </p>
+                </figure>
+                <div class="media-content">
+                    <div class="field">
+                        <p class="control">
+                            <textarea class="textarea" placeholder="Add a comment..."></textarea>
+                        </p>
+                    </div>
+                    <div class="field">
+                        <p class="control">
+                            <button class="button">Post comment</button>
+                        </p>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </div>

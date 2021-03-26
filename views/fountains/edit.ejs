@@ -1,0 +1,80 @@
+<% layout('layouts/boilerplate')%>
+
+    <form action="/fountains/<%=fountain._id%>?_method=PUT" method="POST">
+        <div class="columns">
+            <div class="column is-6 is-offset-3">
+                <h1 class="title is-4">Edit Fountain</h1>
+                <div class="columns">
+                    <div class="column">
+                        <div class="field">
+                            <label class="label" for="street">Street</label>
+                            <div class="control">
+                                <input class="input" type="text" id="street" placeholder="Street" name="address[street]"
+                                    value="<%=fountain.address.street %>">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="field">
+                            <label class="label" for="number">Number</label>
+                            <div class="control">
+                                <input class="input" type="text" id="number" placeholder="Number" name="address[number]"
+                                    value="<%=fountain.address.number %>">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="columns">
+                    <div class="column">
+                        <div class="field">
+                            <label class="label" for="city">City</label>
+                            <div class="control">
+                                <input class="input" type="text" id="city" placeholder="City" name="address[city]"
+                                    value="<%=fountain.address.city %>">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="field">
+                            <label class="label" for="state">State</label>
+                            <div class="control">
+                                <input class="input" type="text" id="state" placeholder="State" name="address[state]"
+                                    value="<%=fountain.address.state %>">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="columns">
+                    <div class="column">
+                        <div class="field">
+                            <label class="label" for="postcode">Postcode</label>
+                            <div class="control">
+                                <input class="input" type="text" id="postcode" placeholder="Postcode"
+                                    name="address[postcode]" value="<%=fountain.address.postcode %>">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="field">
+                            <label class="label" for="country">Country</label>
+                            <div class="control">
+                                <input class="input" type="text" id="country" placeholder="Country"
+                                    name="address[country]" value="<%=fountain.address.country %>">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <div class="control">
+                    <button class="button is-primary">Update</button>
+                </div>
+
+            </div>
+        </div>
+    </form>
