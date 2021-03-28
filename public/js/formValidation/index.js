@@ -1,7 +1,13 @@
 import { InputField } from "./InputField.js"
 
+const createInputField = (id) => {
+    return new InputField(id)
+}
 
-const inputStreet = new InputField("inputStreet")
+
+
+const [inputStreet, inputNumber] = ["inputStreet", "inputNumber"].map(id => createInputField(id))
+
 
 inputStreet.validate = function () {
     if (this.isNotEmpty) {
@@ -24,14 +30,39 @@ inputStreet.validate = function () {
     }
 }
 
+inputNumber.validate = function () {
+    if (this.isNotEmpty) {
 
+        const regex = /^\d+$/g
+        const regexTest = regex.test(this.inputElement.value)
+
+        if (regexTest) {
+            this.setSuccess("Number is valid")
+            this.validated = true
+        } else {
+            this.setDanger("Number must be a single integer")
+            this.validated = false
+        }
+    } else {
+        this.setDanger("Field is required")
+        this.validated = false
+    }
+}
+
+
+const fields = [inputStreet, inputNumber]
 
 
 document.addEventListener('change', event => {
 
-    if (event.target.id === inputStreet.id) {
-        inputStreet.validate()
-        console.log(inputStreet.isValid)
+    for (let field of fields) {
+        if (event.target.id === field.id) {
+            field.validate()
+            console.log(field.isValid)
+            return
+        }
     }
+
+
 
 }, false)

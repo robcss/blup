@@ -23,9 +23,13 @@
                     <div class="column">
                         <div class="field">
                             <label class="label" for="inputNumber">Number</label>
-                            <div class="control">
+                            <div class="control has-icons-right">
                                 <input class="input" type="text" id="inputNumber" placeholder="Number"
                                     name="address[number]">
+                                <span class="icon is-small is-right">
+                                    <i id='inputNumberIcon' class="fas fa-exclamation-triangle is-hidden"></i>
+                                </span>
+                                <p id="inputNumberHelp" class="help is-danger is-hidden">Field is required</p>
                             </div>
                         </div>
                     </div>
