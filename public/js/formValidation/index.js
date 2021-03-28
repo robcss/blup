@@ -6,7 +6,7 @@ const createInputField = (id) => {
 
 
 
-const [inputStreet, inputNumber, inputCity] = ["inputStreet", "inputNumber", "inputCity"].map(id => createInputField(id))
+const [inputStreet, inputNumber, inputCity, inputCountry] = ["inputStreet", "inputNumber", "inputCity", "inputCountry"].map(id => createInputField(id))
 
 
 inputStreet.validate = function () {
@@ -70,9 +70,12 @@ inputCity.validate = function () {
     }
 }
 
+inputCountry.validate = inputCountry.validateEmpty
 
 
-const fields = [inputStreet, inputNumber, inputCity]
+
+
+const fields = [inputStreet, inputNumber, inputCity, inputCountry]
 
 
 document.addEventListener('change', event => {

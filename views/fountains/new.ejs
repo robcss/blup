@@ -71,10 +71,14 @@
 
                 <div class="field">
                     <label class="label" for="inputCountry">Country</label>
-                    <div class="control">
+                    <div class="control has-icons-right">
                         <input class="input" type="text" id="inputCountry" placeholder="Country"
                             name="address[country]">
+                        <span class="icon is-small is-right">
+                            <i id='inputCountryIcon' class="fas fa-exclamation-triangle is-hidden"></i>
+                        </span>
                     </div>
+                    <p id="inputCountryHelp" class="help is-danger is-hidden">Field is required</p>
                 </div>
 
 
