@@ -5,7 +5,6 @@ const createInputField = (id) => {
 }
 
 
-
 const [inputStreet, inputNumber, inputCity, inputCountry] = ["inputStreet", "inputNumber", "inputCity", "inputCountry"].map(id => createInputField(id))
 
 
@@ -77,17 +76,28 @@ inputCountry.validate = inputCountry.validateEmpty
 
 const fields = [inputStreet, inputNumber, inputCity, inputCountry]
 
+const sumbitButton = document.getElementById("submitButton")
 
 document.addEventListener('change', event => {
 
     for (let field of fields) {
         if (event.target.id === field.id) {
+
             field.validate()
-            console.log(field.isValid)
+
+
+            const allAreValid = fields.every(f => f.isValid)
+
+            if (allAreValid) {
+                sumbitButton.disabled = false;
+                sumbitButton.removeAttribute("disabled");
+            } else {
+                sumbitButton.disabled = true;
+                sumbitButton.setAttribute("disabled", "true");
+            }
+
             return
         }
     }
-
-
 
 }, false)
