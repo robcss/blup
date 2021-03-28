@@ -1,24 +1,30 @@
 <% layout('layouts/boilerplate')%>
 
+    <script src="/js/formValidation.js?v6" async defer></script>
+
     <form action="/fountains" method="POST">
         <div class="columns">
             <div class="column is-6 is-offset-3">
                 <h1 class="title is-4">Add Fountain</h1>
                 <div class="columns">
-                    <div class="column">
+                    <div class="column is-8">
                         <div class="field">
-                            <label class="label" for="street">Street</label>
-                            <div class="control">
-                                <input class="input" type="text" id="street" placeholder="Street"
+                            <label class="label" for="inputStreet">Street</label>
+                            <div class="control has-icons-right">
+                                <input class="input" type="text" id="inputStreet" placeholder="Street"
                                     name="address[street]">
+                                <span class="icon is-small is-right">
+                                    <i id='inputStreetIcon' class="fas fa-exclamation-triangle is-hidden"></i>
+                                </span>
                             </div>
+                            <p id="inputStreetHelp" class="help is-danger is-hidden">Field is required</p>
                         </div>
                     </div>
                     <div class="column">
                         <div class="field">
-                            <label class="label" for="number">Number</label>
+                            <label class="label" for="inputNumber">Number</label>
                             <div class="control">
-                                <input class="input" type="text" id="number" placeholder="Number"
+                                <input class="input" type="text" id="inputNumber" placeholder="Number"
                                     name="address[number]">
                             </div>
                         </div>
@@ -27,50 +33,45 @@
 
 
                 <div class="columns">
-                    <div class="column">
+                    <div class="column is-6">
                         <div class="field">
-                            <label class="label" for="city">City</label>
+                            <label class="label" for="inputCity">City</label>
                             <div class="control">
-                                <input class="input" type="text" id="city" placeholder="City" name="address[city]">
+                                <input class="input" type="text" id="inputCity" placeholder="City" name="address[city]">
                             </div>
                         </div>
                     </div>
                     <div class="column">
                         <div class="field">
-                            <label class="label" for="state">State</label>
+                            <label class="label" for="inputState">State</label>
                             <div class="control">
-                                <input class="input" type="text" id="state" placeholder="State" name="address[state]">
+                                <input class="input" type="text" id="inputState" placeholder="State"
+                                    name="address[state]">
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="columns">
                     <div class="column">
                         <div class="field">
-                            <label class="label" for="postcode">Postcode</label>
+                            <label class="label" for="inputPostcode">Postcode</label>
                             <div class="control">
-                                <input class="input" type="text" id="postcode" placeholder="Postcode"
+                                <input class="input" type="text" id="inputPostcode" placeholder="Postcode"
                                     name="address[postcode]">
                             </div>
                         </div>
                     </div>
-                    <div class="column">
-                        <div class="field">
-                            <label class="label" for="country">Country</label>
-                            <div class="control">
-                                <input class="input" type="text" id="country" placeholder="Country"
-                                    name="address[country]">
-                            </div>
-                        </div>
+                </div>
+
+                <div class="field">
+                    <label class="label" for="inputCountry">Country</label>
+                    <div class="control">
+                        <input class="input" type="text" id="inputCountry" placeholder="Country"
+                            name="address[country]">
                     </div>
                 </div>
 
 
-
-
                 <div class="control">
-                    <button class="button is-primary">Submit</button>
+                    <button class="button is-primary" id="submitButton">Submit</button>
                 </div>
 
             </div>
