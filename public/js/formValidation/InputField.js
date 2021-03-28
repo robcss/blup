@@ -62,7 +62,7 @@ export class InputField {
 
     validateEmpty() { // use this instead of validate() if isNotEmpty is the only validation needed
         if (this.isNotEmpty) {
-            this.setSuccess("Input is valid")
+            this.setSuccess("")
             this.validated = true
         } else {
             this.setDanger("Field is required")
