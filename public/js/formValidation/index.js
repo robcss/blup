@@ -1,68 +1,70 @@
 import { inputFields } from "./inputFields.js"
 
-
-// submit button logic
+const form = document.getElementById("form-to-validate")
 const sumbitButton = document.getElementById("submitButton")
 
-const disableSubmit = () => {
-    sumbitButton.disabled = true;
-    sumbitButton.setAttribute("disabled", "true");
-}
-
-const activateSubmit = () => {
-    sumbitButton.disabled = false;
-    sumbitButton.removeAttribute("disabled");
-}
-
-const checkIfAllValid = (inputFields) => inputFields.every(field => field.isValid)
-
-const tryActivateSumbit = (inputFields) => {
-
-    const allAreValid = checkIfAllValid(inputFields)
-
-    if (allAreValid) {
-        activateSubmit()
-    } else {
-        disableSubmit()
-    }
-}
-
-//fields validation and submit button activation
+//change event logic
 document.addEventListener('change', event => {
 
     if (sumbitButton.disabled) {
-        for (let field of inputFields) {
-            if (event.target.id === field.id) {
 
-                field.validate()
+        const changedField = findField(event.target.id)
 
-                if (field.isValid) {
-                    tryActivateSumbit(inputFields)
-                } else {
-                    disableSubmit()
-                }
-
-                return
-            }
+        if (changedField) {
+            changedField.validate()
+            tryEnablingButton()
         }
+
     } else {
-        inputFields.map(f => f.validate())
-        tryActivateSumbit(inputFields)
+        validateAllFields()
+        tryEnablingButton()
     }
 
 }, false)
 
-//validation on submit event
-const form = document.getElementById("form-to-validate")
+//submit event logic
 
 form.addEventListener('submit', event => {
     event.preventDefault();
 
-    inputFields.map(f => f.validate())
+    validateAllFields()
 
-    if (checkIfAllValid(inputFields)) {
+    if (everyFieldIsValid()) {
         form.submit()
     } else {
-        disableSubmit()
+        disableButton()
     }
 });
+
+//change event functions
+const tryEnablingButton = () => {
+    if (everyFieldIsValid()) {
+        enableButton()
+    } else {
+        disableButton()
+    }
+}
+
+//fields validation functions
+const findField = (id) => inputFields.find(field => field.id === id)
+
+const validateAllFields = () => inputFields.forEach(field => field.validate())
+
+const everyFieldIsValid = () => inputFields.every(field => field.isValid)
+
+
+// submit button functions
+const disableButton = () => {
+    sumbitButton.disabled = true;
+    sumbitButton.setAttribute("disabled", "true");
+}
+
+const enableButton = () => {
+    sumbitButton.disabled = false;
+    sumbitButton.removeAttribute("disabled");
+}
+
+
+
+
+
