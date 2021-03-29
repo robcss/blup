@@ -19,7 +19,7 @@ const checkIfAllValid = (inputFields) => inputFields.every(field => field.isVali
 const tryActivateSumbit = (inputFields) => {
 
     const allAreValid = checkIfAllValid(inputFields)
-    console.log(allAreValid)
+
     if (allAreValid) {
         activateSubmit()
     } else {

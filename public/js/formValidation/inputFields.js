@@ -19,7 +19,7 @@ inputStreet.validate = function () {
         const regexTest = match ? match[0] === this.inputElement.value : false //check if all input matches
 
         if (regexTest) {
-            this.setSuccess("Street is valid")
+            this.setSuccess()
             this.validated = true
         } else {
             this.setDanger("Invalid street name")
@@ -41,7 +41,7 @@ inputCity.validate = function () {
         const regexTest = match ? match[0] === this.inputElement.value : false //check if all input matches
 
         if (regexTest) {
-            this.setSuccess("City is valid")
+            this.setSuccess()
             this.validated = true
         } else {
             this.setDanger("Invalid city name")
@@ -61,7 +61,7 @@ const checkIfNumber = (name) => function () {
         const regexTest = regex.test(this.inputElement.value)
 
         if (regexTest) {
-            this.setSuccess(`${name} is valid`)
+            this.setSuccess()
             this.validated = true
         } else {
             this.setDanger(`${name} must be a single integer`)
