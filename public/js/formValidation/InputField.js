@@ -18,9 +18,8 @@ export class InputField {
         }
     }
 
-    _showIconHelp() {
+    _showIcon() {
         this.iconElement.classList.remove(this.styles.visibility)
-        this.helpElement.classList.remove(this.styles.visibility)
     }
 
     _removeStyle(style) {
@@ -28,30 +27,35 @@ export class InputField {
 
         this.iconElement.classList.remove(style.icon)
 
+        this.helpElement.classList.add(this.styles.visibility)
         this.helpElement.classList.remove(style.input)
+        this.helpElement.textContent = ""
+
     }
 
-    _addStyle(style) {
+    _addStyle(style, helpText = null) {
         this.inputElement.classList.add(style.input)
 
         this.iconElement.classList.add(style.icon)
 
-        this.helpElement.classList.add(style.input)
+        if (helpText) {
+            this.helpElement.classList.remove(this.styles.visibility)
+            this.helpElement.classList.add(style.input)
+            this.helpElement.textContent = helpText
+        }
     }
 
 
-    setSuccess(helpText) {
-        this._showIconHelp()
+    setSuccess(helpText = null) {
+        this._showIcon()
         this._removeStyle(this.styles.danger)
-        this._addStyle(this.styles.success)
-        this.helpElement.textContent = helpText
+        this._addStyle(this.styles.success, helpText)
     }
 
-    setDanger(helpText) {
-        this._showIconHelp()
+    setDanger(helpText = null) {
+        this._showIcon()
         this._removeStyle(this.styles.success)
-        this._addStyle(this.styles.danger)
-        this.helpElement.textContent = helpText
+        this._addStyle(this.styles.danger, helpText)
     }
 
     get isNotEmpty() {
@@ -62,7 +66,7 @@ export class InputField {
 
     validateEmpty() { // use this instead of validate() if isNotEmpty is the only validation needed
         if (this.isNotEmpty) {
-            this.setSuccess("")
+            this.setSuccess()
             this.validated = true
         } else {
             this.setDanger("Field is required")
