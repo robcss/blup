@@ -61,10 +61,14 @@
                     <div class="column">
                         <div class="field">
                             <label class="label" for="inputPostcode">Postcode</label>
-                            <div class="control">
+                            <div class="control has-icons-right">
                                 <input class="input" type="text" id="inputPostcode" placeholder="Postcode"
                                     name="address[postcode]">
+                                <span class="icon is-small is-right">
+                                    <i id='inputPostcodeIcon' class="fas fa-exclamation-triangle is-hidden"></i>
+                                </span>
                             </div>
+                            <p id="inputPostcodeHelp" class="help is-danger is-hidden">Field is required</p>
                         </div>
                     </div>
                 </div>

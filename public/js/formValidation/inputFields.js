@@ -6,9 +6,10 @@ const createInputField = (id) => {
 }
 
 
-const [inputStreet, inputNumber, inputCity, inputCountry] = ["inputStreet", "inputNumber", "inputCity", "inputCountry"].map(id => createInputField(id))
+const [inputStreet, inputNumber, inputCity, inputPostcode, inputCountry] =
+    ["inputStreet", "inputNumber", "inputCity", "inputPostcode", "inputCountry"].map(id => createInputField(id))
 
-
+//specific validation logic for each field
 inputStreet.validate = function () {
     if (this.isNotEmpty) {
         const regex = /^\b[a-zA-Z]+\b\s(\b[a-zA-Z]+\b\s?)+/g; // at least two words(letters only) separated by single spaces
@@ -30,24 +31,6 @@ inputStreet.validate = function () {
     }
 }
 
-inputNumber.validate = function () {
-    if (this.isNotEmpty) {
-
-        const regex = /^\d+$/g
-        const regexTest = regex.test(this.inputElement.value)
-
-        if (regexTest) {
-            this.setSuccess("Number is valid")
-            this.validated = true
-        } else {
-            this.setDanger("Number must be a single integer")
-            this.validated = false
-        }
-    } else {
-        this.setDanger("Field is required")
-        this.validated = false
-    }
-}
 
 inputCity.validate = function () {
     if (this.isNotEmpty) {
@@ -70,7 +53,32 @@ inputCity.validate = function () {
     }
 }
 
+
+const checkIfNumber = (name) => function () {
+    if (this.isNotEmpty) {
+
+        const regex = /^\d+$/g
+        const regexTest = regex.test(this.inputElement.value)
+
+        if (regexTest) {
+            this.setSuccess(`${name} is valid`)
+            this.validated = true
+        } else {
+            this.setDanger(`${name} must be a single integer`)
+            this.validated = false
+        }
+    } else {
+        this.setDanger("Field is required")
+        this.validated = false
+    }
+}
+
+
+inputNumber.validate = checkIfNumber("Number")
+
+inputPostcode.validate = checkIfNumber("Postcode")
+
 inputCountry.validate = inputCountry.validateEmpty
 
 
-export const inputFields = [inputStreet, inputNumber, inputCity, inputCountry]
+export const inputFields = [inputStreet, inputNumber, inputCity, inputPostcode, inputCountry]
