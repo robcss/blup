@@ -2,7 +2,7 @@
 
     <script type="module" src="/js/formValidation/index.js?v6" async defer></script>
 
-    <form action="/fountains/<%=fountain._id%>?_method=PUT" method="POST">
+    <form action="/fountains/<%=fountain._id%>?_method=PUT" method="POST" id="form-to-validate">
         <div class="columns">
             <div class="column is-6 is-offset-3">
                 <h1 class="title is-4">Add Fountain</h1>
@@ -65,7 +65,11 @@
                             <div class="control">
                                 <input class="input" type="text" id="inputPostcode" placeholder="Postcode"
                                     name="address[postcode]" value="<%=fountain.address.postcode %>">
+                                <span class="icon is-small is-right">
+                                    <i id='inputPostcodeIcon' class="fas fa-exclamation-triangle is-hidden"></i>
+                                </span>
                             </div>
+                            <p id="inputPostcodeHelp" class="help is-danger is-hidden">Field is required</p>
                         </div>
                     </div>
                 </div>
@@ -84,7 +88,7 @@
 
 
                 <div class="control">
-                    <button class="button is-info" id="submitButton" disabled="true">Update</button>
+                    <button class="button is-info" id="submitButton">Update</button>
                 </div>
 
             </div>

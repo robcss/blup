@@ -19,7 +19,7 @@ const checkIfAllValid = (inputFields) => inputFields.every(field => field.isVali
 const tryActivateSumbit = (inputFields) => {
 
     const allAreValid = checkIfAllValid(inputFields)
-
+    console.log(allAreValid)
     if (allAreValid) {
         activateSubmit()
     } else {
@@ -27,22 +27,42 @@ const tryActivateSumbit = (inputFields) => {
     }
 }
 
-//validation
+//fields validation and submit button activation
 document.addEventListener('change', event => {
 
-    for (let field of inputFields) {
-        if (event.target.id === field.id) {
+    if (sumbitButton.disabled) {
+        for (let field of inputFields) {
+            if (event.target.id === field.id) {
 
-            field.validate()
+                field.validate()
 
-            if (field.isValid) {
-                tryActivateSumbit(inputFields)
-            } else {
-                disableSubmit()
+                if (field.isValid) {
+                    tryActivateSumbit(inputFields)
+                } else {
+                    disableSubmit()
+                }
+
+                return
             }
-
-            return
         }
+    } else {
+        inputFields.map(f => f.validate())
+        tryActivateSumbit(inputFields)
     }
 
 }, false)
+
+//validation on submit event
+const form = document.getElementById("form-to-validate")
+
+form.addEventListener('submit', event => {
+    event.preventDefault();
+
+    inputFields.map(f => f.validate())
+
+    if (checkIfAllValid(inputFields)) {
+        form.submit()
+    } else {
+        disableSubmit()
+    }
+});
