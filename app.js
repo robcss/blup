@@ -9,7 +9,8 @@ const Fountain = require("./models/fountain")
 mongoose.connect('mongodb://localhost:27017/fountain-finder', {
     useNewUrlParser: true,
     useCreateIndex: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useFindAndModify: false
 });
 
 const db = mongoose.connection;
