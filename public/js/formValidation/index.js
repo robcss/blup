@@ -73,27 +73,46 @@ inputCountry.validate = inputCountry.validateEmpty
 
 
 
-
-const fields = [inputStreet, inputNumber, inputCity, inputCountry]
-
+// button logic
 const sumbitButton = document.getElementById("submitButton")
+
+const disableSubmit = () => {
+    sumbitButton.disabled = true;
+    sumbitButton.setAttribute("disabled", "true");
+}
+
+const activateSubmit = () => {
+    sumbitButton.disabled = false;
+    sumbitButton.removeAttribute("disabled");
+}
+
+const checkIfAllValid = (inputFields) => inputFields.every(field => field.isValid)
+
+const tryActivateSumbit = (inputFields) => {
+
+    const allAreValid = checkIfAllValid(inputFields)
+
+    if (allAreValid) {
+        activateSubmit()
+    } else {
+        disableSubmit()
+    }
+}
+
+//validation
+const inputFields = [inputStreet, inputNumber, inputCity, inputCountry]
 
 document.addEventListener('change', event => {
 
-    for (let field of fields) {
+    for (let field of inputFields) {
         if (event.target.id === field.id) {
 
             field.validate()
 
-
-            const allAreValid = fields.every(f => f.isValid)
-
-            if (allAreValid) {
-                sumbitButton.disabled = false;
-                sumbitButton.removeAttribute("disabled");
+            if (field.isValid) {
+                tryActivateSumbit(inputFields)
             } else {
-                sumbitButton.disabled = true;
-                sumbitButton.setAttribute("disabled", "true");
+                disableSubmit()
             }
 
             return
