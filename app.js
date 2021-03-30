@@ -4,6 +4,8 @@ const methodOverride = require('method-override')
 const mongoose = require("mongoose")
 const ejsMate = require('ejs-mate')
 
+const catchAsync = require("./utils/catchAsync")
+
 const Fountain = require("./models/fountain")
 
 mongoose.connect('mongodb://localhost:27017/fountain-finder', {
@@ -34,55 +36,55 @@ app.get("/", (req, res) => {
     res.render("home")
 })
 
-app.get("/fountains", async (req, res) => {
+app.get("/fountains", catchAsync(async (req, res) => {
     const fountains = await Fountain.find({})
     res.render("fountains/index", { fountains })
-})
+}))
 
-app.get("/fountains/new", async (req, res) => {
+app.get("/fountains/new", (req, res) => {
     res.render("fountains/new")
 })
 
-app.post("/fountains", async (req, res) => {
+app.post("/fountains", catchAsync(async (req, res) => {
     const { address } = req.body
     const newFountain = new Fountain({ address })
     await newFountain.save()
 
     res.redirect(`/fountains/${newFountain._id}`)
-})
+}))
 
-app.get("/fountains/:id", async (req, res) => {
+app.get("/fountains/:id", catchAsync(async (req, res) => {
     const { id } = req.params
 
     const fountain = await Fountain.findById(id)
     res.render("fountains/show", { fountain })
-})
+}))
 
-app.get("/fountains/:id/edit", async (req, res) => {
+app.get("/fountains/:id/edit", catchAsync(async (req, res) => {
     const { id } = req.params
 
     const fountain = await Fountain.findById(id)
     res.render("fountains/edit", { fountain })
-})
+}))
 
 
-app.put("/fountains/:id", async (req, res) => {
+app.put("/fountains/:id", catchAsync(async (req, res) => {
     const { id } = req.params
     const { address } = req.body
 
     const fountain = await Fountain.findByIdAndUpdate(id, { address })
 
     res.redirect(`/fountains/${fountain._id}`)
-})
+}))
 
 
-app.delete("/fountains/:id", async (req, res) => {
+app.delete("/fountains/:id", catchAsync(async (req, res) => {
     const { id } = req.params
 
     await Fountain.findByIdAndDelete(id)
 
     res.redirect("/fountains")
-})
+}))
 
 
 app.use((err, req, res, next) => {
