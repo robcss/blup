@@ -84,6 +84,11 @@ app.delete("/fountains/:id", async (req, res) => {
     res.redirect("/fountains")
 })
 
+
+app.use((err, req, res, next) => {
+    res.send(err)
+})
+
 const port = 3100
 app.listen(port, () => {
     console.log(`Serving on port ${port}`)
