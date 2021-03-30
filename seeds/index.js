@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const municipalitiesDataset = require("./italy_munic.json");
-const { randomInt } = require("../utils");
+const randomInt = require("../utils/randomInt");
 
 const Fountain = require("../models/fountain");
 
