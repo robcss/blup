@@ -1,0 +1,16 @@
+<% layout('layouts/boilerplate')%>
+
+    <div class="columns">
+        <div class="column is-6 is-offset-3">
+            <article class="message is-danger">
+                <div class="message-header">
+                    <p class="title">
+                        <%=err.message%>
+                    </p>
+                </div>
+                <div class="message-body">
+                    <%= err.stack %>
+                </div>
+            </article>
+        </div>
+    </div>
