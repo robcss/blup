@@ -5,6 +5,7 @@ const mongoose = require("mongoose")
 const ejsMate = require('ejs-mate')
 
 const catchAsync = require("./utils/catchAsync")
+const ExpressError = require("./utils/ExpressError")
 
 const Fountain = require("./models/fountain")
 
@@ -87,9 +88,16 @@ app.delete("/fountains/:id", catchAsync(async (req, res) => {
 }))
 
 
-app.use((err, req, res, next) => {
-    res.send(err)
+app.all('*', (req, res, next) => {
+    next(new ExpressError('Page Not Found', 404))
 })
+
+app.use((err, req, res, next) => {
+    const { statusCode = 500 } = err;
+    if (!err.message) err.message = 'Something Went Wrong!'
+    res.status(statusCode).render('error', { err })
+})
+
 
 const port = 3100
 app.listen(port, () => {
