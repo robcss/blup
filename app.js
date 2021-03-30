@@ -7,6 +7,8 @@ const ejsMate = require('ejs-mate')
 const catchAsync = require("./utils/catchAsync")
 const ExpressError = require("./utils/ExpressError")
 
+const { addressSchema } = require("./joiSchemas")
+
 const Fountain = require("./models/fountain")
 
 mongoose.connect('mongodb://localhost:27017/fountain-finder', {
@@ -33,6 +35,20 @@ app.use(methodOverride('_method'))
 
 app.use(express.static(path.join(__dirname, 'public')))
 
+
+const validateFountain = (req, res, next) => {
+
+    const { address } = req.body
+
+    const { error } = addressSchema.validate(address);
+    if (error) {
+        const msg = error.details.map(el => el.message).join(',')
+        throw new ExpressError(msg, 400)
+    } else {
+        next();
+    }
+}
+
 app.get("/", (req, res) => {
     res.render("home")
 })
@@ -46,7 +62,7 @@ app.get("/fountains/new", (req, res) => {
     res.render("fountains/new")
 })
 
-app.post("/fountains", catchAsync(async (req, res) => {
+app.post("/fountains", validateFountain, catchAsync(async (req, res) => {
     const { address } = req.body
     const newFountain = new Fountain({ address })
     await newFountain.save()
@@ -69,7 +85,7 @@ app.get("/fountains/:id/edit", catchAsync(async (req, res) => {
 }))
 
 
-app.put("/fountains/:id", catchAsync(async (req, res) => {
+app.put("/fountains/:id", validateFountain, catchAsync(async (req, res) => {
     const { id } = req.params
     const { address } = req.body
 
