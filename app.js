@@ -32,6 +32,7 @@ app.set('views', path.join(__dirname, 'views'))
 
 app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
+app.use(express.text())
 
 app.use(express.static(path.join(__dirname, 'public')))
 
@@ -101,6 +102,13 @@ app.delete("/fountains/:id", catchAsync(async (req, res) => {
     await Fountain.findByIdAndDelete(id)
 
     res.redirect("/fountains")
+}))
+
+
+app.post("/fountains/:id/comments", catchAsync(async (req, res) => {
+
+    const comment = req.body
+    res.render("comments/showOne", { comment })
 }))
 
 
