@@ -19,17 +19,23 @@ commentButton.addEventListener("mouseup", async event => {
 
     try {
 
+        if (!inputComment.value.trim()) {
+            throw new Error("Comment can't be empty")
+        }
+
         await postComment(inputComment.value)
 
         inputComment.value = ""
 
     } catch (error) {
-        console.log(error.message)
+        console.log(error.message) // insert flash
     }
 
 })
 
 const postComment = async (commentBody) => {
+
+
 
     const options = {
         method: "POST",
