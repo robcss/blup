@@ -18,6 +18,13 @@ const fountainSchema = Joi.object({
 });
 
 
+const commentSchema = Joi.object({
+
+    body: Joi.string().required()
+});
+
 module.exports.addressSchema = addressSchema
 
 module.exports.fountainSchema = fountainSchema
+
+module.exports.commentSchema = commentSchema

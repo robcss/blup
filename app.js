@@ -7,7 +7,7 @@ const ejsMate = require('ejs-mate')
 const catchAsync = require("./utils/catchAsync")
 const ExpressError = require("./utils/ExpressError")
 
-const { addressSchema } = require("./joiSchemas")
+const { addressSchema, commentSchema } = require("./joiSchemas")
 
 const Fountain = require("./models/fountain")
 const Comment = require("./models/comment")
@@ -50,6 +50,22 @@ const validateFountain = (req, res, next) => {
         next();
     }
 }
+
+
+const validateComment = (req, res, next) => {
+
+    const commentBody = req.body
+
+    const { error } = commentSchema.validate({ body: commentBody });
+    if (error) {
+        const msg = error.details.map(el => el.message).join(',')
+        throw new ExpressError(msg, 400)
+    } else {
+        next();
+    }
+}
+
+
 
 app.get("/", (req, res) => {
     res.render("home")
@@ -106,7 +122,7 @@ app.delete("/fountains/:id", catchAsync(async (req, res) => {
 }))
 
 
-app.post("/fountains/:id/comments", catchAsync(async (req, res) => {
+app.post("/fountains/:id/comments", validateComment, catchAsync(async (req, res) => {
     const fountainId = req.params.id
     const commentBody = req.body
 
