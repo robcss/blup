@@ -29,14 +29,14 @@ commentButton.addEventListener("mouseup", async event => {
 
 })
 
-const postComment = async (newComment) => {
+const postComment = async (commentBody) => {
 
     const options = {
         method: "POST",
         headers: {
             'Content-Type': 'text/plain'
         },
-        body: newComment
+        body: commentBody
     }
 
     const res = await fetch(uri, options)

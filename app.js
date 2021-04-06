@@ -10,6 +10,7 @@ const ExpressError = require("./utils/ExpressError")
 const { addressSchema } = require("./joiSchemas")
 
 const Fountain = require("./models/fountain")
+const Comment = require("./models/comment")
 
 mongoose.connect('mongodb://localhost:27017/fountain-finder', {
     useNewUrlParser: true,
@@ -106,8 +107,19 @@ app.delete("/fountains/:id", catchAsync(async (req, res) => {
 
 
 app.post("/fountains/:id/comments", catchAsync(async (req, res) => {
+    const fountainId = req.params.id
+    const commentBody = req.body
 
-    const comment = req.body
+    const fountain = await Fountain.findById(fountainId)
+
+    const comment = new Comment({ body: commentBody })
+
+    fountain.comments.push(comment)
+
+    await comment.save()
+
+    await fountain.save()
+
     res.render("comments/showOne", { comment })
 }))
 
