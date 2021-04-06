@@ -11,7 +11,10 @@
                 <br>
                 <%= comment.body %>
                     <br>
-                    <small>3 hrs</small>
+                    <small>
+                        <%= comment.createdAt_Date %> -
+                            <%= comment.createdAt_Time %>
+                    </small>
             </p>
         </div>
 </article>

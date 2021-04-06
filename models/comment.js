@@ -1,16 +1,26 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-new Date().toLocaleDateString()
 
-const options = {
-    timestamps: { currentTime: () => new Date().toLocaleDateString("en-GB") }
-};
+const opts = {
+    timestamps: true,
+    toJSON: { virtuals: true }
+}
 
 const commentSchema = new Schema(
     {
         body: String
     },
-    options);
+    opts
+);
+
+
+commentSchema.virtual('createdAt_Date').get(function () {
+    return this.createdAt.toLocaleDateString('it-IT')
+});
+
+commentSchema.virtual('createdAt_Time').get(function () {
+    return this.createdAt.toLocaleTimeString('it-IT')
+});
 
 module.exports = mongoose.model("Comment", commentSchema);
