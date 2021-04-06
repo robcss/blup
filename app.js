@@ -91,7 +91,7 @@ app.post("/fountains", validateFountain, catchAsync(async (req, res) => {
 app.get("/fountains/:id", catchAsync(async (req, res) => {
     const { id } = req.params
 
-    const fountain = await Fountain.findById(id)
+    const fountain = await Fountain.findById(id).populate('comments')
     res.render("fountains/show", { fountain })
 }))
 

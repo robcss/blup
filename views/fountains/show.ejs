@@ -29,33 +29,34 @@
         </div>
 
         <div class="block">
-
-
-            <div class=block id="comments">
-
+            <div class="block">
+                <article class="media">
+                    <figure class="media-left">
+                        <p class="image is-64x64">
+                            <img src="https://bulma.io/images/placeholders/128x128.png">
+                        </p>
+                    </figure>
+                    <div class="media-content">
+                        <div class="field">
+                            <p class="control">
+                                <textarea class="textarea" id="inputComment" placeholder="Add a comment..."></textarea>
+                            </p>
+                        </div>
+                        <div class="field">
+                            <p class="control">
+                                <a href="/fountains/<%= fountain._id %>/comments" class="button" id="commentButton">Post
+                                    comment</a>
+                            </p>
+                        </div>
+                    </div>
+                </article>
             </div>
 
+            <div class=block id="comments">
+                <% for(comment of fountain.comments){ %>
+                    <%- include('../comments/showOne')%>
+                        <% } %>
+            </div>
 
-            <article class="media">
-                <figure class="media-left">
-                    <p class="image is-64x64">
-                        <img src="https://bulma.io/images/placeholders/128x128.png">
-                    </p>
-                </figure>
-                <div class="media-content">
-                    <div class="field">
-                        <p class="control">
-                            <textarea class="textarea" id="inputComment" placeholder="Add a comment..."></textarea>
-                        </p>
-                    </div>
-                    <div class="field">
-                        <p class="control">
-                            <a href="/fountains/<%= fountain._id %>/comments" class="button" id="commentButton">Post
-                                comment</a>
-                            <!-- <button class="button" id="commentButton">Post comment</button> -->
-                        </p>
-                    </div>
-                </div>
-            </article>
         </div>
     </div>
