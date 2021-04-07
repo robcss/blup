@@ -39,13 +39,13 @@
                     <div class="media-content">
                         <div class="field">
                             <p class="control">
-                                <textarea class="textarea" id="inputComment" placeholder="Add a comment..."></textarea>
+                                <textarea data-uri="/fountains/<%= fountain._id %>/comments" class="textarea"
+                                    id="inputComment" placeholder="Add a comment..."></textarea>
                             </p>
                         </div>
                         <div class="field">
                             <p class="control">
-                                <button data-uri="/fountains/<%= fountain._id %>/comments" type="button" class="button"
-                                    id="postCommentButton">Post comment</button>
+                                <button type="button" class="button" id="postCommentButton">Post comment</button>
                             </p>
                         </div>
                     </div>

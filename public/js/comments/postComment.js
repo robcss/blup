@@ -7,7 +7,7 @@ export const validateComment = (inputComment) => {
 }
 
 
-export const postComment = async (inputComment, uri, comments) => {
+export const postComment = async (inputComment, comments) => {
 
 
     const options = {
@@ -18,6 +18,7 @@ export const postComment = async (inputComment, uri, comments) => {
         body: inputComment.value
     }
 
+    const uri = inputComment.getAttribute("data-uri")
 
     const res = await fetch(uri, options)
 

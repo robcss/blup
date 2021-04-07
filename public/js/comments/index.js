@@ -7,8 +7,6 @@ const inputComment = document.getElementById("inputComment")
 
 const postCommentButton = document.getElementById("postCommentButton")
 
-const postCommentUri = postCommentButton.getAttribute("data-uri")
-
 
 //post comment events
 postCommentButton.addEventListener("click", event => {
@@ -24,7 +22,7 @@ postCommentButton.addEventListener("mouseup", async event => {
 
         validateComment(inputComment)
 
-        await postComment(inputComment, postCommentUri, comments)
+        await postComment(inputComment, comments)
 
 
     } catch (error) {
