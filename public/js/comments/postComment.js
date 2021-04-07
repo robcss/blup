@@ -5,7 +5,7 @@ const inputComment = document.getElementById("inputComment")
 
 const commentButton = document.getElementById("commentButton")
 
-const uri = commentButton.getAttribute("href")
+const uri = commentButton.getAttribute("data-uri")
 
 
 
@@ -14,6 +14,7 @@ commentButton.addEventListener("click", event => {
 })
 
 commentButton.addEventListener("mouseup", async event => {
+
 
     commentButton.blur()
 
@@ -45,9 +46,10 @@ const postComment = async (commentBody) => {
         body: commentBody
     }
 
+    console.log(uri, commentBody)
     const res = await fetch(uri, options)
 
-
+    console.log(res)
     if (!res.ok) {
         throw new Error("status is not ok")
     }

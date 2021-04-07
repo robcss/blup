@@ -1,6 +1,6 @@
 <% layout('layouts/boilerplate')%>
 
-    <script src="/js/postComment.js?v6" async defer></script>
+    <script src="/js/comments/postComment.js?v6" async defer></script>
 
     <div class="container is-fluid">
         <div class="block">
@@ -44,8 +44,8 @@
                         </div>
                         <div class="field">
                             <p class="control">
-                                <a href="/fountains/<%= fountain._id %>/comments" class="button" id="commentButton">Post
-                                    comment</a>
+                                <button data-uri="/fountains/<%= fountain._id %>/comments" type="button" class="button"
+                                    id="commentButton">Post comment</button>
                             </p>
                         </div>
                     </div>
