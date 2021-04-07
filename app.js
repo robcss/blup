@@ -136,7 +136,18 @@ app.post("/fountains/:id/comments", validateComment, catchAsync(async (req, res)
 
     await fountain.save()
 
-    res.render("comments/showOne", { comment })
+    res.render("comments/showOne", { fountain, comment })
+}))
+
+
+app.delete("/fountains/:id/comments/:commentId", catchAsync(async (req, res) => {
+    const { id, commentId } = req.params
+
+    await Fountain.findByIdAndUpdate(id, { $pull: { comments: commentId } })
+
+    await Comment.findByIdAndDelete(commentId)
+
+    res.end()
 }))
 
 

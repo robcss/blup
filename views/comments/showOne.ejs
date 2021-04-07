@@ -1,4 +1,4 @@
-<article class="media">
+<article class="media" id="comment_<%= comment._id %>">
     <figure class="media-left">
         <p class="image is-64x64">
             <img src="https://bulma.io/images/placeholders/128x128.png">
@@ -17,4 +17,9 @@
                     </small>
             </p>
         </div>
+
+        <button data-uri="/fountains/<%= fountain._id %>/comments/<%= comment._id %>" type="button"
+            class="button is-small" id="deleteCommentButton_<%= comment._id %>">Delete</button>
+
+    </div>
 </article>
