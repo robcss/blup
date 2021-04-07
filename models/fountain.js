@@ -20,4 +20,15 @@ const FountainSchema = new Schema({
     ]
 })
 
+FountainSchema.post('findOneAndDelete', async function (doc) {
+    if (doc) {
+        await Comment.deleteMany({
+            _id: {
+                $in: doc.comments
+            }
+        })
+    }
+})
+
+
 module.exports = mongoose.model("Fountain", FountainSchema)
