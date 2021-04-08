@@ -8,74 +8,21 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
     <link rel="stylesheet" href="/css/app.css">
     <script src="https://kit.fontawesome.com/312b6a7170.js" crossorigin="anonymous"></script>
+    <script src="/js/closeNotification.js?v6"></script>
 </head>
 
 <body>
 
-    <nav class="navbar is-spaced" role="navigation" aria-label="main navigation">
-        <div class="navbar-brand">
-            <a id="navbar-logo" class="navbar-item" href="/">
-            </a>
 
-            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"
-                data-target="navbarBasicExample">
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-            </a>
-        </div>
+    <%- include('../partials/navbar')%>
 
-        <div id="navbarBasicExample" class="navbar-menu">
-            <div class="navbar-start is-justify-content-center is-flex-grow-1">
-                <a class="navbar-item" href="/fountains">
-                    Map
-                </a>
+        <section class="section">
 
-                <a class=" navbar-item">
-                    About
-                </a>
-
-                <div class="navbar-item has-dropdown is-hoverable">
-                    <a class="navbar-link">
-                        More
-                    </a>
-
-                    <div class="navbar-dropdown">
-                        <a class="navbar-item">
-                            FAQs
-                        </a>
-                        <hr class="navbar-divider">
-                        <a class="navbar-item">
-                            Contact
-                        </a>
-                    </div>
-                </div>
+            <div class="container">
+                <%- include('../partials/flash')%>
+                    <%- body %>
             </div>
-
-            <div class="navbar-end">
-                <div class="navbar-item">
-                    <div class="buttons">
-                        <a class="button is-light" href="/fountains/new">
-                            New Fountain
-                        </a>
-                        <a class="button is-info">
-                            <strong>Sign up</strong>
-                        </a>
-                        <a class="button is-light">
-                            Log in
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </nav>
-
-
-    <section class="section">
-        <div class="container">
-            <%- body %>
-        </div>
-    </section>
+        </section>
 </body>
 
 </html>
