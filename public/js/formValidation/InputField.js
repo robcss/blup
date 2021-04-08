@@ -83,3 +83,6 @@ export class InputField {
     }
 }
 
+export const createInputField = (id) => {
+    return new InputField(id)
+}

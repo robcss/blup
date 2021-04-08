@@ -1,12 +1,22 @@
-import { inputFields } from "./inputFields.js"
-
 const form = document.getElementById("form-to-validate")
 const sumbitButton = document.getElementById("submitButton")
+
+let inputFields = []
+
+const setInputFields = async () => {
+    const getterName = form.getAttribute("data-fieldsGetter")
+    const getter = await import(`./inputFields_${getterName}`)
+
+    inputFields = getter.getInputFields()
+}
+
+setInputFields()
+
 
 //change event logic
 document.addEventListener('change', event => {
 
-    if (sumbitButton.disabled) {
+    if (submitButton.disabled) {
 
         const changedField = findField(event.target.id)
 
@@ -55,13 +65,13 @@ const everyFieldIsValid = () => inputFields.every(field => field.isValid)
 
 // submit button functions
 const disableButton = () => {
-    sumbitButton.disabled = true;
-    sumbitButton.setAttribute("disabled", "true");
+    submitButton.disabled = true;
+    submitButton.setAttribute("disabled", "true");
 }
 
 const enableButton = () => {
-    sumbitButton.disabled = false;
-    sumbitButton.removeAttribute("disabled");
+    submitButton.disabled = false;
+    submitButton.removeAttribute("disabled");
 }
 
 

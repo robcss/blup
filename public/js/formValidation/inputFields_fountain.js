@@ -1,10 +1,4 @@
-import { InputField } from "./InputField.js"
-
-
-const createInputField = (id) => {
-    return new InputField(id)
-}
-
+import { createInputField } from "./InputField.js"
 
 const [inputStreet, inputNumber, inputCity, inputPostcode, inputCountry] =
     ["inputStreet", "inputNumber", "inputCity", "inputPostcode", "inputCountry"].map(id => createInputField(id))
@@ -81,4 +75,4 @@ inputPostcode.validate = checkIfNumber("Postcode")
 inputCountry.validate = inputCountry.validateEmpty
 
 
-export const inputFields = [inputStreet, inputNumber, inputCity, inputPostcode, inputCountry]
+export const getInputFields = () => [inputStreet, inputNumber, inputCity, inputPostcode, inputCountry]
