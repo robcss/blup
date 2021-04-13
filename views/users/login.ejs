@@ -1,0 +1,39 @@
+<% layout('layouts/boilerplate')%>
+
+    <script type="module" src="/js/formValidation/index.js?v6" async defer></script>
+
+    <form action="/login" method="POST" id="form-to-validate" data-fieldsGetter="login.js">
+        <div class="columns">
+            <div class="column is-4 is-offset-4">
+                <h1 class="title is-4">Login</h1>
+
+                <div class="field">
+                    <label class="label" for="inputUsername">Username</label>
+                    <div class="control has-icons-right">
+                        <input class="input" type="text" id="inputUsername" placeholder="Username" name="username">
+                        <span class="icon is-small is-right">
+                            <i id='inputUsernameIcon' class="fas fa-exclamation-triangle is-hidden"></i>
+                        </span>
+                    </div>
+                    <p id="inputUsernameHelp" class="help is-danger is-hidden">Field is required</p>
+                </div>
+
+                <div class="field">
+                    <label class="label" for="inputPassword">Password</label>
+                    <div class="control has-icons-right">
+                        <input class="input" type="password" id="inputPassword" placeholder="Password" name="password">
+                        <span class="icon is-small is-right">
+                            <i id='inputPasswordIcon' class="fas fa-exclamation-triangle is-hidden"></i>
+                        </span>
+                    </div>
+                    <p id="inputPasswordHelp" class="help is-danger is-hidden">Field is required</p>
+                </div>
+
+
+                <div class="control">
+                    <button class="button is-info" id="submitButton" disabled="true">Login</button>
+                </div>
+
+            </div>
+        </div>
+    </form>
