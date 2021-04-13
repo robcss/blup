@@ -12,8 +12,9 @@ const ExpressError = require("./utils/ExpressError")
 
 const User = require('./models/user');
 
-const fountains = require("./routes/fountains")
-const comments = require("./routes/comments")
+const userRoutes = require("./routes/user")
+const fountainsRoutes = require("./routes/fountains")
+const commentsRoutes = require("./routes/comments")
 
 mongoose.connect('mongodb://localhost:27017/fountain-finder', {
     useNewUrlParser: true,
@@ -68,8 +69,9 @@ app.use((req, res, next) => {
     next();
 })
 
-app.use("/fountains", fountains)
-app.use("/fountains/:id/comments", comments)
+app.use('/', userRoutes)
+app.use("/fountains", fountainsRoutes)
+app.use("/fountains/:id/comments", commentsRoutes)
 
 app.get("/", (req, res) => {
     res.render("home")
