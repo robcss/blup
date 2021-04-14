@@ -2,25 +2,10 @@ const express = require("express")
 const router = express.Router();
 
 const catchAsync = require("../utils/catchAsync")
-const ExpressError = require("../utils/ExpressError")
 
-const { addressSchema } = require("../joiSchemas")
+const { validateFountain } = require("../middleware")
 
 const Fountain = require("../models/fountain")
-
-
-const validateFountain = (req, res, next) => {
-
-    const { address } = req.body
-
-    const { error } = addressSchema.validate(address);
-    if (error) {
-        const msg = error.details.map(el => el.message).join(',')
-        throw new ExpressError(msg, 400)
-    } else {
-        next();
-    }
-}
 
 
 router.get("/", catchAsync(async (req, res) => {
