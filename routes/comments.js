@@ -3,13 +3,13 @@ const router = express.Router({ mergeParams: true });
 
 const catchAsync = require("../utils/catchAsync")
 
-const { validateComment } = require("../middleware")
+const { validateComment, isLoggedInComments } = require("../middleware")
 
 const Fountain = require("../models/fountain")
 const Comment = require("../models/comment")
 
 
-router.post("/", validateComment, catchAsync(async (req, res) => {
+router.post("/", isLoggedInComments, validateComment, catchAsync(async (req, res) => {
     const fountainId = req.params.id
     const commentBody = req.body
 
@@ -27,7 +27,7 @@ router.post("/", validateComment, catchAsync(async (req, res) => {
 }))
 
 
-router.delete("/:commentId", catchAsync(async (req, res) => {
+router.delete("/:commentId", isLoggedInComments, catchAsync(async (req, res) => {
     const { id, commentId } = req.params
 
     await Fountain.findByIdAndUpdate(id, { $pull: { comments: commentId } })

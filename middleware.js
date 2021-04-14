@@ -40,3 +40,12 @@ module.exports.isLoggedIn = (req, res, next) => {
     next();
 }
 
+
+module.exports.isLoggedInComments = (req, res, next) => {
+    if (!req.isAuthenticated()) {
+
+        req.flash('loginRedirect', 'You must be signed in to post and delete comments!');
+        return res.status(401).send("")
+    }
+    next();
+}

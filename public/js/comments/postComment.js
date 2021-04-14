@@ -1,7 +1,7 @@
 export const validateComment = (inputComment) => {
 
     if (!inputComment.value.trim()) {
-        throw new Error("Comment can't be empty")
+        throw new Error("Comment is empty")
     }
 
 }
@@ -24,7 +24,7 @@ export const postComment = async (inputComment, comments) => {
 
 
     if (!res.ok) {
-        throw new Error("status is not ok")
+        throw new Error(res.status)
     }
 
     const resText = await res.text()

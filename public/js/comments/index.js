@@ -25,8 +25,14 @@ postCommentButton.addEventListener("mouseup", async event => {
         await postComment(inputComment, comments)
 
 
-    } catch (error) {
-        console.log(error.message) // insert flash
+    } catch (e) {
+        if (e.message === "401") {
+
+            location.reload()
+        }
+
+        console.log(e.message)
+
     }
 
 })
@@ -42,8 +48,14 @@ comments.addEventListener("click", async event => {
 
         try {
             await deleteComment(deleteCommentButton)
-        } catch (error) {
-            console.log(error.message) // insert flash
+        } catch (e) {
+
+            if (e.message === "401") {
+
+                location.reload()
+            }
+
+            console.log(e.message)
         }
     }
 

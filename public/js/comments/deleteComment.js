@@ -13,7 +13,7 @@ export const deleteComment = async (deleteCommentButton) => {
     const res = await fetch(uri, { method: "DELETE" })
 
     if (!res.ok) {
-        throw new Error("status is not ok")
+        throw new Error(res.status)
     }
 
     const commentId = deleteCommentButton.id.split("_")[1]

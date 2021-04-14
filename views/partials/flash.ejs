@@ -16,3 +16,13 @@
             </div>
 
             <% } %>
+
+                <% if(loginRedirect && loginRedirect.length){ %>
+
+                    <div class="notification is-danger is-light">
+                        <button class="delete"></button>
+                        <%= loginRedirect %>
+                            <a href="/login">Login</a>
+                    </div>
+
+                    <% } %>
