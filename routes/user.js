@@ -1,17 +1,21 @@
 const express = require('express');
 const router = express.Router();
 const passport = require('passport')
+
 const catchAsync = require("../utils/catchAsync")
+
+const { isLoggedIn } = require("../middleware")
 
 const User = require('../models/user')
 
 
-router.get('/register', (req, res) => {
+router.get('/register', isLoggedIn({ isIn: "forbidLogin" }), (req, res) => {
     res.render('users/register');
 })
 
 
-router.post('/register', catchAsync(async (req, res, next) => {
+router.post('/register', isLoggedIn({ isIn: "forbidLogin" }), catchAsync(async (req, res, next) => {
+
     try {
         const { email, username, password } = req.body;
         const user = new User({ email, username });
@@ -30,11 +34,11 @@ router.post('/register', catchAsync(async (req, res, next) => {
 }));
 
 
-router.get('/login', (req, res) => {
+router.get('/login', isLoggedIn({ isIn: "forbidLogin" }), (req, res) => {
     res.render('users/login');
 })
 
-router.post('/login', passport.authenticate('local', { failureFlash: true, failureRedirect: '/login' }), (req, res) => {
+router.post('/login', isLoggedIn({ isIn: "forbidLogin" }), passport.authenticate('local', { failureFlash: true, failureRedirect: '/login' }), (req, res) => {
     req.flash('success', 'Welcome back!');
     const redirectUrl = req.session.returnTo || "/fountains"
     delete req.session.returnTo

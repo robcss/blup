@@ -3,7 +3,7 @@ const router = express.Router();
 
 const catchAsync = require("../utils/catchAsync")
 
-const { validateFountain, isLoggedIn } = require("../middleware")
+const { validateFountain, isLoggedIn, isLoggedInComments } = require("../middleware")
 
 const Fountain = require("../models/fountain")
 
@@ -13,11 +13,11 @@ router.get("/", catchAsync(async (req, res) => {
     res.render("fountains/index", { fountains })
 }))
 
-router.get("/new", isLoggedIn, (req, res) => {
+router.get("/new", isLoggedIn({ isOut: "redirect" }), (req, res) => {
     res.render("fountains/new")
 })
 
-router.post("/", isLoggedIn, validateFountain, catchAsync(async (req, res) => {
+router.post("/", isLoggedIn({ isOut: "redirect" }), validateFountain, catchAsync(async (req, res) => {
     const { address } = req.body
     const newFountain = new Fountain({ address })
     await newFountain.save()
@@ -40,7 +40,7 @@ router.get("/:id", catchAsync(async (req, res) => {
     res.render("fountains/show", { fountain })
 }))
 
-router.get("/:id/edit", isLoggedIn, catchAsync(async (req, res) => {
+router.get("/:id/edit", isLoggedIn({ isOut: "redirect" }), catchAsync(async (req, res) => {
     const { id } = req.params
 
     const fountain = await Fountain.findById(id)
@@ -54,7 +54,7 @@ router.get("/:id/edit", isLoggedIn, catchAsync(async (req, res) => {
 }))
 
 
-router.put("/:id", validateFountain, catchAsync(async (req, res) => {
+router.put("/:id", isLoggedIn({ isOut: "redirect" }), validateFountain, catchAsync(async (req, res) => {
     const { id } = req.params
     const { address } = req.body
 
@@ -65,7 +65,7 @@ router.put("/:id", validateFountain, catchAsync(async (req, res) => {
 }))
 
 
-router.delete("/:id", isLoggedIn, catchAsync(async (req, res) => {
+router.delete("/:id", isLoggedIn({ isOut: "redirect" }), catchAsync(async (req, res) => {
     const { id } = req.params
 
     await Fountain.findByIdAndDelete(id)
