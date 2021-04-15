@@ -9,7 +9,11 @@ const opts = {
 
 const commentSchema = new Schema(
     {
-        body: String
+        body: String,
+        author: {
+            type: Schema.Types.ObjectId,
+            ref: 'User'
+        },
     },
     opts
 );
