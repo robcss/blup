@@ -19,9 +19,9 @@
                     </small>
             </p>
         </div>
-
-        <button data-uri="/fountains/<%= fountain._id %>/comments/<%= comment._id %>" type="button"
-            class="button is-small" id="deleteCommentButton_<%= comment._id %>">Delete</button>
-
+        <% if( currentUser && comment.author.equals(currentUser._id)) {%>
+            <button data-uri="/fountains/<%= fountain._id %>/comments/<%= comment._id %>" type="button"
+                class="button is-small" id="deleteCommentButton_<%= comment._id %>">Delete</button>
+            <% } %>
     </div>
 </article>

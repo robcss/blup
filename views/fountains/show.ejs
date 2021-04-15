@@ -34,36 +34,40 @@
             </div>
             <% } %>
 
-                <div class="block">
-                    <div class="block">
-                        <article class="media">
-                            <figure class="media-left">
-                                <p class="image is-64x64">
-                                    <img src="https://bulma.io/images/placeholders/128x128.png">
-                                </p>
-                            </figure>
-                            <div class="media-content">
-                                <div class="field">
-                                    <p class="control">
-                                        <textarea data-uri="/fountains/<%= fountain._id %>/comments" class="textarea"
-                                            id="inputComment" placeholder="Add a comment..."></textarea>
-                                    </p>
-                                </div>
-                                <div class="field">
-                                    <p class="control">
-                                        <button type="button" class="button" id="postCommentButton">Post
-                                            comment</button>
-                                    </p>
-                                </div>
-                            </div>
-                        </article>
-                    </div>
 
-                    <div class=block id="comments">
-                        <% for(comment of fountain.comments){ %>
-                            <%- include('../comments/showOne')%>
-                                <% } %>
-                    </div>
+                <div class="block pt-2">
+                    <% if(currentUser){ %>
+                        <div class="block">
+                            <article class="media">
+                                <figure class="media-left">
+                                    <p class="image is-64x64">
+                                        <img src="https://bulma.io/images/placeholders/128x128.png">
+                                    </p>
+                                </figure>
+                                <div class="media-content">
+                                    <div class="field">
+                                        <p class="control">
+                                            <textarea data-uri="/fountains/<%= fountain._id %>/comments"
+                                                class="textarea" id="inputComment"
+                                                placeholder="Add a comment..."></textarea>
+                                        </p>
+                                    </div>
+                                    <div class="field">
+                                        <p class="control">
+                                            <button type="button" class="button" id="postCommentButton">Post
+                                                comment</button>
+                                        </p>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+                        <% } %>
+
+                            <div class=block id="comments">
+                                <% for(comment of fountain.comments){ %>
+                                    <%- include('../comments/showOne')%>
+                                        <% } %>
+                            </div>
 
                 </div>
     </div>
