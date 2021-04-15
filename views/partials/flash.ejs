@@ -1,28 +1,28 @@
 <% if(success && success.length){ %>
 
-    <div class="notification is-success is-light">
-        <button class="delete"></button>
-        <%= success %>
-    </div>
+<div class="notification is-success is-light">
+    <button class="delete"></button>
+    <%= success %>
+</div>
 
-    <% } %>
+<% } %>
 
 
-        <% if(error && error.length){ %>
+<% if(error && error.length){ %>
 
-            <div class="notification is-danger is-light">
-                <button class="delete"></button>
-                <%= error %>
-            </div>
+<div class="notification is-danger is-light">
+    <button class="delete"></button>
+    <%= error %>
+</div>
 
-            <% } %>
+<% } %>
 
-                <% if(loginRedirect && loginRedirect.length){ %>
+<% if(loginRedirect && loginRedirect.length){ %>
 
-                    <div class="notification is-danger is-light">
-                        <button class="delete"></button>
-                        <%= loginRedirect %>
-                            <a href="/login">Login</a>
-                    </div>
+<div class="notification is-danger is-light">
+    <button class="delete"></button>
+    <%= loginRedirect %>
+    <a href="/login">Login</a>
+</div>
 
-                    <% } %>
+<% } %>

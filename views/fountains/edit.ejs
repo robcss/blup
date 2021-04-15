@@ -1,97 +1,97 @@
 <% layout('layouts/boilerplate')%>
 
-    <script type="module" src="/js/formValidation/index.js?v6" async defer></script>
+<script type="module" src="/js/formValidation/index.js?v6" async defer></script>
 
-    <form action="/fountains/<%=fountain._id%>?_method=PUT" method="POST" id="form-to-validate"
-        data-fieldsGetter="fountain.js">
-        <div class="columns">
-            <div class="column is-6 is-offset-3">
-                <h1 class="title is-4">Add Fountain</h1>
-                <div class="columns">
-                    <div class="column is-8">
-                        <div class="field">
-                            <label class="label" for="inputStreet">Street</label>
-                            <div class="control has-icons-right">
-                                <input class="input" type="text" id="inputStreet" placeholder="Street"
-                                    name="address[street]" value="<%=fountain.address.street %>">
-                                <span class="icon is-small is-right">
-                                    <i id='inputStreetIcon' class="fas fa-exclamation-triangle is-hidden"></i>
-                                </span>
-                            </div>
-                            <p id="inputStreetHelp" class="help is-danger is-hidden">Field is required</p>
+<form action="/fountains/<%=fountain._id%>?_method=PUT" method="POST" id="form-to-validate"
+    data-fieldsGetter="fountain.js">
+    <div class="columns">
+        <div class="column is-6 is-offset-3">
+            <h1 class="title is-4">Add Fountain</h1>
+            <div class="columns">
+                <div class="column is-8">
+                    <div class="field">
+                        <label class="label" for="inputStreet">Street</label>
+                        <div class="control has-icons-right">
+                            <input class="input" type="text" id="inputStreet" placeholder="Street"
+                                name="address[street]" value="<%=fountain.address.street %>">
+                            <span class="icon is-small is-right">
+                                <i id='inputStreetIcon' class="fas fa-exclamation-triangle is-hidden"></i>
+                            </span>
                         </div>
-                    </div>
-                    <div class="column">
-                        <div class="field">
-                            <label class="label" for="inputNumber">Number</label>
-                            <div class="control has-icons-right">
-                                <input class="input" type="text" id="inputNumber" placeholder="Number"
-                                    name="address[number]" value="<%=fountain.address.number %>">
-                                <span class="icon is-small is-right">
-                                    <i id='inputNumberIcon' class="fas fa-exclamation-triangle is-hidden"></i>
-                                </span>
-                            </div>
-                            <p id="inputNumberHelp" class="help is-danger is-hidden">Field is required</p>
-                        </div>
+                        <p id="inputStreetHelp" class="help is-danger is-hidden">Field is required</p>
                     </div>
                 </div>
-
-
-                <div class="columns">
-                    <div class="column is-6">
-                        <div class="field">
-                            <label class="label" for="inputCity">City</label>
-                            <div class="control has-icons-right">
-                                <input class="input" type="text" id="inputCity" placeholder="City" name="address[city]"
-                                    value="<%=fountain.address.city %>">
-                                <span class="icon is-small is-right">
-                                    <i id='inputCityIcon' class="fas fa-exclamation-triangle is-hidden"></i>
-                                </span>
-                            </div>
-                            <p id="inputCityHelp" class="help is-danger is-hidden">Field is required</p>
+                <div class="column">
+                    <div class="field">
+                        <label class="label" for="inputNumber">Number</label>
+                        <div class="control has-icons-right">
+                            <input class="input" type="text" id="inputNumber" placeholder="Number"
+                                name="address[number]" value="<%=fountain.address.number %>">
+                            <span class="icon is-small is-right">
+                                <i id='inputNumberIcon' class="fas fa-exclamation-triangle is-hidden"></i>
+                            </span>
                         </div>
-                    </div>
-                    <div class="column">
-                        <div class="field">
-                            <label class="label" for="inputState">State</label>
-                            <div class="control">
-                                <input class="input" type="text" id="inputState" placeholder="State"
-                                    name="address[state]" value="<%=fountain.address.state %>">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="column">
-                        <div class="field">
-                            <label class="label" for="inputPostcode">Postcode</label>
-                            <div class="control">
-                                <input class="input" type="text" id="inputPostcode" placeholder="Postcode"
-                                    name="address[postcode]" value="<%=fountain.address.postcode %>">
-                                <span class="icon is-small is-right">
-                                    <i id='inputPostcodeIcon' class="fas fa-exclamation-triangle is-hidden"></i>
-                                </span>
-                            </div>
-                            <p id="inputPostcodeHelp" class="help is-danger is-hidden">Field is required</p>
-                        </div>
+                        <p id="inputNumberHelp" class="help is-danger is-hidden">Field is required</p>
                     </div>
                 </div>
-
-                <div class="field">
-                    <label class="label" for="inputCountry">Country</label>
-                    <div class="control has-icons-right">
-                        <input class="input" type="text" id="inputCountry" placeholder="Country" name="address[country]"
-                            value="<%=fountain.address.country %>">
-                        <span class="icon is-small is-right">
-                            <i id='inputCountryIcon' class="fas fa-exclamation-triangle is-hidden"></i>
-                        </span>
-                    </div>
-                    <p id="inputCountryHelp" class="help is-danger is-hidden">Field is required</p>
-                </div>
-
-
-                <div class="control">
-                    <button class="button is-info" id="submitButton">Update</button>
-                </div>
-
             </div>
+
+
+            <div class="columns">
+                <div class="column is-6">
+                    <div class="field">
+                        <label class="label" for="inputCity">City</label>
+                        <div class="control has-icons-right">
+                            <input class="input" type="text" id="inputCity" placeholder="City" name="address[city]"
+                                value="<%=fountain.address.city %>">
+                            <span class="icon is-small is-right">
+                                <i id='inputCityIcon' class="fas fa-exclamation-triangle is-hidden"></i>
+                            </span>
+                        </div>
+                        <p id="inputCityHelp" class="help is-danger is-hidden">Field is required</p>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="field">
+                        <label class="label" for="inputState">State</label>
+                        <div class="control">
+                            <input class="input" type="text" id="inputState" placeholder="State" name="address[state]"
+                                value="<%=fountain.address.state %>">
+                        </div>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="field">
+                        <label class="label" for="inputPostcode">Postcode</label>
+                        <div class="control">
+                            <input class="input" type="text" id="inputPostcode" placeholder="Postcode"
+                                name="address[postcode]" value="<%=fountain.address.postcode %>">
+                            <span class="icon is-small is-right">
+                                <i id='inputPostcodeIcon' class="fas fa-exclamation-triangle is-hidden"></i>
+                            </span>
+                        </div>
+                        <p id="inputPostcodeHelp" class="help is-danger is-hidden">Field is required</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label" for="inputCountry">Country</label>
+                <div class="control has-icons-right">
+                    <input class="input" type="text" id="inputCountry" placeholder="Country" name="address[country]"
+                        value="<%=fountain.address.country %>">
+                    <span class="icon is-small is-right">
+                        <i id='inputCountryIcon' class="fas fa-exclamation-triangle is-hidden"></i>
+                    </span>
+                </div>
+                <p id="inputCountryHelp" class="help is-danger is-hidden">Field is required</p>
+            </div>
+
+
+            <div class="control">
+                <button class="button is-info" id="submitButton">Update</button>
+            </div>
+
         </div>
-    </form>
+    </div>
+</form>

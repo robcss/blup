@@ -12,16 +12,16 @@
                 </strong>
                 <br>
                 <%= comment.body %>
-                    <br>
-                    <small>
-                        <%= comment.createdAt_Date %> -
-                            <%= comment.createdAt_Time %>
-                    </small>
+                <br>
+                <small>
+                    <%= comment.createdAt_Date %> -
+                    <%= comment.createdAt_Time %>
+                </small>
             </p>
         </div>
         <% if( currentUser && comment.author.equals(currentUser._id)) {%>
-            <button data-uri="/fountains/<%= fountain._id %>/comments/<%= comment._id %>" type="button"
-                class="button is-small" id="deleteCommentButton_<%= comment._id %>">Delete</button>
-            <% } %>
+        <button data-uri="/fountains/<%= fountain._id %>/comments/<%= comment._id %>" type="button"
+            class="button is-small" id="deleteCommentButton_<%= comment._id %>">Delete</button>
+        <% } %>
     </div>
 </article>
