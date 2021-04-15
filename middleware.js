@@ -3,6 +3,7 @@ const ExpressError = require("./utils/ExpressError")
 const { addressSchema, commentSchema } = require("./joiSchemas")
 
 const Fountain = require("./models/fountain")
+const Comment = require("./models/comment")
 
 
 module.exports.validateFountain = (req, res, next) => {
@@ -83,6 +84,16 @@ module.exports.isAuthor = async (req, res, next) => {
     if (!fountain.author.equals(req.user._id)) {
         req.flash('error', "You don't have permission to do that!");
         return res.redirect(`/fountains/${id}`);
+    }
+    next();
+}
+
+module.exports.isCommentAuthor = async (req, res, next) => {
+    const { commentId } = req.params;
+    const comment = await Comment.findById(commentId);
+    if (!comment.author.equals(req.user._id)) {
+        req.flash('error', "You don't have permission to do that!");
+        return res.status(401).send("")
     }
     next();
 }
