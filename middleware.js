@@ -2,6 +2,8 @@ const ExpressError = require("./utils/ExpressError")
 
 const { addressSchema, commentSchema } = require("./joiSchemas")
 
+const Fountain = require("./models/fountain")
+
 
 module.exports.validateFountain = (req, res, next) => {
 
@@ -75,21 +77,12 @@ module.exports.isLoggedIn = ({ isIn = null, isOut = null }) => {
 }
 
 
-// module.exports.isLoggedIn = (req, res, next) => {
-//     if (!req.isAuthenticated()) {
-
-//         req.flash('error', 'You must be signed in!');
-//         return res.redirect('/login');
-//     }
-//     next();
-// }
-
-
-// module.exports.isLoggedInComments = (req, res, next) => {
-//     if (!req.isAuthenticated()) {
-
-//         req.flash('loginRedirect', 'You must be signed in!');
-//         return res.status(401).send("")
-//     }
-//     next();
-// }
+module.exports.isAuthor = async (req, res, next) => {
+    const { id } = req.params;
+    const fountain = await Fountain.findById(id);
+    if (!fountain.author.equals(req.user._id)) {
+        req.flash('error', "You don't have permission to do that!");
+        return res.redirect(`/fountains/${id}`);
+    }
+    next();
+}

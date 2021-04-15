@@ -3,7 +3,7 @@ const router = express.Router();
 
 const catchAsync = require("../utils/catchAsync")
 
-const { validateFountain, isLoggedIn, isLoggedInComments } = require("../middleware")
+const { validateFountain, isLoggedIn, isAuthor } = require("../middleware")
 
 const Fountain = require("../models/fountain")
 
@@ -41,7 +41,7 @@ router.get("/:id", catchAsync(async (req, res) => {
     res.render("fountains/show", { fountain })
 }))
 
-router.get("/:id/edit", isLoggedIn({ isOut: "redirect" }), catchAsync(async (req, res) => {
+router.get("/:id/edit", isLoggedIn({ isOut: "redirect" }), isAuthor, catchAsync(async (req, res) => {
     const { id } = req.params
 
     const fountain = await Fountain.findById(id)
@@ -55,7 +55,7 @@ router.get("/:id/edit", isLoggedIn({ isOut: "redirect" }), catchAsync(async (req
 }))
 
 
-router.put("/:id", isLoggedIn({ isOut: "redirect" }), validateFountain, catchAsync(async (req, res) => {
+router.put("/:id", isLoggedIn({ isOut: "redirect" }), isAuthor, validateFountain, catchAsync(async (req, res) => {
     const { id } = req.params
     const { address } = req.body
 
@@ -66,7 +66,7 @@ router.put("/:id", isLoggedIn({ isOut: "redirect" }), validateFountain, catchAsy
 }))
 
 
-router.delete("/:id", isLoggedIn({ isOut: "redirect" }), catchAsync(async (req, res) => {
+router.delete("/:id", isLoggedIn({ isOut: "redirect" }), isAuthor, catchAsync(async (req, res) => {
     const { id } = req.params
 
     await Fountain.findByIdAndDelete(id)
