@@ -12,6 +12,11 @@ const FountainSchema = new Schema({
         country: String
     },
 
+    author: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    },
+
     comments: [
         {
             type: Schema.Types.ObjectId,

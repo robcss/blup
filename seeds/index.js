@@ -39,7 +39,9 @@ const seedDB = async () => {
             country: "Italia"
         }
 
-        const fountain = new Fountain({ address })
+        const author = '60786352e744661d4027be62'
+
+        const fountain = new Fountain({ address, author })
 
         await fountain.save()
     }
