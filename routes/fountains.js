@@ -9,7 +9,7 @@ const Fountain = require("../models/fountain")
 
 
 router.get("/", catchAsync(async (req, res) => {
-    const fountains = await Fountain.find({})
+    const fountains = await Fountain.find({}).populate('author')
     res.render("fountains/index", { fountains })
 }))
 
@@ -20,6 +20,7 @@ router.get("/new", isLoggedIn({ isOut: "redirect" }), (req, res) => {
 router.post("/", isLoggedIn({ isOut: "redirect" }), validateFountain, catchAsync(async (req, res) => {
     const { address } = req.body
     const newFountain = new Fountain({ address })
+    newFountain.author = req.user._id
     await newFountain.save()
 
     req.flash('success', 'Fountain added!')
@@ -29,7 +30,7 @@ router.post("/", isLoggedIn({ isOut: "redirect" }), validateFountain, catchAsync
 router.get("/:id", catchAsync(async (req, res) => {
     const { id } = req.params
 
-    const fountain = await Fountain.findById(id).populate('comments')
+    const fountain = await Fountain.findById(id).populate('comments').populate('author')
 
     if (!fountain) {
         req.flash("error", "Can't find this fountain!")
