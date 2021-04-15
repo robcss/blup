@@ -30,7 +30,12 @@ router.post("/", isLoggedIn({ isOut: "redirect" }), validateFountain, catchAsync
 router.get("/:id", catchAsync(async (req, res) => {
     const { id } = req.params
 
-    const fountain = await Fountain.findById(id).populate('comments').populate('author')
+    const fountain = await Fountain.findById(id).populate({
+        path: 'comments',
+        populate: {
+            path: 'author'
+        }
+    }).populate('author')
 
     if (!fountain) {
         req.flash("error", "Can't find this fountain!")

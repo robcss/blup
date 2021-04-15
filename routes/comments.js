@@ -15,13 +15,16 @@ router.post("/", isLoggedIn({ isOut: "sendStatus" }), validateComment, catchAsyn
 
     const fountain = await Fountain.findById(fountainId)
 
-    const comment = new Comment({ body: commentBody })
+    const newComment = new Comment({ body: commentBody })
+    newComment.author = req.user._id;
 
-    fountain.comments.push(comment)
+    fountain.comments.push(newComment)
 
-    await comment.save()
+    await newComment.save()
 
     await fountain.save()
+
+    const comment = await Comment.findById(newComment._id).populate('author')
 
     res.render("comments/showOne", { fountain, comment })
 }))
