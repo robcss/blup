@@ -18,6 +18,7 @@
             </a>
         </p>
     </div>
+
     <% if(currentUser){ %>
     <div class="block">
         <a href="" class="button is-success">Verify</a>
@@ -36,7 +37,12 @@
     </div>
     <% } %>
 
-
+    <div class="tabs">
+        <ul>
+            <li class="is-active"><a>Comments</a></li>
+            <li><a>Reports</a></li>
+        </ul>
+    </div>
     <div class="block pt-2">
         <% if(currentUser){ %>
         <div class="block">

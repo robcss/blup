@@ -15,8 +15,23 @@
   text-overflow: ellipsis;
 } */
 
+.navbar {
+  max-width: 1360px;
+  margin: 0 auto;
+}
+
 #navbar-logo {
-  background: url(../media/logo_transparent.png) no-repeat center center;
+  background: url(../media/dRisorsa1.png) no-repeat center center;
   background-size: cover;
-  width: 152px;
+  
+  width: 161px;
+  height: 70px;
+}
+
+@media (max-width: 1024px) {
+  #navbar-logo {
+    margin-left: 0;
+    width: 107px;
+    height: 47px;
+  }
 }
