@@ -35,7 +35,7 @@ router.get("/:id", catchAsync(async (req, res) => {
         populate: {
             path: 'author'
         }
-    }).populate('author')
+    }).populate('author').populate("verifications", "username")
 
     if (!fountain) {
         req.flash("error", "Can't find this fountain!")

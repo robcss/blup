@@ -97,3 +97,21 @@ module.exports.isCommentAuthor = async (req, res, next) => {
     }
     next();
 }
+
+module.exports.isVerifiedByUser = async (req, res, next) => {
+    const fountainId = req.params.id
+    const userId = req.user._id
+
+    const fountains = await Fountain.find(
+        { _id: fountainId },
+        { verifications: { $elemMatch: { $eq: userId } } })//is the user in the verifications array?
+
+    const fountain = fountains[0]
+
+    if (fountain.verifications.length) {
+        req.flash('error', "You already verified this fountain!");
+        return res.status(401).send("")
+    }
+
+    next();
+}

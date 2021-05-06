@@ -13,6 +13,12 @@
             <%= fountain.address.street %>
             <%= fountain.address.number %>
         </p>
+        <ul class="subtitle">
+            <%= fountain.verificationCount %>
+            <% for(verification of fountain.verifications){ %>
+            <li> <%= verification.username %> </li>
+            <% } %>
+        </ul>
         <p class="subtitle is-6">Found by <a href="#">
                 <%= fountain.author.username %>
             </a>
