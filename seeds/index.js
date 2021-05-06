@@ -3,6 +3,7 @@ const municipalitiesDataset = require("./italy_munic.json");
 const randomInt = require("../utils/randomInt");
 
 const Fountain = require("../models/fountain");
+const Comment = require("../models/comment");
 
 mongoose.connect('mongodb://localhost:27017/fountain-finder', {
     useNewUrlParser: true,
@@ -25,6 +26,7 @@ const seedsNumber = 50
 const seedDB = async () => {
 
     await Fountain.deleteMany({});
+    await Comment.deleteMany({});
 
     for (let i = 0; i < seedsNumber; i++) {
 

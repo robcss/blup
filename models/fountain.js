@@ -22,7 +22,15 @@ const FountainSchema = new Schema({
             type: Schema.Types.ObjectId,
             ref: 'Comment'
         }
-    ]
+    ],
+
+    verificationCount: { type: Number, min: 0, default: 0 },
+
+    verifications: [{
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    }]
+
 })
 
 FountainSchema.post('findOneAndDelete', async function (doc) {
