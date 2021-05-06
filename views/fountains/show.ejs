@@ -1,6 +1,9 @@
 <% layout('layouts/boilerplate')%>
 
+<% if(currentUser){ %>
 <script type="module" src="/js/comments/index.js?v6" async defer></script>
+<script src="/js/verifications/index.js?v6" async defer></script>
+<% } %>
 
 <div class="container is-fluid">
     <div class="block">
@@ -27,7 +30,15 @@
 
     <% if(currentUser){ %>
     <div class="block">
-        <a href="" class="button is-success">Verify</a>
+        <span id="verifyButton">
+            <% if(!verifiedByCurrentUser){ %>
+
+            <%- include('../verifications/verifyButton')%>
+
+            <% } else { %>
+            <%- include('../verifications/unverifyButton')%>
+            <% } %>
+        </span>
 
         <a href="" class="button is-warning">Report problem</a>
     </div>

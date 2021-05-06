@@ -2,6 +2,7 @@ const express = require("express")
 const router = express.Router();
 
 const catchAsync = require("../utils/catchAsync")
+const isVerifiedByUser = require("../utils/isVerifiedByUser")
 
 const { validateFountain, isLoggedIn, isAuthor } = require("../middleware")
 
@@ -42,8 +43,15 @@ router.get("/:id", catchAsync(async (req, res) => {
         return res.redirect("/fountains")
     }
 
+    let verifiedByCurrentUser = false
 
-    res.render("fountains/show", { fountain })
+    if (req.isAuthenticated()) {
+        const userId = req.user._id
+
+        verifiedByCurrentUser = await isVerifiedByUser(id, userId)
+    }
+
+    res.render("fountains/show", { fountain, verifiedByCurrentUser })
 }))
 
 router.get("/:id/edit", isLoggedIn({ isOut: "redirect" }), isAuthor, catchAsync(async (req, res) => {
