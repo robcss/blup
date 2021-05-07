@@ -1,0 +1,6 @@
+<span class="subtitle"><%= fountain.verificationCount %></span>
+<ul class="subtitle">
+    <% for(verification of fountain.verifications){ %>
+    <li> <%= verification.username %> </li>
+    <% } %>
+</ul>

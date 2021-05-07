@@ -16,12 +16,11 @@
             <%= fountain.address.street %>
             <%= fountain.address.number %>
         </p>
-        <ul class="subtitle">
-            <%= fountain.verificationCount %>
-            <% for(verification of fountain.verifications){ %>
-            <li> <%= verification.username %> </li>
-            <% } %>
-        </ul>
+
+        <div class="block" id="verifications">
+            <%- include('../verifications/show')%>
+        </div>
+
         <p class="subtitle is-6">Found by <a href="#">
                 <%= fountain.author.username %>
             </a>
@@ -30,13 +29,16 @@
 
     <% if(currentUser){ %>
     <div class="block">
-        <span id="verifyButton">
+        <span id="verifyButtonContainer" data-uri="/fountains/<%= fountain._id %>/verify">
+
             <% if(!verifiedByCurrentUser){ %>
 
-            <%- include('../verifications/verifyButton')%>
+            <button type="button" class="button is-success" data-method="POST">Verify</button>
 
             <% } else { %>
-            <%- include('../verifications/unverifyButton')%>
+
+            <button type="button" class="button is-danger" data-method="DELETE">Unverify</button>
+
             <% } %>
         </span>
 

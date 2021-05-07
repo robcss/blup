@@ -19,10 +19,9 @@ router.post("/", isLoggedIn({ isOut: "sendStatus" }), catchAsync(isVerifiedByCur
             $inc: { verificationCount: 1 },
             $push: { verifications: userId }
         },
-        { new: true })
+        { new: true }).populate("verifications", "username")
 
-
-    res.redirect(`/fountains/${fountainId}`)
+    res.render("verifications/show", { fountain })
 }))
 
 
@@ -36,10 +35,10 @@ router.delete("/", isLoggedIn({ isOut: "sendStatus" }), catchAsync(isVerifiedByC
             $inc: { verificationCount: -1 },
             $pull: { verifications: userId }
         },
-        { new: true })
+        { new: true }).populate("verifications", "username")
 
 
-    res.redirect(`/fountains/${fountainId}`)
+    res.render("verifications/show", { fountain })
 }))
 
 module.exports = router
