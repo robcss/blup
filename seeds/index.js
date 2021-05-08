@@ -4,6 +4,7 @@ const randomInt = require("../utils/randomInt");
 
 const Fountain = require("../models/fountain");
 const Comment = require("../models/comment");
+const Report = require("../models/report");
 
 mongoose.connect('mongodb://localhost:27017/fountain-finder', {
     useNewUrlParser: true,
@@ -27,6 +28,7 @@ const seedDB = async () => {
 
     await Fountain.deleteMany({});
     await Comment.deleteMany({});
+    await Report.deleteMany({});
 
     for (let i = 0; i < seedsNumber; i++) {
 
