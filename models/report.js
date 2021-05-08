@@ -9,7 +9,8 @@ const opts = {
 
 const reportSchema = new Schema(
     {
-        body: String,
+        title: String,
+        description: String,
         resolved: { type: Boolean, default: false },
         author: {
             type: Schema.Types.ObjectId,
