@@ -58,11 +58,12 @@
 
     <div class="tabs">
         <ul>
-            <li class="is-active"><a>Comments</a></li>
-            <li><a>Reports</a></li>
+            <li class="is-active" id="tab_comments"><a>Comments</a></li>
+            <li id="tab_reports"><a>Reports</a></li>
         </ul>
     </div>
-    <div class="block pt-2">
+
+    <div class="block pt-2" id="tabContent_comments">
         <% if(currentUser){ %>
         <div class="block">
             <article class="media">
@@ -89,11 +90,15 @@
         </div>
         <% } %>
 
-        <div class=block id="comments">
+        <div class="block" id="comments">
             <% for(comment of fountain.comments){ %>
             <%- include('../comments/showOne')%>
             <% } %>
         </div>
 
+    </div>
+
+    <div class="block pt-2 is-hidden" id="tabContent_reports">
+        <p class="title">REPORTS</p>
     </div>
 </div>
