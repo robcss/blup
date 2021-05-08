@@ -1,5 +1,6 @@
 const mongoose = require("mongoose")
 const Comment = require("./comment")
+const Report = require("./report")
 const Schema = mongoose.Schema;
 
 const FountainSchema = new Schema({
@@ -29,7 +30,16 @@ const FountainSchema = new Schema({
     verifications: [{
         type: Schema.Types.ObjectId,
         ref: 'User'
-    }]
+    }],
+
+    reportCount: { type: Number, min: 0, default: 0 },
+
+    reports: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Report'
+        }
+    ]
 
 })
 
@@ -38,6 +48,12 @@ FountainSchema.post('findOneAndDelete', async function (doc) {
         await Comment.deleteMany({
             _id: {
                 $in: doc.comments
+            }
+        })
+
+        await Report.deleteMany({
+            _id: {
+                $in: doc.reports
             }
         })
     }
