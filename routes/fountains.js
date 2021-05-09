@@ -36,6 +36,11 @@ router.get("/:id", catchAsync(async (req, res) => {
         populate: {
             path: 'author'
         }
+    }).populate({
+        path: 'reports',
+        populate: {
+            path: 'author'
+        }
     }).populate('author').populate("verifications", "username")
 
     if (!fountain) {
