@@ -46,6 +46,15 @@ form.addEventListener('submit', event => {
     }
 });
 
+//reset event logic
+
+form.addEventListener('reset', event => {
+
+    resetAllFields()
+    disableButton()
+
+});
+
 //change event functions
 const tryEnablingButton = () => {
     if (everyFieldIsValid()) {
@@ -61,6 +70,8 @@ const findField = (id) => inputFields.find(field => field.id === id)
 const validateAllFields = () => inputFields.forEach(field => field.validate())
 
 const everyFieldIsValid = () => inputFields.every(field => field.isValid)
+
+const resetAllFields = () => inputFields.forEach(field => field.reset())
 
 
 // submit button functions

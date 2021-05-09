@@ -58,6 +58,12 @@ export class InputField {
         this._addStyle(this.styles.danger, helpText)
     }
 
+    reset() {
+        this._removeStyle(this.styles.success)
+        this._removeStyle(this.styles.danger)
+        this.validated = false
+    }
+
     get isNotEmpty() {
         const value = this.inputElement.value.trim()
 
