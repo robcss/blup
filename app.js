@@ -16,6 +16,7 @@ const userRoutes = require("./routes/user")
 const fountainsRoutes = require("./routes/fountains")
 const commentsRoutes = require("./routes/comments")
 const verificationsRoutes = require("./routes/verifications")
+const reportsRoutes = require("./routes/reports")
 
 mongoose.connect('mongodb://localhost:27017/fountain-finder', {
     useNewUrlParser: true,
@@ -80,6 +81,7 @@ app.use('/', userRoutes)
 app.use("/fountains", fountainsRoutes)
 app.use("/fountains/:id/comments", commentsRoutes)
 app.use("/fountains/:id/verify", verificationsRoutes)
+app.use("/fountains/:id/report", reportsRoutes)
 
 app.get("/", (req, res) => {
     res.render("home")
