@@ -1,12 +1,13 @@
-<form class="modal-card" id="form-to-validate" data-fieldsGetter="report.js">
-    <header class="modal-card-head">
+<form class="modal-card" id="form-to-validate" data-fieldsGetter="report.js"
+    data-uri="/fountains/<%= fountain._id %>/report">
+    <header class=" modal-card-head">
         <p class="modal-card-title">Report a problem with this fountain</p>
     </header>
     <section class="modal-card-body">
         <div class="field">
             <label class="label" for="inputTitle">Subject</label>
             <div class="control has-icons-right">
-                <input class="input" type="text" id="inputTitle" placeholder="Report Subject" name="">
+                <input class="input" type="text" id="inputTitle" placeholder="Report Subject" name="title">
                 <span class="icon is-small is-right">
                     <i id='inputTitleIcon' class="fas fa-exclamation-triangle is-hidden"></i>
                 </span>
@@ -15,10 +16,10 @@
         </div>
 
         <div class="field">
-            <label class="label" for="inputDescription">Title</label>
+            <label class="label" for="inputDescription">Description</label>
             <div class="control has-icons-right">
-                <textarea data-uri="" class="textarea" id="inputDescription"
-                    placeholder="Describe the problem..."></textarea>
+                <textarea data-uri="" class="textarea" id="inputDescription" placeholder="Describe the problem..."
+                    name="description"></textarea>
                 <span class="icon is-small is-right">
                     <i id='inputDescriptionIcon' class="fas fa-exclamation-triangle is-hidden"></i>
                 </span>
