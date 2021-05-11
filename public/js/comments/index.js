@@ -1,5 +1,6 @@
 import { postComment, validateComment } from "./postComment.js"
-import { deleteComment, idPrefixMatches } from "./deleteComment.js"
+import { deleteComment } from "./deleteComment.js"
+import { elemIdPrefixMatches } from "../utils.js"
 
 const comments = document.getElementById("comments")
 
@@ -40,7 +41,7 @@ postCommentButton.addEventListener("mouseup", async event => {
 //delete comment events
 comments.addEventListener("click", async event => {
 
-    const isDeleteButton = idPrefixMatches(event.target, "deleteCommentButton_")
+    const isDeleteButton = elemIdPrefixMatches(event.target, "deleteCommentButton_")
 
     if (isDeleteButton) {
 

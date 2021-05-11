@@ -1,11 +1,3 @@
-
-export const idPrefixMatches = (element, idPrefix) => {
-
-    return element.id.startsWith(idPrefix)
-
-}
-
-
 export const deleteComment = async (deleteCommentButton) => {
 
     const uri = deleteCommentButton.getAttribute("data-uri")
