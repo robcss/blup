@@ -10,9 +10,9 @@ document.addEventListener('DOMContentLoaded', () => {
 const changeTab = (tabGroup) => {
     tabGroup.addEventListener("click", event => {
 
-        const clickedTab = event.target.parentNode
+        const clickedTab = event.target.closest("[id^='tab_']")
 
-        if (!clickedTab.id.startsWith("tab_")) return
+        if (!clickedTab) return
 
         activateTab(clickedTab)
 
