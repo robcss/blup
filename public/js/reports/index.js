@@ -1,12 +1,14 @@
-
-const postReportButton = document.getElementById("submitButton")
+import { postReport } from "./postReport.js"
+import { resolveReport } from "./resolveReport.js"
+import { elemIdPrefixMatches } from "../utils.js"
 
 const reports = document.getElementById("reports")
 
+const postReportButton = document.getElementById("submitButton")
 const modalClose = document.getElementById("modal_reports").querySelector(".modal-close")
-
 const reportsTab = document.getElementById("tab_reports").querySelector("a")
 
+//post report events
 postReportButton.addEventListener("click", event => {
     event.preventDefault()
 })
@@ -41,30 +43,28 @@ postReportButton.addEventListener("mouseup", async event => {
 
 })
 
-const postReport = async (form) => {
+//resolve report events
+reports.addEventListener("click", async event => {
 
-    const formData = new FormData(form)
+    const isResolveButton = elemIdPrefixMatches(event.target, "resolveReportButton_")
 
-    const body = new URLSearchParams(formData)
+    if (isResolveButton) {
 
-    const options = {
-        method: "POST",
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body
+        const resolveReportButton = event.target
+
+        try {
+            await resolveReport(resolveReportButton)
+        } catch (e) {
+
+            if (e.message === "401") {
+
+                location.reload()
+            }
+
+            console.log(e.message)
+        }
     }
 
-    const uri = form.getAttribute("data-uri")
+})
 
-    const res = await fetch(uri, options)
 
-    if (!res.ok) {
-        throw new Error(res.status)
-    }
-
-    const resText = await res.text()
-
-    reports.innerHTML += resText
-
-}

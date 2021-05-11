@@ -4,7 +4,7 @@
 <script type="module" src="/js/comments/index.js?v6" async defer></script>
 <script src="/js/verifications/index.js?v6" async defer></script>
 <script src="/js/formValidation/index.js?v6" async defer></script>
-<script src="/js/reports/index.js?v6" async defer></script>
+<script type="module" src="/js/reports/index.js?v6" async defer></script>
 <% } %>
 
 <div class="container is-fluid">
@@ -20,7 +20,7 @@
         </p>
 
         <div class="block" id="verifications">
-            <%- include('../verifications/show')%>
+            <%- include('../verifications/index')%>
         </div>
 
         <p class="subtitle is-6">Found by <a href="#">
@@ -106,8 +106,8 @@
     </div>
 
     <div class="block pt-2 is-hidden" id="tabContent_reports">
-        <div class="block" id="reports">
-            <div class="column is-8">
+        <div class="block">
+            <div class="column is-8" id="reports">
                 <% for(report of fountain.reports){ %>
                 <%- include('../reports/showOne')%>
                 <% } %>

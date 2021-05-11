@@ -27,32 +27,8 @@
 
     <%  } %>
 
-    <% if (report.resolved) { %> %>
-    <div class="message-header has-background-success-light has-text-grey-dark">
-        <p> <strong>
-                <%= report.title %>
-            </strong>
-        </p>
-
-        <span class="tag is-success">Solved</span>
-    </div>
-
-    <div class="message-body">
-        <p>
-            <strong> <%= report.description %></strong>
-            <br>
-            <br>
-            <small>
-                Marked as solved by <a><%= report.author.username %></a> at <%= report.updatedAt_Time %> -
-                <%= report.createdAt_Date %>
-            </small>
-            <br>
-            <small>
-                Reported by <a><%= report.resolvedAuthor %></a> at <%= report.updatedAt_Time %> -
-                <%= report.updatedAt_Date %>
-            </small>
-        </p>
-    </div>
+    <% if (report.resolved) { %>
+    <%- include('./solved')%>
     <% } %>
 
 </article>
