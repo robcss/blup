@@ -5,6 +5,7 @@ const { addressSchema, commentSchema, reportSchema } = require("./joiSchemas")
 
 const Fountain = require("./models/fountain")
 const Comment = require("./models/comment")
+const Report = require("./models/report")
 
 
 module.exports.validateFountain = (req, res, next) => {
@@ -128,6 +129,21 @@ module.exports.isVerifiedByCurrentUser = async (req, res, next) => {
     if (!alreadyVerified && req.method === "DELETE") {
 
         req.flash('error', "You never verified this fountain!");
+        return res.status(401).send("")
+    }
+
+    next();
+}
+
+module.exports.isResolved = async (req, res, next) => {
+
+    const { reportId } = req.params
+
+    const report = await Report.findById(reportId)
+
+    if (report.resolved) {
+
+        req.flash('error', "This report is already marked as solved!");
         return res.status(401).send("")
     }
 

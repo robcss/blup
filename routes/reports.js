@@ -3,7 +3,7 @@ const router = express.Router({ mergeParams: true });
 
 const catchAsync = require("../utils/catchAsync")
 
-const { isLoggedIn, validateReport } = require("../middleware")
+const { isLoggedIn, validateReport, isResolved } = require("../middleware")
 
 const Fountain = require("../models/fountain")
 const Report = require("../models/report")
@@ -30,7 +30,7 @@ router.post("/", isLoggedIn({ isOut: "sendStatus" }), validateReport, catchAsync
 }))
 
 
-router.patch("/:reportId", isLoggedIn({ isOut: "sendStatus" }), catchAsync(async (req, res) => {
+router.patch("/:reportId", isLoggedIn({ isOut: "sendStatus" }), catchAsync(isResolved), catchAsync(async (req, res) => {
     const { id, reportId } = req.params
 
     const userId = req.user._id
