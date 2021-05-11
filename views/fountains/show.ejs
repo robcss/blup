@@ -107,9 +107,11 @@
 
     <div class="block pt-2 is-hidden" id="tabContent_reports">
         <div class="block" id="reports">
-            <% for(report of fountain.reports){ %>
-            <%- include('../reports/showOne')%>
-            <% } %>
+            <div class="column is-8">
+                <% for(report of fountain.reports){ %>
+                <%- include('../reports/showOne')%>
+                <% } %>
+            </div>
         </div>
     </div>
 </div>

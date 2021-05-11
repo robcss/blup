@@ -1,23 +1,58 @@
-<article class="media" id="report_<%= report._id %>">
-    <figure class="media-left">
-        <p class="image is-64x64">
-            <img src="https://bulma.io/images/placeholders/128x128.png">
+<article class="message" id="report_<%= report._id %>">
+
+    <% if(!report.resolved){ %>
+    <div class="message-header has-background-warning has-text-grey-dark">
+        <p> <strong>
+                <%= report.title %>
+            </strong>
         </p>
-    </figure>
-    <div class="media-content">
-        <div class="content">
-            <p>
-                <strong>
-                    <%= report.author.username %> - <%= report.title %>
-                </strong>
-                <br>
-                <%= report.description %>
-                <br>
-                <small>
-                    <%= report.createdAt_Date %> -
-                    <%= report.createdAt_Time %>
-                </small>
-            </p>
-        </div>
+        <% if(currentUser) {%>
+        <button data-uri="/fountains/<%= fountain._id %>/report/<%= report._id %>" type="button"
+            class="button is-small is-success" id="resolveReportButton_<%= report._id %>">Mark as
+            solved</button>
+        <% } %>
     </div>
+
+    <div class="message-body">
+        <p>
+            <strong> <%= report.description %></strong>
+            <br>
+            <br>
+            <small>
+                Reported by <a><%= report.author.username %></a> at <%= report.createdAt_Time %> -
+                <%= report.createdAt_Date %>
+            </small>
+        </p>
+    </div>
+
+    <%  } %>
+
+    <% if (report.resolved) { %> %>
+    <div class="message-header has-background-success-light has-text-grey-dark">
+        <p> <strong>
+                <%= report.title %>
+            </strong>
+        </p>
+
+        <span class="tag is-success">Solved</span>
+    </div>
+
+    <div class="message-body">
+        <p>
+            <strong> <%= report.description %></strong>
+            <br>
+            <br>
+            <small>
+                Marked as solved by <a><%= report.author.username %></a> at <%= report.updatedAt_Time %> -
+                <%= report.createdAt_Date %>
+            </small>
+            <br>
+            <small>
+                Reported by <a><%= report.resolvedAuthor %></a> at <%= report.updatedAt_Time %> -
+                <%= report.updatedAt_Date %>
+            </small>
+        </p>
+    </div>
+    <% } %>
+
 </article>
