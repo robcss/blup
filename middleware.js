@@ -1,7 +1,7 @@
 const ExpressError = require("./utils/ExpressError")
 const isVerifiedByUser = require("./utils/isVerifiedByUser")
 
-const { addressSchema, commentSchema } = require("./joiSchemas")
+const { addressSchema, commentSchema, reportSchema } = require("./joiSchemas")
 
 const Fountain = require("./models/fountain")
 const Comment = require("./models/comment")
@@ -26,6 +26,20 @@ module.exports.validateComment = (req, res, next) => {
     const commentBody = req.body
 
     const { error } = commentSchema.validate({ body: commentBody });
+    if (error) {
+        const msg = error.details.map(el => el.message).join(',')
+        throw new ExpressError(msg, 400)
+    } else {
+        next();
+    }
+}
+
+
+module.exports.validateReport = (req, res, next) => {
+
+    const reportBody = req.body
+
+    const { error } = reportSchema.validate(reportBody);
     if (error) {
         const msg = error.details.map(el => el.message).join(',')
         throw new ExpressError(msg, 400)

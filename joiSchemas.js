@@ -23,8 +23,17 @@ const commentSchema = Joi.object({
     body: Joi.string().required()
 });
 
+
+const reportSchema = Joi.object({
+
+    title: Joi.string().required(),
+    description: Joi.string().required()
+});
+
 module.exports.addressSchema = addressSchema
 
 module.exports.fountainSchema = fountainSchema
 
 module.exports.commentSchema = commentSchema
+
+module.exports.reportSchema = reportSchema

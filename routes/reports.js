@@ -3,13 +3,13 @@ const router = express.Router({ mergeParams: true });
 
 const catchAsync = require("../utils/catchAsync")
 
-const { isLoggedIn } = require("../middleware")
+const { isLoggedIn, validateReport } = require("../middleware")
 
 const Fountain = require("../models/fountain")
 const Report = require("../models/report")
 
 
-router.post("/", isLoggedIn({ isOut: "sendStatus" }), catchAsync(async (req, res) => {
+router.post("/", isLoggedIn({ isOut: "sendStatus" }), validateReport, catchAsync(async (req, res) => {
     const fountainId = req.params.id
     const reportBody = req.body
 
