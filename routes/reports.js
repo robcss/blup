@@ -26,7 +26,23 @@ router.post("/", isLoggedIn({ isOut: "sendStatus" }), validateReport, catchAsync
 
     const report = await Report.findById(newReport._id).populate('author')
 
-    res.render("reports/showOne", { report })
+    res.render("reports/showOne", { fountain, report })
+}))
+
+
+router.patch("/:reportId", isLoggedIn({ isOut: "sendStatus" }), catchAsync(async (req, res) => {
+    const { id, reportId } = req.params
+
+    const userId = req.user._id
+
+    const report = await Report.findByIdAndUpdate(reportId,
+        { resolvedAuthor: userId },
+        { new: true }).populate("author", "username").populate("resolvedAuthor", "username")
+
+    await Fountain.findByIdAndUpdate(id, { $inc: { reportCount: -1 } })
+
+    res.render("reports/solved", { report })
+
 }))
 
 module.exports = router
