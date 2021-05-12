@@ -66,7 +66,12 @@
     <div class="tabs">
         <ul>
             <li class="is-active" id="tab_comments"><a>Comments</a></li>
-            <li id="tab_reports"><a>Reports</a></li>
+            <li id="tab_reports"><a>
+                    Reports
+                    <% if(fountain.reportCount > 0){ %>
+                    <span class="ml-2 tag is-warning is-rounded" id="tag_reportCount"><%= fountain.reportCount %></span>
+                    <% } %>
+                </a></li>
         </ul>
     </div>
 
