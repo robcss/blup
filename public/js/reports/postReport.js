@@ -22,6 +22,6 @@ export const postReport = async (form, reports) => {
 
     const resText = await res.text()
 
-    reports.innerHTML += resText
+    reports.innerHTML = resText + reports.innerHTML
 
 }

@@ -41,7 +41,8 @@ router.get("/:id", catchAsync(async (req, res) => {
         populate: [
             { path: 'author', select: '_id username' },
             { path: 'resolvedAuthor', select: '_id username' }
-        ]
+        ],
+        options: { sort: { resolved: 1, createdAt: -1 } }
     }).populate('author').populate("verifications", "username")
 
     if (!fountain) {
