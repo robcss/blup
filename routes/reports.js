@@ -36,8 +36,12 @@ router.patch("/:reportId", isLoggedIn({ isOut: "sendStatus" }), catchAsync(isRes
     const userId = req.user._id
 
     const report = await Report.findByIdAndUpdate(reportId,
-        { resolvedAuthor: userId },
+        {
+            resolvedAuthor: userId,
+            resolved: true
+        },
         { new: true }).populate("author", "username").populate("resolvedAuthor", "username")
+
 
     await Fountain.findByIdAndUpdate(id, { $inc: { reportCount: -1 } })
 

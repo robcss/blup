@@ -1,10 +1,12 @@
+const { boolean } = require('joi');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 
 const opts = {
     timestamps: true,
-    toJSON: { virtuals: true }
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true }
 }
 
 const reportSchema = new Schema(
@@ -15,6 +17,7 @@ const reportSchema = new Schema(
             type: Schema.Types.ObjectId,
             ref: 'User'
         },
+        resolved: { type: Boolean, default: false },
         resolvedAuthor: {
             type: Schema.Types.ObjectId,
             ref: 'User'
@@ -23,10 +26,6 @@ const reportSchema = new Schema(
     opts
 );
 
-reportSchema.virtual("resolved").get(function () {
-    if (this.resolvedAuthor) return true
-    return false
-})
 
 reportSchema.virtual('createdAt_Date').get(function () {
     return this.createdAt.toLocaleDateString('it-IT')
