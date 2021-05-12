@@ -45,7 +45,7 @@ router.patch("/:reportId", isLoggedIn({ isOut: "sendStatus" }), catchAsync(isRes
 
     await Fountain.findByIdAndUpdate(id, { $inc: { reportCount: -1 } })
 
-    res.render("reports/solved", { report })
+    res.render("reports/resolved", { report })
 
 }))
 
