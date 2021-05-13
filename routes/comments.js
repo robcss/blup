@@ -5,39 +5,11 @@ const catchAsync = require("../utils/catchAsync")
 
 const { validateComment, isLoggedIn, isCommentAuthor } = require("../middleware")
 
-const Fountain = require("../models/fountain")
-const Comment = require("../models/comment")
+const comments = require("../controllers/comments-controller")
 
 
-router.post("/", isLoggedIn({ isOut: "sendStatus" }), validateComment, catchAsync(async (req, res) => {
-    const fountainId = req.params.id
-    const commentBody = req.body
+router.post("/", isLoggedIn({ isOut: "sendStatus" }), validateComment, catchAsync(comments.createComment))
 
-    const fountain = await Fountain.findById(fountainId)
-
-    const newComment = new Comment({ body: commentBody })
-    newComment.author = req.user._id;
-
-    fountain.comments.push(newComment)
-
-    await newComment.save()
-
-    await fountain.save()
-
-    const comment = await Comment.findById(newComment._id).populate('author')
-
-    res.render("comments/showOne", { fountain, comment })
-}))
-
-
-router.delete("/:commentId", isLoggedIn({ isOut: "sendStatus" }), isCommentAuthor, catchAsync(async (req, res) => {
-    const { id, commentId } = req.params
-
-    await Fountain.findByIdAndUpdate(id, { $pull: { comments: commentId } })
-
-    await Comment.findByIdAndDelete(commentId)
-
-    res.end()
-}))
+router.delete("/:commentId", isLoggedIn({ isOut: "sendStatus" }), isCommentAuthor, catchAsync(comments.deleteComment))
 
 module.exports = router
