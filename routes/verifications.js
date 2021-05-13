@@ -5,40 +5,10 @@ const catchAsync = require("../utils/catchAsync")
 
 const { isLoggedIn, isVerifiedByCurrentUser } = require("../middleware")
 
-const Fountain = require("../models/fountain")
+const verifications = require("../controllers/verifications-controller")
 
-
-
-router.post("/", isLoggedIn({ isOut: "sendStatus" }), catchAsync(isVerifiedByCurrentUser), catchAsync(async (req, res) => {
-    const fountainId = req.params.id
-
-    const userId = req.user._id
-
-    const fountain = await Fountain.findByIdAndUpdate(fountainId,
-        {
-            $inc: { verificationCount: 1 },
-            $push: { verifications: userId }
-        },
-        { new: true }).populate("verifications", "username")
-
-    res.render("verifications/index", { fountain })
-}))
-
-
-router.delete("/", isLoggedIn({ isOut: "sendStatus" }), catchAsync(isVerifiedByCurrentUser), catchAsync(async (req, res) => {
-    const fountainId = req.params.id
-
-    const userId = req.user._id
-
-    const fountain = await Fountain.findByIdAndUpdate(fountainId,
-        {
-            $inc: { verificationCount: -1 },
-            $pull: { verifications: userId }
-        },
-        { new: true }).populate("verifications", "username")
-
-
-    res.render("verifications/index", { fountain })
-}))
+router.route("/")
+    .post(isLoggedIn({ isOut: "sendStatus" }), catchAsync(isVerifiedByCurrentUser), catchAsync(verifications.createVerification))
+    .delete(isLoggedIn({ isOut: "sendStatus" }), catchAsync(isVerifiedByCurrentUser), catchAsync(verifications.deleteVerification))
 
 module.exports = router
