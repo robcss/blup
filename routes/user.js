@@ -8,16 +8,13 @@ const { isLoggedIn } = require("../middleware")
 
 const users = require("../controllers/users-controller")
 
-router.get('/register', isLoggedIn({ isIn: "forbidLogin" }), users.renderRegisterForm)
+router.route('/register')
+    .get(isLoggedIn({ isIn: "forbidLogin" }), users.renderRegisterForm)
+    .post(isLoggedIn({ isIn: "forbidLogin" }), catchAsync(users.register));
 
-
-router.post('/register', isLoggedIn({ isIn: "forbidLogin" }), catchAsync(users.register));
-
-
-router.get('/login', isLoggedIn({ isIn: "forbidLogin" }), users.renderLoginForm)
-
-router.post('/login', isLoggedIn({ isIn: "forbidLogin" }), passport.authenticate('local', { failureFlash: true, failureRedirect: '/login' }), users.login)
-
+router.route('/login')
+    .get(isLoggedIn({ isIn: "forbidLogin" }), users.renderLoginForm)
+    .post(isLoggedIn({ isIn: "forbidLogin" }), passport.authenticate('local', { failureFlash: true, failureRedirect: '/login' }), users.login)
 
 router.get('/logout', users.logout)
 
