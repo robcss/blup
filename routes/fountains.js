@@ -3,22 +3,23 @@ const router = express.Router();
 
 const catchAsync = require("../utils/catchAsync")
 
-const { validateFountain, isLoggedIn, isAuthor } = require("../middleware")
+const isUserLoggedIn = require("../middleware/isUserLoggedIn")
+const { validateFountain, isUserFountainAuthor } = require("../middleware/fountains-middleware")
 
 const fountains = require("../controllers/fountains-controller")
 
 
 router.route("/")
     .get(catchAsync(fountains.showIndex))
-    .post(isLoggedIn({ isOut: "redirect" }), validateFountain, catchAsync(fountains.createFountain))
+    .post(isUserLoggedIn({ isOut: "redirect" }), validateFountain, catchAsync(fountains.createFountain))
 
-router.get("/new", isLoggedIn({ isOut: "redirect" }), fountains.renderNewForm)
+router.get("/new", isUserLoggedIn({ isOut: "redirect" }), fountains.renderNewForm)
 
 router.route("/:id")
     .get(catchAsync(fountains.showFountain))
-    .put(isLoggedIn({ isOut: "redirect" }), isAuthor, validateFountain, catchAsync(fountains.updateFountain))
-    .delete(isLoggedIn({ isOut: "redirect" }), isAuthor, catchAsync(fountains.deleteFountain))
+    .put(isUserLoggedIn({ isOut: "redirect" }), isUserFountainAuthor, validateFountain, catchAsync(fountains.updateFountain))
+    .delete(isUserLoggedIn({ isOut: "redirect" }), isUserFountainAuthor, catchAsync(fountains.deleteFountain))
 
-router.get("/:id/edit", isLoggedIn({ isOut: "redirect" }), isAuthor, catchAsync(fountains.renderEditForm))
+router.get("/:id/edit", isUserLoggedIn({ isOut: "redirect" }), isUserFountainAuthor, catchAsync(fountains.renderEditForm))
 
 module.exports = router;

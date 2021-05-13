@@ -40,15 +40,6 @@ class FountainService {
         return { fountain }
     }
 
-    async isFountainVerifiedByUser(id, userId) {
-        const fountains = await Fountain.find(
-            { _id: id },
-            { verifications: { $elemMatch: { $eq: userId } } })//is the user in the verifications array?
-
-        return fountains[0].verifications.length > 0
-
-    }
-
     async updateFountain(id, data) {
         const fountain = await Fountain.findByIdAndUpdate(id, data)
         return { fountain }
@@ -56,6 +47,20 @@ class FountainService {
 
     async deleteFountain(id) {
         await Fountain.findByIdAndDelete(id)
+    }
+
+    async isFountainCreatedByUser(id, userId) {
+        const { fountain } = await this.getFountain(id)
+        return fountain.author.equals(userId)
+    }
+
+    async isFountainVerifiedByUser(id, userId) {
+        const fountains = await Fountain.find(
+            { _id: id },
+            { verifications: { $elemMatch: { $eq: userId } } })//is the user in the verifications array?
+
+        return fountains[0].verifications.length > 0
+
     }
 
 }
