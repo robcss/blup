@@ -6,51 +6,20 @@ const catchAsync = require("../utils/catchAsync")
 
 const { isLoggedIn } = require("../middleware")
 
-const User = require('../models/user')
+const users = require("../controllers/users-controller")
+
+router.get('/register', isLoggedIn({ isIn: "forbidLogin" }), users.renderRegisterForm)
 
 
-router.get('/register', isLoggedIn({ isIn: "forbidLogin" }), (req, res) => {
-    res.render('users/register');
-})
+router.post('/register', isLoggedIn({ isIn: "forbidLogin" }), catchAsync(users.register));
 
 
-router.post('/register', isLoggedIn({ isIn: "forbidLogin" }), catchAsync(async (req, res, next) => {
+router.get('/login', isLoggedIn({ isIn: "forbidLogin" }), users.renderLoginForm)
 
-    try {
-        const { email, username, password } = req.body;
-        const user = new User({ email, username });
-        const registeredUser = await User.register(user, password);
-
-        req.login(registeredUser, err => {
-            if (err) return next(err);
-            req.flash('success', 'Welcome to Blup!');
-            res.redirect('/fountains');
-        })
-
-    } catch (e) {
-        req.flash('error', e.message);
-        res.redirect('register');
-    }
-}));
+router.post('/login', isLoggedIn({ isIn: "forbidLogin" }), passport.authenticate('local', { failureFlash: true, failureRedirect: '/login' }), users.login)
 
 
-router.get('/login', isLoggedIn({ isIn: "forbidLogin" }), (req, res) => {
-    res.render('users/login');
-})
-
-router.post('/login', isLoggedIn({ isIn: "forbidLogin" }), passport.authenticate('local', { failureFlash: true, failureRedirect: '/login' }), (req, res) => {
-    req.flash('success', 'Welcome back!');
-    const redirectUrl = req.session.returnTo || "/fountains"
-    delete req.session.returnTo
-    res.redirect(redirectUrl)
-})
-
-
-router.get('/logout', (req, res) => {
-    req.logout();
-    req.flash('success', "Logged out");
-    res.redirect('/fountains');
-})
+router.get('/logout', users.logout)
 
 module.exports = router
 
