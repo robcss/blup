@@ -108,7 +108,6 @@ class FountainService {
             { verifications: { $elemMatch: { $eq: userId } } })//is the user in the verifications array?
 
         return fountains[0].verifications.length > 0
-
     }
 }
 

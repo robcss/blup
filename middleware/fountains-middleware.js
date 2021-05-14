@@ -29,3 +29,24 @@ module.exports.isUserFountainAuthor = async (req, res, next) => {
     }
     next();
 }
+
+module.exports.hasUserVerifiedFountain = async (req, res, next) => {
+    const fountainId = req.params.id
+    const userId = req.user._id
+
+    const userVerifiedFountain = await FountainService.isFountainVerifiedByUser(fountainId, userId)
+
+    if (userVerifiedFountain && req.method === "POST") {
+
+        req.flash('error', "You already verified this fountain!");
+        return res.status(401).send("")
+    }
+
+    if (!userVerifiedFountain && req.method === "DELETE") {
+
+        req.flash('error', "You never verified this fountain!");
+        return res.status(401).send("")
+    }
+
+    next();
+}
