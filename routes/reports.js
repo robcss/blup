@@ -3,12 +3,13 @@ const router = express.Router({ mergeParams: true });
 
 const catchAsync = require("../utils/catchAsync")
 
-const { isLoggedIn, validateReport, isResolved } = require("../middleware")
+const isUserLoggedIn = require("../middleware/isUserLoggedIn")
+const { validateReport, isReportResolved } = require("../middleware/reports-middleware")
 
 const reports = require("../controllers/reports-controller")
 
-router.post("/", isLoggedIn({ isOut: "sendStatus" }), validateReport, catchAsync(reports.createReport))
+router.post("/", isUserLoggedIn({ isOut: "sendStatus" }), validateReport, catchAsync(reports.createReport))
 
-router.patch("/:reportId", isLoggedIn({ isOut: "sendStatus" }), catchAsync(isResolved), catchAsync(reports.updateReport))
+router.patch("/:reportId", isUserLoggedIn({ isOut: "sendStatus" }), catchAsync(isReportResolved), catchAsync(reports.updateReport))
 
 module.exports = router

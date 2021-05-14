@@ -33,6 +33,11 @@ class ReportService {
         return report
     }
 
+    async isReportResolved(id) {
+        const report = await this.getReport(id)
+        return report.resolved
+    }
+
 }
 
 module.exports = new ReportService
