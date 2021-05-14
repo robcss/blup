@@ -69,7 +69,24 @@ class FountainService {
     }
 
     async removeComment(id, commentId) {
-        await Fountain.findByIdAndUpdate(id, { $pull: { comments: commentId } })
+        const fountain = await Fountain.findByIdAndUpdate(id, { $pull: { comments: commentId } }, { new: true })
+        return fountain
+    }
+
+    async addReport(id, reportId) {
+        const fountain = await Fountain.findByIdAndUpdate(id,
+            {
+                $inc: { reportCount: 1 },
+                $push: { reports: reportId }
+            },
+            { new: true })
+
+        return fountain
+    }
+
+    async decreaseReportCount(id) {
+        const fountain = await Fountain.findByIdAndUpdate(id, { $inc: { reportCount: -1 } }, { new: true })
+        return fountain
     }
 
 }
