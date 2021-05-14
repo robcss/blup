@@ -1,7 +1,7 @@
 const FountainService = require("../services/FountainService")
 
 module.exports.showIndex = async (req, res) => {
-    const { fountains } = await FountainService.getAllFountains()
+    const fountains = await FountainService.getAllFountains()
     res.render("fountains/index", { fountains })
 }
 
@@ -13,7 +13,7 @@ module.exports.createFountain = async (req, res) => {
     const { address } = req.body
     const author = req.user._id
 
-    const { newFountain } = await FountainService.createFountain({ address, author })
+    const newFountain = await FountainService.createFountain({ address, author })
 
     req.flash('success', 'Fountain added!')
     res.redirect(`/fountains/${newFountain._id}`)
@@ -22,7 +22,7 @@ module.exports.createFountain = async (req, res) => {
 module.exports.showFountain = async (req, res) => {
     const { id } = req.params
 
-    const { fountain } = await FountainService.getFountainComplete(id)
+    const fountain = await FountainService.getFountainComplete(id)
 
     if (!fountain) {
         req.flash("error", "Can't find this fountain!")
@@ -43,7 +43,7 @@ module.exports.showFountain = async (req, res) => {
 module.exports.renderEditForm = async (req, res) => {
     const { id } = req.params
 
-    const { fountain } = await FountainService.getFountain(id)
+    const fountain = await FountainService.getFountain(id)
 
     if (!fountain) {
         req.flash("error", "Can't find this fountain!")
@@ -57,7 +57,7 @@ module.exports.updateFountain = async (req, res) => {
     const { id } = req.params
     const { address } = req.body
 
-    const { fountain } = await FountainService.updateFountain(id, { address })
+    const fountain = await FountainService.updateFountain(id, { address })
 
     req.flash('success', 'Fountain successfully updated!')
     res.redirect(`/fountains/${fountain._id}`)

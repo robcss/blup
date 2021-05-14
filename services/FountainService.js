@@ -4,18 +4,18 @@ class FountainService {
 
     async getAllFountains() {
         const fountains = await Fountain.find({}).populate('author')
-        return { fountains }
+        return fountains
     }
 
     async createFountain(data) {
         const newFountain = new Fountain(data)
         await newFountain.save()
-        return { newFountain }
+        return newFountain
     }
 
     async getFountain(id) {
         const fountain = await Fountain.findById(id)
-        return { fountain }
+        return fountain
     }
 
     async getFountainComplete(id) {
@@ -37,12 +37,12 @@ class FountainService {
             .populate('author')
             .populate("verifications", "username")
 
-        return { fountain }
+        return fountain
     }
 
     async updateFountain(id, data) {
         const fountain = await Fountain.findByIdAndUpdate(id, data)
-        return { fountain }
+        return fountain
     }
 
     async deleteFountain(id) {
@@ -50,7 +50,7 @@ class FountainService {
     }
 
     async isFountainCreatedByUser(id, userId) {
-        const { fountain } = await this.getFountain(id)
+        const fountain = await this.getFountain(id)
         return fountain.author.equals(userId)
     }
 
@@ -61,6 +61,15 @@ class FountainService {
 
         return fountains[0].verifications.length > 0
 
+    }
+
+    async addComment(id, commentId) {
+        const fountain = await Fountain.findByIdAndUpdate(id, { $push: { comments: commentId } }, { new: true })
+        return fountain
+    }
+
+    async removeComment(id, commentId) {
+        await Fountain.findByIdAndUpdate(id, { $pull: { comments: commentId } })
     }
 
 }
