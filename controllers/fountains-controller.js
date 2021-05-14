@@ -29,15 +29,15 @@ module.exports.showFountain = async (req, res) => {
         return res.redirect("/fountains")
     }
 
-    let verifiedByCurrentUser = false
+    let fountainIsVerifiedByUser = false
 
     if (req.isAuthenticated()) {
         const userId = req.user._id
 
-        verifiedByCurrentUser = await FountainService.isFountainVerifiedByUser(id, userId)
+        fountainIsVerifiedByUser = await FountainService.isFountainVerifiedByUser(id, userId)
     }
 
-    res.render("fountains/show", { fountain, verifiedByCurrentUser })
+    res.render("fountains/show", { fountain, fountainIsVerifiedByUser })
 }
 
 module.exports.renderEditForm = async (req, res) => {

@@ -33,7 +33,7 @@
     <div class="block">
         <span id="verifyButtonContainer" data-uri="/fountains/<%= fountain._id %>/verify">
 
-            <% if(!verifiedByCurrentUser){ %>
+            <% if(!fountainIsVerifiedByUser){ %>
 
             <button type="button" class="button is-success" data-method="POST">Verify</button>
 
