@@ -3,13 +3,14 @@ const router = express.Router({ mergeParams: true });
 
 const catchAsync = require("../utils/catchAsync")
 
-const { validateComment, isLoggedIn, isCommentAuthor } = require("../middleware")
+const isUserLoggedIn = require("../middleware/isUserLoggedIn")
+const { validateComment, isUserCommentAuthor } = require("../middleware/comments-middleware")
 
 const comments = require("../controllers/comments-controller")
 
 
-router.post("/", isLoggedIn({ isOut: "sendStatus" }), validateComment, catchAsync(comments.createComment))
+router.post("/", isUserLoggedIn({ isOut: "sendStatus" }), validateComment, catchAsync(comments.createComment))
 
-router.delete("/:commentId", isLoggedIn({ isOut: "sendStatus" }), isCommentAuthor, catchAsync(comments.deleteComment))
+router.delete("/:commentId", isUserLoggedIn({ isOut: "sendStatus" }), isUserCommentAuthor, catchAsync(comments.deleteComment))
 
 module.exports = router

@@ -1,4 +1,3 @@
-const { isUserFountainAuthor } = require("./fountains-middleware");
 
 const loggedStrategies = {
     forbidLogin(req, res) {
