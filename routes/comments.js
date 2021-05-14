@@ -11,6 +11,6 @@ const comments = require("../controllers/comments-controller")
 
 router.post("/", isUserLoggedIn({ isOut: "sendStatus" }), validateComment, catchAsync(comments.createComment))
 
-router.delete("/:commentId", isUserLoggedIn({ isOut: "sendStatus" }), isUserCommentAuthor, catchAsync(comments.deleteComment))
+router.delete("/:commentId", isUserLoggedIn({ isOut: "sendStatus" }), catchAsync(isUserCommentAuthor), catchAsync(comments.deleteComment))
 
 module.exports = router

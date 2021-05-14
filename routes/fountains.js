@@ -17,9 +17,9 @@ router.get("/new", isUserLoggedIn({ isOut: "redirect" }), fountains.renderNewFor
 
 router.route("/:id")
     .get(catchAsync(fountains.showFountain))
-    .put(isUserLoggedIn({ isOut: "redirect" }), isUserFountainAuthor, validateFountain, catchAsync(fountains.updateFountain))
-    .delete(isUserLoggedIn({ isOut: "redirect" }), isUserFountainAuthor, catchAsync(fountains.deleteFountain))
+    .put(isUserLoggedIn({ isOut: "redirect" }), catchAsync(isUserFountainAuthor), validateFountain, catchAsync(fountains.updateFountain))
+    .delete(isUserLoggedIn({ isOut: "redirect" }), catchAsync(isUserFountainAuthor), catchAsync(fountains.deleteFountain))
 
-router.get("/:id/edit", isUserLoggedIn({ isOut: "redirect" }), isUserFountainAuthor, catchAsync(fountains.renderEditForm))
+router.get("/:id/edit", isUserLoggedIn({ isOut: "redirect" }), catchAsync(isUserFountainAuthor), catchAsync(fountains.renderEditForm))
 
 module.exports = router;
