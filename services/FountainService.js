@@ -54,15 +54,6 @@ class FountainService {
         return fountain.author.equals(userId)
     }
 
-    async isFountainVerifiedByUser(id, userId) {
-        const fountains = await Fountain.find(
-            { _id: id },
-            { verifications: { $elemMatch: { $eq: userId } } })//is the user in the verifications array?
-
-        return fountains[0].verifications.length > 0
-
-    }
-
     async addComment(id, commentId) {
         const fountain = await Fountain.findByIdAndUpdate(id, { $push: { comments: commentId } }, { new: true })
         return fountain
@@ -89,6 +80,36 @@ class FountainService {
         return fountain
     }
 
+    async addVerification(id, userId) {
+        const fountain = await Fountain.findByIdAndUpdate(id,
+            {
+                $inc: { verificationCount: 1 },
+                $push: { verifications: userId }
+            },
+            { new: true }).populate("verifications", "username")
+
+        return fountain
+    }
+
+    async removeVerification(id, userId) {
+        const fountain = await Fountain.findByIdAndUpdate(id,
+            {
+                $inc: { verificationCount: -1 },
+                $pull: { verifications: userId }
+            },
+            { new: true }).populate("verifications", "username")
+
+        return fountain
+    }
+
+    async isFountainVerifiedByUser(id, userId) {
+        const fountains = await Fountain.find(
+            { _id: id },
+            { verifications: { $elemMatch: { $eq: userId } } })//is the user in the verifications array?
+
+        return fountains[0].verifications.length > 0
+
+    }
 }
 
 module.exports = new FountainService

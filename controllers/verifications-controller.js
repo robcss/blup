@@ -1,32 +1,19 @@
-const Fountain = require("../models/fountain")
+const FountainService = require("../services/FountainService")
 
 module.exports.createVerification = async (req, res) => {
     const fountainId = req.params.id
-
     const userId = req.user._id
 
-    const fountain = await Fountain.findByIdAndUpdate(fountainId,
-        {
-            $inc: { verificationCount: 1 },
-            $push: { verifications: userId }
-        },
-        { new: true }).populate("verifications", "username")
+    const fountain = await FountainService.addVerification(fountainId, userId)
 
     res.render("verifications/index", { fountain })
 }
 
 module.exports.deleteVerification = async (req, res) => {
     const fountainId = req.params.id
-
     const userId = req.user._id
 
-    const fountain = await Fountain.findByIdAndUpdate(fountainId,
-        {
-            $inc: { verificationCount: -1 },
-            $pull: { verifications: userId }
-        },
-        { new: true }).populate("verifications", "username")
-
+    const fountain = await FountainService.removeVerification(fountainId, userId)
 
     res.render("verifications/index", { fountain })
 }
