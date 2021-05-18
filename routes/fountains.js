@@ -1,5 +1,10 @@
 const express = require("express")
-const router = express.Router();
+const router = express.Router()
+
+
+const multer = require("multer")
+const { fileFilter, limits } = require("../config/multer")
+const upload = multer({ dest: 'uploads/', fileFilter, limits })
 
 const catchAsync = require("../utils/catchAsync")
 
@@ -11,7 +16,10 @@ const fountains = require("../controllers/fountains-controller")
 
 router.route("/")
     .get(catchAsync(fountains.showIndex))
-    .post(isUserLoggedIn({ isOut: "redirect" }), validateFountain, catchAsync(fountains.createFountain))
+    .post(upload.array("image", 3), (req, res) => {
+        res.send(req.files)
+    })
+// .post(isUserLoggedIn({ isOut: "redirect" }), validateFountain, catchAsync(fountains.createFountain))
 
 router.get("/new", isUserLoggedIn({ isOut: "redirect" }), fountains.renderNewForm)
 
