@@ -19,7 +19,9 @@ const { MULTER_MAX_SIZE } = require("../config/index")
 
 const limits = { fileSize: MULTER_MAX_SIZE }
 
-const upload = multer({ dest: 'uploads/', fileFilter, limits })
+const { storage } = require("./cloudinary")
+
+const upload = multer({ storage, fileFilter, limits })
 
 module.exports = {
     multer,
