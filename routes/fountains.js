@@ -1,10 +1,7 @@
 const express = require("express")
 const router = express.Router()
 
-
-const multer = require("multer")
-const { fileFilter, limits } = require("../config/multer")
-const upload = multer({ dest: 'uploads/', fileFilter, limits })
+const { upload } = require("../loaders/multer")
 
 const catchAsync = require("../utils/catchAsync")
 
@@ -12,7 +9,6 @@ const isUserLoggedIn = require("../middleware/isUserLoggedIn")
 const { validateFountain, isUserFountainAuthor } = require("../middleware/fountains-middleware")
 
 const fountains = require("../controllers/fountains-controller")
-
 
 router.route("/")
     .get(catchAsync(fountains.showIndex))

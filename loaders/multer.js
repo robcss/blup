@@ -1,8 +1,8 @@
-
+const multer = require("multer")
 
 const allowed = ["image/png", "image/jpg", "image/jpeg"]
 
-module.exports.fileFilter = (req, file, cb) => {
+const fileFilter = (req, file, cb) => {
 
     const isAllowed = allowed.some(type => file.mimetype === type)
 
@@ -17,4 +17,11 @@ module.exports.fileFilter = (req, file, cb) => {
 
 const maxSize = 10 * 1024 * 1024; // 10MB
 
-module.exports.limits = { fileSize: maxSize }
+const limits = { fileSize: maxSize }
+
+const upload = multer({ dest: 'uploads/', fileFilter, limits })
+
+module.exports = {
+    multer,
+    upload
+}
