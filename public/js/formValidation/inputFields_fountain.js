@@ -1,6 +1,7 @@
 import { createInputFieldObject } from "./InputField.js"
+import { validateFiles } from "./fileInputUtils.js"
 
-const ids = ["inputStreet", "inputNumber", "inputCity", "inputPostcode", "inputCountry"]
+const ids = ["inputStreet", "inputNumber", "inputCity", "inputPostcode", "inputCountry", "inputImage"]
 
 const fields = createInputFieldObject(ids)
 
@@ -73,6 +74,36 @@ fields.inputNumber.validate = checkIfNumber("Number")
 fields.inputPostcode.validate = checkIfNumber("Postcode")
 
 fields.inputCountry.validate = fields.inputCountry.validateEmpty
+
+
+fields.inputImage.validated = true // validated by default
+
+fields.inputImage.validate = function () {
+    const input = this.inputElement
+    const files = input.files
+
+    const fileArray = Array.from(files)
+
+    if (files.length < 1) {
+        this.validated = true
+        return
+    }
+
+    const maxCount = parseInt(input.getAttribute("data-maxCount"))
+    const accept = input.getAttribute("accept")
+    const maxSize = parseInt(input.getAttribute("data-maxSize"))
+
+
+    const uploadPasses = validateFiles(input, fileArray, { maxCount, accept, maxSize })
+
+    if (!uploadPasses) {
+        this.validated = false
+        return
+    }
+
+    this.validated = true
+}
+
 
 
 export const getInputFieldArray = () => Object.values(fields)
