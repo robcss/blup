@@ -15,9 +15,9 @@ const fileFilter = (req, file, cb) => {
 }
 
 
-const maxSize = 10 * 1024 * 1024; // 10MB
+const { MULTER_MAX_SIZE } = require("../config/index")
 
-const limits = { fileSize: maxSize }
+const limits = { fileSize: MULTER_MAX_SIZE }
 
 const upload = multer({ dest: 'uploads/', fileFilter, limits })
 
