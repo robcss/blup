@@ -92,3 +92,14 @@ export class InputField {
 export const createInputField = (id) => {
     return new InputField(id)
 }
+
+export const createInputFieldArray = (ids) => {
+    return ids.map(id => createInputField(id))
+}
+
+export const createInputFieldObject = (ids) => {
+    const fields = createInputFieldArray(ids)
+    const fieldsObject = {}
+    fields.forEach(field => fieldsObject[field.id] = field)
+    return fieldsObject
+}

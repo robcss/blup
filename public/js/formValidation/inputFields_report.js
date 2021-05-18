@@ -1,13 +1,14 @@
-import { createInputField } from "./InputField.js"
+import { createInputFieldObject } from "./InputField.js"
 
-const [inputTitle, inputDescription] =
-    ["inputTitle", "inputDescription"].map(id => createInputField(id))
+const ids = ["inputTitle", "inputDescription"]
+
+const fields = createInputFieldObject(ids)
 
 //specific validation logic for each field
 
-inputTitle.validate = inputTitle.validateEmpty
+fields.inputTitle.validate = fields.inputTitle.validateEmpty
 
-inputDescription.validate = inputDescription.validateEmpty
+fields.inputDescription.validate = fields.inputDescription.validateEmpty
 
 
-export const getInputFields = () => [inputTitle, inputDescription]
+export const getInputFieldArray = () => Object.values(fields)

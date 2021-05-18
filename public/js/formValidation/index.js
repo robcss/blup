@@ -7,53 +7,55 @@ const setInputFields = async () => {
     const getterName = form.getAttribute("data-fieldsGetter")
     const getter = await import(`./inputFields_${getterName}`)
 
-    inputFields = getter.getInputFields()
+    inputFields = getter.getInputFieldArray()
 }
 
-setInputFields()
+const eventHandler = () => {
+    //change event logic
+    document.addEventListener('change', event => {
 
+        if (submitButton.disabled) {
 
-//change event logic
-document.addEventListener('change', event => {
+            const changedField = findField(event.target.id)
 
-    if (submitButton.disabled) {
+            if (changedField) {
+                changedField.validate()
+                tryEnablingButton()
+            }
 
-        const changedField = findField(event.target.id)
-
-        if (changedField) {
-            changedField.validate()
+        } else {
+            validateAllFields()
             tryEnablingButton()
         }
 
-    } else {
+    }, false)
+
+    //submit event logic
+
+    form.addEventListener('submit', event => {
+        event.preventDefault();
+
         validateAllFields()
-        tryEnablingButton()
-    }
 
-}, false)
+        if (everyFieldIsValid()) {
+            form.submit()
+        } else {
+            disableButton()
+        }
+    });
 
-//submit event logic
+    //reset event logic
 
-form.addEventListener('submit', event => {
-    event.preventDefault();
+    form.addEventListener('reset', event => {
 
-    validateAllFields()
-
-    if (everyFieldIsValid()) {
-        form.submit()
-    } else {
+        resetAllFields()
         disableButton()
-    }
-});
 
-//reset event logic
+    });
+}
 
-form.addEventListener('reset', event => {
-
-    resetAllFields()
-    disableButton()
-
-});
+//load fields and handle events
+setInputFields().then(eventHandler)
 
 //change event functions
 const tryEnablingButton = () => {

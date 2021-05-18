@@ -1,15 +1,15 @@
-import { createInputField } from "./InputField.js"
+import { createInputFieldObject } from "./InputField.js"
 
-const [inputUsername, inputEmail, inputPassword] =
-    ["inputUsername", "inputEmail", "inputPassword"].map(id => createInputField(id))
+const ids = ["inputUsername", "inputEmail", "inputPassword"]
+
+const fields = createInputFieldObject(ids)
 
 //specific validation logic for each field
 
-inputUsername.validate = inputUsername.validateEmpty
+fields.inputUsername.validate = fields.inputUsername.validateEmpty
 
-inputEmail.validate = inputEmail.validateEmpty
+fields.inputEmail.validate = fields.inputEmail.validateEmpty
 
-inputPassword.validate = inputPassword.validateEmpty
+fields.inputPassword.validate = fields.inputPassword.validateEmpty
 
-
-export const getInputFields = () => [inputUsername, inputEmail, inputPassword]
+export const getInputFieldArray = () => Object.values(fields)

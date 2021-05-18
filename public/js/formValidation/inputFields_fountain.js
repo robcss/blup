@@ -1,10 +1,10 @@
-import { createInputField } from "./InputField.js"
+import { createInputFieldObject } from "./InputField.js"
 
-const [inputStreet, inputNumber, inputCity, inputPostcode, inputCountry] =
-    ["inputStreet", "inputNumber", "inputCity", "inputPostcode", "inputCountry"].map(id => createInputField(id))
+const ids = ["inputStreet", "inputNumber", "inputCity", "inputPostcode", "inputCountry"]
 
-//specific validation logic for each field
-inputStreet.validate = function () {
+const fields = createInputFieldObject(ids)
+
+fields.inputStreet.validate = function () {
     if (this.isNotEmpty) {
         const regex = /^\b[a-zA-Z]+\b\s(\b[a-zA-Z]+\b\s?)+/g; // at least two words(letters only) separated by single spaces
 
@@ -26,7 +26,7 @@ inputStreet.validate = function () {
 }
 
 
-inputCity.validate = function () {
+fields.inputCity.validate = function () {
     if (this.isNotEmpty) {
         const regex = /^([a-zA-Z]+\s{0,1})+/g; // one word(letters only) or more separated by single spaces
 
@@ -68,11 +68,11 @@ const checkIfNumber = (name) => function () {
 }
 
 
-inputNumber.validate = checkIfNumber("Number")
+fields.inputNumber.validate = checkIfNumber("Number")
 
-inputPostcode.validate = checkIfNumber("Postcode")
+fields.inputPostcode.validate = checkIfNumber("Postcode")
 
-inputCountry.validate = inputCountry.validateEmpty
+fields.inputCountry.validate = fields.inputCountry.validateEmpty
 
 
-export const getInputFields = () => [inputStreet, inputNumber, inputCity, inputPostcode, inputCountry]
+export const getInputFieldArray = () => Object.values(fields)
