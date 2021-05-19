@@ -3,6 +3,16 @@ const Comment = require("./comment")
 const Report = require("./report")
 const Schema = mongoose.Schema;
 
+const ImageSchema = new Schema({
+    url: String,
+    filename: String
+})
+
+ImageSchema.virtual('thumbnail').get(function () {
+    return this.url.replace('/upload', '/upload/w_200')
+})
+
+
 const FountainSchema = new Schema({
     address: {
         street: String,
@@ -12,6 +22,8 @@ const FountainSchema = new Schema({
         state: String,
         country: String
     },
+
+    images: [ImageSchema],
 
     author: {
         type: Schema.Types.ObjectId,
