@@ -13,10 +13,7 @@ const fountains = require("../controllers/fountains-controller")
 
 router.route("/")
     .get(catchAsync(fountains.showIndex))
-    .post(upload.array("image", MULTER_MAX_COUNT), (req, res) => {
-        res.send(req.files)
-    })
-// .post(isUserLoggedIn({ isOut: "redirect" }), validateFountain, catchAsync(fountains.createFountain))
+    .post(isUserLoggedIn({ isOut: "redirect" }), upload.array("image", MULTER_MAX_COUNT), validateFountain, catchAsync(fountains.createFountain))
 
 router.get("/new", isUserLoggedIn({ isOut: "redirect" }), fountains.renderNewForm)
 

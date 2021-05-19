@@ -19,6 +19,12 @@
             <%= fountain.address.number %>
         </p>
 
+        <% for(let img of fountain.images){ %>
+        <figure class="image is-128x128">
+            <img src="<%= img.url  %> ">
+        </figure>
+        <% } %>
+
         <div class="block" id="verifications">
             <%- include('../verifications/index')%>
         </div>

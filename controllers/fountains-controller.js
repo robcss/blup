@@ -12,8 +12,9 @@ module.exports.renderNewForm = (req, res) => {
 module.exports.createFountain = async (req, res) => {
     const { address } = req.body
     const author = req.user._id
+    const images = req.files.map(f => ({ url: f.path, filename: f.filename }))
 
-    const newFountain = await FountainService.createFountain({ address, author })
+    const newFountain = await FountainService.createFountain({ address, author, images })
 
     req.flash('success', 'Fountain added!')
     res.redirect(`/fountains/${newFountain._id}`)
