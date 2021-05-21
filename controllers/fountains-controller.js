@@ -57,8 +57,9 @@ module.exports.renderEditForm = async (req, res) => {
 module.exports.updateFountain = async (req, res) => {
     const { id } = req.params
     const { address } = req.body
+    const images = req.files.map(f => ({ url: f.path, filename: f.filename }))
 
-    const fountain = await FountainService.updateFountain(id, { address })
+    const fountain = await FountainService.updateFountain(id, { address }, images)
 
     req.flash('success', 'Fountain successfully updated!')
     res.redirect(`/fountains/${fountain._id}`)
