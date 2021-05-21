@@ -1,5 +1,5 @@
 import { createInputFieldObject } from "./InputField.js"
-import { validateFiles } from "./fileInputUtils.js"
+import { validateFiles, resetFileInputAndAlert } from "./fileInputUtils.js"
 
 const ids = ["inputStreet", "inputNumber", "inputCity", "inputPostcode", "inputCountry", "inputImage"]
 
@@ -94,10 +94,12 @@ fields.inputImage.validate = function () {
     const maxSize = parseInt(input.getAttribute("data-maxSize"))
 
 
-    const uploadPasses = validateFiles(input, fileArray, { maxCount, accept, maxSize })
+    const filesValidation = validateFiles(fileArray, { maxCount, accept, maxSize })
 
-    if (!uploadPasses) {
-        this.validated = false
+    console.log(filesValidation)
+
+    if (!filesValidation.result) {
+        resetFileInputAndAlert(input, filesValidation.message)
         return
     }
 

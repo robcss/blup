@@ -2,44 +2,45 @@
 import { formatBytes } from "../utils.js"
 
 
-export const validateFiles = (fileInput, fileArray, { maxCount, accept, maxSize }) => {
-    const passCount = validateCount(fileInput, fileArray, maxCount)
-    const passType = validateType(fileInput, fileArray, accept)
-    const passSize = validateSize(fileInput, fileArray, maxSize)
+export const validateFiles = (fileArray, { maxCount, accept, maxSize }) => {
+    try {
+        if (maxCount) validateCount(fileArray, maxCount)
+        if (accept) validateType(fileArray, accept)
+        if (maxSize) validateSize(fileArray, maxSize)
+    } catch (error) {
+        return { result: false, message: error.message }
+    }
 
-    return passCount && passType && passSize
+    return { result: true, message: "Files are valid!" }
 }
 
-const validateCount = (fileInput, fileArray, maxCount) => {
-    if (!maxCount) return true
+
+const validateCount = (fileArray, maxCount) => {
+    console.log(fileArray.length > maxCount)
     if (fileArray.length > maxCount) {
-        resetAndAlert(fileInput, `You can upload a maximum of ${maxCount} files!`)
-        return false
+        throw new Error(`You can upload a maximum of ${maxCount} files!`)
     }
     return true
 }
 
-const validateType = (fileInput, fileArray, accept) => {
-    if (!accept) return true
+
+const validateType = (fileArray, accept) => {
     const allowedTypes = accept.split(", ")
     if (!isEveryFileAllowed(fileArray, allowedTypes)) {
-        resetAndAlert(fileInput, `You can upload only ${accept} files!`)
-        return false
+        throw new Error(`You can upload only ${accept} files!`)
     }
     return true
 }
 
-const validateSize = (fileInput, fileArray, maxSize) => {
-    if (!maxSize) return true
+const validateSize = (fileArray, maxSize) => {
     if (!isEveryFileInSize(fileArray, maxSize)) {
-        resetAndAlert(fileInput, `You exceeded the maximum file size of ${formatBytes(maxSize)}`)
-        return false
+        throw new Error(`You exceeded the maximum file size of ${formatBytes(maxSize)}`)
     }
     return true
 }
 
 
-const resetAndAlert = (fileInput, text) => {
+export const resetFileInputAndAlert = (fileInput, text) => {
     resetFileInput(fileInput)
     alert(text)
     return
@@ -60,4 +61,6 @@ const isFileTypeAllowed = (fileType, allowedTypes) => {
     return allowedTypes.some(type => fileType === type)
 }
 
-const isEveryFileInSize = (fileArray, maxSize) => fileArray.every(file => file.size <= maxSize)
+const isEveryFileInSize = (fileArray, maxSize) => {
+    return fileArray.every(file => file.size <= maxSize)
+}
