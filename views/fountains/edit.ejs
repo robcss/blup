@@ -120,10 +120,13 @@
                     <div id="collapsible-message" class="message-body is-collapsible has-background-white-bis">
                         <div class="message-body-content">
                             <div class="columns is-mobile is-multiline">
-                                <% for(let img of fountain.images) {%>
+                                <% for(let [i, img] of fountain.images.entries()) {%>
                                 <div class="column is-6">
                                     <figure class=" image">
                                         <img src="<%= img.url  %> ">
+                                        <input class="is-checkradio is-danger" id="image_<%= i %>" type="checkbox"
+                                            name="exampleCheckbox">
+                                        <label for="image_<%= i %>"></label>
                                     </figure>
                                 </div>
                                 <% } %>
