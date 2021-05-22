@@ -6,7 +6,7 @@
     id="form-to-validate" data-fieldsGetter="fountain.js">
     <div class="columns">
         <div class="column is-6 is-offset-3">
-            <h1 class="title is-4">Add Fountain</h1>
+            <h1 class="title is-4">Edit Fountain</h1>
             <div class="columns">
                 <div class="column is-8">
                     <div class="field">
@@ -106,6 +106,31 @@
                         </label>
                     </div>
                 </div>
+            </div>
+
+            <div class="field">
+                <article class="message">
+                    <div class="message-header has-background-white pl-0">
+                        <label class="file-label">
+                            <a href="#collapsible-message" data-action="collapse">
+                                <button class="file-cta" type="button">Select and delete images</button>
+                            </a>
+                        </label>
+                    </div>
+                    <div id="collapsible-message" class="message-body is-collapsible has-background-white-bis">
+                        <div class="message-body-content">
+                            <div class="columns is-mobile is-multiline">
+                                <% for(let img of fountain.images) {%>
+                                <div class="column is-6">
+                                    <figure class=" image">
+                                        <img src="<%= img.url  %> ">
+                                    </figure>
+                                </div>
+                                <% } %>
+                            </div>
+                        </div>
+                    </div>
+                </article>
             </div>
 
             <div class="control">
