@@ -40,18 +40,22 @@ class FountainService {
         return fountain
     }
 
-    async updateFountain(id, data, imgs = []) {
-        if (imgs.length < 1) {
-            const fountain = await Fountain.findByIdAndUpdate(id, data)
-            return fountain
-        } else {
-            const fountain = await Fountain.findByIdAndUpdate(id,
+    async updateFountain(id, data, imagesToAdd = [], imagesNamesToRemove = []) {
+        let fountain = await Fountain.findByIdAndUpdate(id,
+            {
+                $set: data,
+                $push: { images: { $each: imagesToAdd } }
+            })
+
+        if (imagesNamesToRemove.length > 0) {
+            fountain = await Fountain.findByIdAndUpdate(id,
                 {
-                    $set: data,
-                    $push: { images: { $each: imgs } }
+                    $pull: { images: { filename: { $in: imagesNamesToRemove } } }
                 })
-            return fountain
         }
+
+        return fountain
+
     }
 
     async deleteFountain(id) {

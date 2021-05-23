@@ -120,12 +120,15 @@
                     <div id="collapsible-message" class="message-body is-collapsible has-background-white-bis">
                         <div class="message-body-content">
                             <div class="columns is-mobile is-multiline">
+                                <% if(fountain.images.length < 1) {%>
+                                <p>No images to delete</p>
+                                <% } %>
                                 <% for(let [i, img] of fountain.images.entries()) {%>
                                 <div class="column is-6">
                                     <figure class=" image">
                                         <img src="<%= img.url  %> ">
                                         <input class="is-checkradio is-danger" id="image_<%= i %>" type="checkbox"
-                                            name="exampleCheckbox">
+                                            name="deleteImages[]" value="<%=img.filename%>">
                                         <label for="image_<%= i %>"></label>
                                     </figure>
                                 </div>
