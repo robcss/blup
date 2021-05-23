@@ -16,7 +16,6 @@ export const validateFiles = (fileArray, { maxCount, accept, maxSize }) => {
 
 
 const validateCount = (fileArray, maxCount) => {
-    console.log(fileArray.length > maxCount)
     if (fileArray.length > maxCount) {
         throw new Error(`You can upload a maximum of ${maxCount} files!`)
     }

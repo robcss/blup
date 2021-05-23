@@ -96,8 +96,6 @@ fields.inputImage.validate = function () {
 
     const filesValidation = validateFiles(fileArray, { maxCount, accept, maxSize })
 
-    console.log(filesValidation)
-
     if (!filesValidation.result) {
         resetFileInputAndAlert(input, filesValidation.message)
         return
