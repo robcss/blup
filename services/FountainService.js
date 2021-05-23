@@ -1,4 +1,5 @@
 const Fountain = require("../models/fountain")
+const eventBus = require("../loaders/eventBus")
 
 class FountainService {
 
@@ -53,6 +54,8 @@ class FountainService {
                     $pull: { images: { filename: { $in: imagesNamesToRemove } } }
                 })
         }
+
+        eventBus.emit("fountain_imagesDeleted", "pippo")
 
         return fountain
 
