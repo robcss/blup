@@ -14,7 +14,8 @@ const addressSchema = Joi.object({
 
 const fountainSchema = Joi.object({
 
-    address: addressSchema
+    address: addressSchema,
+    deleteImages: Joi.array()
 });
 
 

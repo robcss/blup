@@ -1,14 +1,12 @@
 const ExpressError = require("../utils/ExpressError")
 
-const { addressSchema } = require("../joiSchemas")
+const { fountainSchema } = require("../joiSchemas")
 
 const FountainService = require("../services/FountainService")
 
 module.exports.validateFountain = (req, res, next) => {
 
-    const { address } = req.body
-
-    const { error } = addressSchema.validate(address);
+    const { error } = fountainSchema.validate(req.body);
     if (error) {
         const msg = error.details.map(el => el.message).join(',')
         throw new ExpressError(msg, 400)
