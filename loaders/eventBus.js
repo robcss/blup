@@ -12,7 +12,7 @@ class EventBus extends EventEmitter {
 
     createEvent(name, payload) {
         const stack = new Error().stack
-        console.log(stack)
+
         return {
             name,
             origin: {
@@ -28,7 +28,7 @@ class EventBus extends EventEmitter {
         this.emit(event.name, event)
     }
 
-    listen(name, callback) {
+    receive(name, callback) {
         this.on(name, callback)
     }
 

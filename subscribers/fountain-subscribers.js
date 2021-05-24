@@ -1,6 +1,6 @@
 const eventBus = require("../loaders/eventBus")
 
-eventBus.listen("fountain_imagesDeleted", async (event) => {
+eventBus.receive("fountain_imagesDeleted", async (event) => {
 
     eventBus.log(event)
 
