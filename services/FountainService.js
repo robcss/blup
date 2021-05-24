@@ -55,7 +55,10 @@ class FountainService {
                 })
         }
 
-        eventBus.emit("fountain_imagesDeleted", "pippo")
+
+        const payload = eventBus.createPayload("pippo")
+
+        eventBus.emit("fountain_imagesDeleted", payload)
 
         return fountain
 
