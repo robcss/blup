@@ -3,22 +3,37 @@ const { EventEmitter } = require("events")
 class EventBus extends EventEmitter {
 
     _getCaller(stack) {
-        return stack.split("\n")[2].match(/at\s(.*)\s/)[1]
+        return stack.split("\n")[3].match(/at\s(.*)\s/)[1]
     }
 
     _getFile(stack) {
-        return stack.split("\n")[2].match(/\((.*)\)/)[1].split("\\").pop()
+        return stack.split("\n")[3].match(/\((.*)\)/)[1].split("\\").pop()
     }
 
-    createPayload(payload) {
+    createEvent(name, payload) {
         const stack = new Error().stack
+        console.log(stack)
         return {
+            name,
             origin: {
                 caller: this._getCaller(stack),
                 file: this._getFile(stack)
             },
             payload
         }
+    }
+
+    send(name, payload) {
+        const event = this.createEvent(name, payload)
+        this.emit(event.name, event)
+    }
+
+    listen(name, callback) {
+        this.on(name, callback)
+    }
+
+    log(event) {
+        console.log(`Event "${event.name}" emitted from ${event.origin.caller} at ${event.origin.file}`)
     }
 }
 

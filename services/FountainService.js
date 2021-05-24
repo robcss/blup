@@ -53,12 +53,9 @@ class FountainService {
                 {
                     $pull: { images: { filename: { $in: imagesNamesToRemove } } }
                 })
+
+            eventBus.send("fountain_imagesDeleted", imagesNamesToRemove)
         }
-
-
-        const payload = eventBus.createPayload("pippo")
-
-        eventBus.emit("fountain_imagesDeleted", payload)
 
         return fountain
 
