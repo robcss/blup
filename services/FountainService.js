@@ -62,7 +62,8 @@ class FountainService {
     }
 
     async deleteFountain(id) {
-        await Fountain.findByIdAndDelete(id)
+        const deletedFountain = await Fountain.findByIdAndDelete(id)
+        eventBus.send("fountain_deleted", deletedFountain)
     }
 
     async isFountainCreatedByUser(id, userId) {
