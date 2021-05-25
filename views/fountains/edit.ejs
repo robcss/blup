@@ -126,7 +126,7 @@
                                 <% for(let [i, img] of fountain.images.entries()) {%>
                                 <div class="column is-6">
                                     <figure class=" image">
-                                        <img src="<%= img.url  %> ">
+                                        <img src="<%= img.thumbnail  %> ">
                                         <input class="is-checkradio is-danger" id="image_<%= i %>" type="checkbox"
                                             name="deleteImages[]" value="<%=img.filename%>">
                                         <label for="image_<%= i %>"></label>
