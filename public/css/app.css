@@ -15,6 +15,17 @@
   text-overflow: ellipsis;
 } */
 
+
+.tags{
+  position: absolute;
+  z-index: 5;
+}
+
+.counterTag{
+  border-bottom-right-radius: 4px !important;
+  border-top-right-radius: 4px !important;
+}
+
 .navbar {
   max-width: 1360px;
   margin: 0 auto;
