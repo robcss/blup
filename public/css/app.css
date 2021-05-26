@@ -16,6 +16,7 @@
 } */
 
 
+
 .tags{
   position: absolute;
   z-index: 5;
@@ -45,5 +46,11 @@
     margin-left: 0;
     width: 107px;
     height: 47px;
+  }
+}
+
+@media (min-width: 1024px) {
+  #imageAndMap, #imageAndMap .image {
+    height: 600px;
   }
 }
