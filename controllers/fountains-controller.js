@@ -1,4 +1,5 @@
 const FountainService = require("../services/FountainService")
+const GeocoderService = require("../services/GeocoderService")
 
 module.exports.showIndex = async (req, res) => {
     const fountains = await FountainService.getAllFountains()
@@ -11,10 +12,14 @@ module.exports.renderNewForm = (req, res) => {
 
 module.exports.createFountain = async (req, res) => {
     const { address } = req.body
+
+    const geoData = await GeocoderService.geocodeFromAddress(address)
+    const geometry = GeocoderService.getGeometry(geoData)
+
     const author = req.user._id
     const images = req.files.map(f => ({ url: f.path, filename: f.filename }))
 
-    const newFountain = await FountainService.createFountain({ address, author, images })
+    const newFountain = await FountainService.createFountain({ address, geometry, author, images })
 
     req.flash('success', 'Fountain added!')
     res.redirect(`/fountains/${newFountain._id}`)
@@ -57,9 +62,13 @@ module.exports.renderEditForm = async (req, res) => {
 module.exports.updateFountain = async (req, res) => {
     const { id } = req.params
     const { address, deleteImages } = req.body
+
+    const geoData = await GeocoderService.geocodeFromAddress(address)
+    const geometry = GeocoderService.getGeometry(geoData)
+
     const images = req.files.map(f => ({ url: f.path, filename: f.filename }))
 
-    const fountain = await FountainService.updateFountain(id, { address }, images, deleteImages)
+    const fountain = await FountainService.updateFountain(id, { address, geometry }, images, deleteImages)
 
     req.flash('success', 'Fountain successfully updated!')
     res.redirect(`/fountains/${fountain._id}`)
