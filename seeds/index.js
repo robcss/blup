@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const municipalitiesDataset = require("./italy_munic.json");
+const municipalitiesDataset = require("./italy_munic_geocoded500.json");
 const randomInt = require("../utils/randomInt");
 
 const Fountain = require("../models/fountain");
@@ -43,9 +43,11 @@ const seedDB = async () => {
             country: "Italia"
         }
 
+        const geometry = munic.geometry
+
         const author = '60786352e744661d4027be62'
 
-        const fountain = new Fountain({ address, author })
+        const fountain = new Fountain({ address, author, geometry })
 
         await fountain.save()
     }
