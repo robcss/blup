@@ -22,7 +22,7 @@ db.once("open", () => {
 
 const municMaxIndex = municipalitiesDataset.length - 3 // avoid selecting the last two objects in the array
 
-const seedsNumber = 50
+const seedsNumber = 200
 
 const seedDB = async () => {
 

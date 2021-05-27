@@ -1,5 +1,12 @@
 <% layout('layouts/boilerplate')%>
 
+<script src="/js/mapbox/showMapCluster.js?v6" async defer></script>
+
+<div class="box has-background-info-dark p-1 mb-6">
+    <div id="map" style="width: 100%; height: 500px" data-accessToken="<%=process.env.MAPBOX_TOKEN %>"
+        data-fountains="<%=JSON.stringify({ features: fountains})%>"></div>
+</div>
+
 <div class="columns">
     <div class="column is-10 is-offset-1">
         <div class="columns is-multiline">
@@ -34,7 +41,7 @@
                     <div class="card-content">
                         <div class="content">
 
-                            <p class="title is-4">
+                            <p class="title is-5">
                                 <%= fountain.address.city %>,
                                 <%= fountain.address.state %>
                             </p>
@@ -42,16 +49,16 @@
                                 <%= fountain.address.street %>
                                 <%= fountain.address.number %>
                             </p>
-                            <p class="subtitle is-4">
+                            <p class="subtitle is-5">
                                 <%= fountain.address.country %>
-                            </p>
-                            <p class="subtitle is-6">Found by <a href="#">
-                                    <%= fountain.author.username %>
-                                </a>
                             </p>
                         </div>
                     </div>
                     <footer class="card-footer">
+                        <p class="card-footer-item">
+                            Found by&nbsp<a href="#"><%= fountain.author.username %></a>
+                        </p>
+
                         <a href="/fountains/<%= fountain._id %>" class="card-footer-item">Show</a>
                     </footer>
                 </div>
