@@ -4,7 +4,7 @@ class GeocoderService {
 
     composeQuery(address) {
         const query = `${address.number} ${address.street} ${address.postcode} ${address.city} ${address.state} ${address.country}`
-        return query
+        return query.replace(/undefined\s/g, '')
     }
 
 
