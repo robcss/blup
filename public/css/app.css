@@ -1,8 +1,8 @@
-.bm--card-equal-height {
+/* .bm--card-equal-height {
   display: flex;
   flex-direction: column;
   height: 100%;
-}
+} */
 
 .bm--card-equal-height .card-footer {
   margin-top: auto;
@@ -15,7 +15,25 @@
   text-overflow: ellipsis;
 } */
 
+.index-image {
+  height: 300px;
+}
 
+.index-image img {
+  object-fit: none; 
+  object-position: center; 
+  height: 100%;
+  width: 100%;
+}
+
+/* .index-image img {
+  max-height: 100%;
+  max-width: 100%;
+  object-fit: none; 
+  object-position: center; 
+  height: 100%;
+  width: 100%;
+} */
 
 .tags{
   position: absolute;
