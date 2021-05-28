@@ -3,7 +3,7 @@
 <script src="/js/mapbox/showMapCluster.js?v6" async defer></script>
 
 <div class="box has-background-info-dark p-1 mb-6">
-    <div id="map" style="width: 100%; height: 500px" data-accessToken="<%=process.env.MAPBOX_TOKEN %>"
+    <div id="mapCluster" data-accessToken="<%=process.env.MAPBOX_TOKEN %>"
         data-fountains="<%=JSON.stringify({ features: fountains})%>"></div>
 </div>
 

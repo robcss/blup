@@ -1,4 +1,4 @@
-const mapElement = document.getElementById("map")
+const mapElement = document.getElementById("mapCluster")
 
 const mapToken = mapElement.getAttribute("data-accessToken")
 
@@ -6,12 +6,13 @@ const fountains = JSON.parse(mapElement.getAttribute("data-fountains"))
 
 mapboxgl.accessToken = mapToken;
 const map = new mapboxgl.Map({
-    container: 'map',
+    container: 'mapCluster',
     style: 'mapbox://styles/mapbox/light-v10',
     center: [12.5674, 41.8719],
     zoom: 4.5
 });
 
+map.addControl(new mapboxgl.NavigationControl());
 
 map.on('load', function () {
     // Add a new source from our GeoJSON data and

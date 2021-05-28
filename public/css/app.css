@@ -15,6 +15,16 @@
   text-overflow: ellipsis;
 } */
 
+#mapCluster {
+  width: 100%; 
+  height: 500px;
+}
+
+#map{
+  width: 100%; 
+  height: 400px;
+}
+
 .index-image {
   height: 300px;
 }
