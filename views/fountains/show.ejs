@@ -12,27 +12,18 @@
 <div class="container is-fluid">
     <div class="box">
         <div class="block">
-
-            <p class="title is-4">
-                <%= fountain.address.city %>
-                <%= fountain.address.state %>,
-                <%= fountain.address.country %>
-            </p>
-            <p class="subtitle">
-                <%= fountain.address.street %>
-                <%= fountain.address.number %>
-            </p>
-
-
             <div class="columns is-multiline" id="imageAndMap">
-                <div class="column is-half">
+                <div class="column is-4">
+                    <div class="block" id="verifications">
+                        <%- include('../verifications/index')%>
+                    </div>
                     <% if (fountain.images.length > 0){ %>
                     <div class="glide">
                         <div class="glide__track" data-glide-el="track">
                             <ul class="glide__slides">
                                 <% for(let img of fountain.images){ %>
                                 <li class="glide__slide">
-                                    <figure class=" image">
+                                    <figure class="image">
                                         <img src="<%= img.url  %> ">
                                     </figure>
                                 </li>
@@ -62,7 +53,21 @@
                     </figure>
                     <% } %>
                 </div>
-                <div class="column is-half">
+                <div class="column">
+                    <p class="title is-4">
+                        <%= fountain.address.city %>
+                        <%= fountain.address.state %>,
+                        <%= fountain.address.country %>
+                    </p>
+                    <p class="subtitle mb-1">
+                        <%= fountain.address.street %>
+                        <%= fountain.address.number %>
+                    </p>
+                    <p class="mb-4"></p>
+                    Found by <a href="#">
+                        <%= fountain.author.username %>
+                    </a>
+                    </p>
                     <div id='map' data-accessToken="<%=process.env.MAPBOX_TOKEN %>"
                         data-geometry="<%=JSON.stringify(fountain.geometry)%>"></div>
                 </div>
@@ -71,14 +76,6 @@
 
 
 
-            <div class="block" id="verifications">
-                <%- include('../verifications/index')%>
-            </div>
-
-            <p class="subtitle is-6">Found by <a href="#">
-                    <%= fountain.author.username %>
-                </a>
-            </p>
         </div>
 
         <% if(currentUser && fountain.author.equals(currentUser._id)) { %>
