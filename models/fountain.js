@@ -12,6 +12,7 @@ ImageSchema.virtual('thumbnail').get(function () {
     return this.url.replace('/upload', '/upload/w_200')
 })
 
+const opts = { toJSON: { virtuals: true } }
 
 const FountainSchema = new Schema({
     address: {
@@ -65,6 +66,25 @@ const FountainSchema = new Schema({
         }
     ]
 
+}, opts)
+
+FountainSchema.virtual('properties.popUpMarkup').get(function () {
+    return `
+    <p class="title is-6">
+    ${this.address.city || ""}
+    ${this.address.state || ""}
+</p><p class="subtitle is-6">
+    ${this.address.street || ""}
+    ${this.address.number || ""}
+    <br>
+    <br>
+    Verifications: ${this.verificationCount}
+    <br>
+    Reports: ${this.reportCount}
+</p>
+<div class="button has-text-centered">
+<a href="/fountains/${this._id}">Show</a>
+</div>`
 })
 
 FountainSchema.post('findOneAndDelete', async function (doc) {
