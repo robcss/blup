@@ -21,16 +21,17 @@
 
 <body>
 
+    <div id="wrapper">
+        <%- include('../partials/navbar')%>
 
-    <%- include('../partials/navbar')%>
+        <section class="container">
+            <div class="container is-fluid">
+                <%- include('../partials/flash')%>
+                <%- body %>
+            </div>
+        </section>
 
-    <section>
-
-        <div class="container">
-            <%- include('../partials/flash')%>
-            <%- body %>
-        </div>
-    </section>
+    </div>
 
     <%- include('../partials/footer')%>
 

@@ -9,188 +9,185 @@
 <script type="module" src="/js/reports/index.js?v6" async defer></script>
 <% } %>
 
-<div class="container is-fluid">
-    <div class="box">
-        <div class="block">
-            <div class="columns is-multiline" id="imageAndMap">
-                <div class="column is-4">
-                    <div class="block">
-                        <p class="title is-4">
-                            Verifications: <button type="button" class="button is-small"
-                                id="modal-launch_verifications"><%= fountain.verificationCount %></button>
-                            <br>
-                            <br>
-                            <progress class="progress is-success" id="progress_verifications"
-                                value=<%= fountain.verificationCount %> max="10"></progress>
-                        </p>
-                    </div>
-                    <div class="modal" id="modal_verifications">
-                        <div class="modal-background"></div>
-                        <div class="modal-card">
-                            <header class=" modal-card-head">
-                                <p class="modal-card-title">Verified by</p>
-                                <button class="delete" aria-label="close"></button>
-                            </header>
-                            <section class="modal-card-body" id="verifications">
-                                <% for(let verification of fountain.verifications){ %>
-                                <%- include('../verifications/showOne',{verification})%>
-                                <% } %>
-                            </section>
-                            <footer class="modal-card-foot">
-                            </footer>
-                        </div>
-
-                    </div>
-                    <% if (fountain.images.length > 0){ %>
-                    <div class="glide">
-                        <div class="glide__track" data-glide-el="track">
-                            <ul class="glide__slides">
-                                <% for(let img of fountain.images){ %>
-                                <li class="glide__slide">
-                                    <figure class="image">
-                                        <img src="<%= img.url  %> ">
-                                    </figure>
-                                </li>
-                                <% } %>
-                            </ul>
-                        </div>
-
-                        <div class="glide__arrows" data-glide-el="controls">
-                            <button class="glide__arrow glide__arrow--left" data-glide-dir="<">
-                                <i class="fas fa-arrow-left"></i>
-                            </button>
-                            <button class="glide__arrow glide__arrow--right" data-glide-dir=">">
-                                <i class="fas fa-arrow-right"></i>
-                            </button>
-                        </div>
-
-                        <div class="glide__bullets" data-glide-el="controls[nav]">
-                            <% for(let i = 0; i < fountain.images.length; i++){ %>
-                            <button class="glide__bullet" data-glide-dir="=<%= i %> "></button>
-                            <% } %>
-                        </div>
-
-                    </div>
-                    <% } else { %>
-                    <figure class="image">
-                        <img src="/media/dRisorsa 10-100.jpg" alt="Placeholder image">
-                    </figure>
-                    <% } %>
-                </div>
-                <div class="column">
+<div class="box">
+    <div class="block">
+        <div class="columns is-multiline" id="imageAndMap">
+            <div class="column is-4">
+                <div class="block">
                     <p class="title is-4">
-                        <%= fountain.address.city %>
-                        <%= fountain.address.state %>,
-                        <%= fountain.address.country %>
+                        Verifications: <button type="button" class="button is-small"
+                            id="modal-launch_verifications"><%= fountain.verificationCount %></button>
+                        <br>
+                        <br>
+                        <progress class="progress is-success" id="progress_verifications"
+                            value=<%= fountain.verificationCount %> max="10"></progress>
                     </p>
-                    <p class="subtitle mb-1">
-                        <%= fountain.address.street %>
-                        <%= fountain.address.number %>
-                    </p>
-                    <p class="mb-4"></p>
-                    Found by <a href="#">
-                        <%= fountain.author.username %>
-                    </a>
-                    </p>
-                    <div id='map' data-accessToken="<%=process.env.MAPBOX_TOKEN %>"
-                        data-geometry="<%=JSON.stringify(fountain.geometry)%>"></div>
                 </div>
+                <div class="modal" id="modal_verifications">
+                    <div class="modal-background"></div>
+                    <div class="modal-card">
+                        <header class=" modal-card-head">
+                            <p class="modal-card-title">Verified by</p>
+                            <button class="delete" aria-label="close"></button>
+                        </header>
+                        <section class="modal-card-body" id="verifications">
+                            <% for(let verification of fountain.verifications){ %>
+                            <%- include('../verifications/showOne',{verification})%>
+                            <% } %>
+                        </section>
+                        <footer class="modal-card-foot">
+                        </footer>
+                    </div>
 
+                </div>
+                <% if (fountain.images.length > 0){ %>
+                <div class="glide">
+                    <div class="glide__track" data-glide-el="track">
+                        <ul class="glide__slides">
+                            <% for(let img of fountain.images){ %>
+                            <li class="glide__slide">
+                                <figure class="image">
+                                    <img src="<%= img.url  %> ">
+                                </figure>
+                            </li>
+                            <% } %>
+                        </ul>
+                    </div>
+
+                    <div class="glide__arrows" data-glide-el="controls">
+                        <button class="glide__arrow glide__arrow--left" data-glide-dir="<">
+                            <i class="fas fa-arrow-left"></i>
+                        </button>
+                        <button class="glide__arrow glide__arrow--right" data-glide-dir=">">
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+
+                    <div class="glide__bullets" data-glide-el="controls[nav]">
+                        <% for(let i = 0; i < fountain.images.length; i++){ %>
+                        <button class="glide__bullet" data-glide-dir="=<%= i %> "></button>
+                        <% } %>
+                    </div>
+
+                </div>
+                <% } else { %>
+                <figure class="image">
+                    <img src="/media/dRisorsa 10-100.jpg" alt="Placeholder image">
+                </figure>
+                <% } %>
+            </div>
+            <div class="column">
+                <p class="title is-4">
+                    <%= fountain.address.city %>
+                    <%= fountain.address.state %>,
+                    <%= fountain.address.country %>
+                </p>
+                <p class="subtitle mb-1">
+                    <%= fountain.address.street %>
+                    <%= fountain.address.number %>
+                </p>
+                <p class="mb-4"></p>
+                Found by <a href="#">
+                    <%= fountain.author.username %>
+                </a>
+                </p>
+                <div id='map' data-accessToken="<%=process.env.MAPBOX_TOKEN %>"
+                    data-geometry="<%=JSON.stringify(fountain.geometry)%>"></div>
             </div>
 
-
-
         </div>
 
-        <% if(currentUser && fountain.author.equals(currentUser._id)) { %>
-        <div class="block is-flex">
-            <form action="/fountains/<%=fountain._id%>?_method=DELETE" method="POST">
-                <button class="button is-danger mr-2">Delete</button>
-            </form>
 
-            <a href="/fountains/<%= fountain._id %>/edit" class="button">Edit</a>
-        </div>
-        <% } %>
 
+    </div>
+
+    <% if(currentUser && fountain.author.equals(currentUser._id)) { %>
+    <div class="block is-flex">
+        <form action="/fountains/<%=fountain._id%>?_method=DELETE" method="POST">
+            <button class="button is-danger mr-2">Delete</button>
+        </form>
+
+        <a href="/fountains/<%= fountain._id %>/edit" class="button">Edit</a>
+    </div>
+    <% } %>
+
+    <% if(currentUser){ %>
+    <div class="block">
+        <span id="verifyButtonContainer" data-uri="/fountains/<%= fountain._id %>/verify">
+
+            <% if(!fountainIsVerifiedByUser){ %>
+
+            <button type="button" class="button is-success" data-method="POST">Verify</button>
+
+            <% } else { %>
+
+            <button type="button" class="button is-danger" data-method="DELETE">Unverify</button>
+
+            <% } %>
+        </span>
+
+        <button type="button" class="button is-warning" id="modal-launch_reports">Report problem</button>
+    </div>
+    <div class="modal" id="modal_reports">
+        <div class="modal-background"></div>
+        <%- include('../reports/new')%>
+        <button class="modal-close is-large" aria-label="close"></button>
+    </div>
+    <% } %>
+
+    <div class="tabs">
+        <ul>
+            <li class="is-active" id="tab_comments"><a>Comments</a></li>
+            <li id="tab_reports"><a>
+                    Reports
+                    <% if(fountain.reportCount > 0){ %>
+                    <span class="ml-2 tag is-warning is-rounded" id="tag_reportCount"><%= fountain.reportCount %></span>
+                    <% } %>
+                </a></li>
+        </ul>
+    </div>
+
+    <div class="block pt-2" id="tabContent_comments">
         <% if(currentUser){ %>
         <div class="block">
-            <span id="verifyButtonContainer" data-uri="/fountains/<%= fountain._id %>/verify">
-
-                <% if(!fountainIsVerifiedByUser){ %>
-
-                <button type="button" class="button is-success" data-method="POST">Verify</button>
-
-                <% } else { %>
-
-                <button type="button" class="button is-danger" data-method="DELETE">Unverify</button>
-
-                <% } %>
-            </span>
-
-            <button type="button" class="button is-warning" id="modal-launch_reports">Report problem</button>
-        </div>
-        <div class="modal" id="modal_reports">
-            <div class="modal-background"></div>
-            <%- include('../reports/new')%>
-            <button class="modal-close is-large" aria-label="close"></button>
+            <article class="media">
+                <figure class="media-left">
+                    <p class="image is-64x64">
+                        <img src="https://bulma.io/images/placeholders/128x128.png">
+                    </p>
+                </figure>
+                <div class="media-content">
+                    <div class="field">
+                        <p class="control">
+                            <textarea data-uri="/fountains/<%= fountain._id %>/comments" class="textarea"
+                                id="inputComment" placeholder="Add a comment..."></textarea>
+                        </p>
+                    </div>
+                    <div class="field">
+                        <p class="control">
+                            <button type="button" class="button" id="postCommentButton">Post
+                                comment</button>
+                        </p>
+                    </div>
+                </div>
+            </article>
         </div>
         <% } %>
 
-        <div class="tabs">
-            <ul>
-                <li class="is-active" id="tab_comments"><a>Comments</a></li>
-                <li id="tab_reports"><a>
-                        Reports
-                        <% if(fountain.reportCount > 0){ %>
-                        <span class="ml-2 tag is-warning is-rounded"
-                            id="tag_reportCount"><%= fountain.reportCount %></span>
-                        <% } %>
-                    </a></li>
-            </ul>
-        </div>
-
-        <div class="block pt-2" id="tabContent_comments">
-            <% if(currentUser){ %>
-            <div class="block">
-                <article class="media">
-                    <figure class="media-left">
-                        <p class="image is-64x64">
-                            <img src="https://bulma.io/images/placeholders/128x128.png">
-                        </p>
-                    </figure>
-                    <div class="media-content">
-                        <div class="field">
-                            <p class="control">
-                                <textarea data-uri="/fountains/<%= fountain._id %>/comments" class="textarea"
-                                    id="inputComment" placeholder="Add a comment..."></textarea>
-                            </p>
-                        </div>
-                        <div class="field">
-                            <p class="control">
-                                <button type="button" class="button" id="postCommentButton">Post
-                                    comment</button>
-                            </p>
-                        </div>
-                    </div>
-                </article>
-            </div>
+        <div class="block" id="comments">
+            <% for(let comment of fountain.comments){ %>
+            <%- include('../comments/showOne', {comment})%>
             <% } %>
-
-            <div class="block" id="comments">
-                <% for(let comment of fountain.comments){ %>
-                <%- include('../comments/showOne', {comment})%>
-                <% } %>
-            </div>
-
         </div>
 
-        <div class="block pt-2 is-hidden" id="tabContent_reports">
-            <div class="block">
-                <div class="column is-8" id="reports">
-                    <% for(let report of fountain.reports){ %>
-                    <%- include('../reports/showOne',{report})%>
-                    <% } %>
-                </div>
+    </div>
+
+    <div class="block pt-2 is-hidden" id="tabContent_reports">
+        <div class="block">
+            <div class="column is-8" id="reports">
+                <% for(let report of fountain.reports){ %>
+                <%- include('../reports/showOne',{report})%>
+                <% } %>
             </div>
         </div>
     </div>

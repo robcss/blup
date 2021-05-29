@@ -1,12 +1,46 @@
+
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+#wrapper {
+  flex: 1;
+}
+
+.navbar {
+  max-width: 1360px;
+  margin: 0 auto;
+}
+
+
+#navbar-logo {
+  background: url(../media/dRisorsa4-100.jpg) no-repeat center center;
+  background-size: cover;
+  
+  width: 161px;
+  height: 70px;
+}
+
+@media (max-width: 1024px) {
+  #navbar-logo {
+    margin-left: 0;
+    width: 107px;
+    height: 47px;
+  }
+}
+
+#mapCluster {
+  width: 100%; 
+  height: 500px;
+}
+
 /* .bm--card-equal-height {
   display: flex;
   flex-direction: column;
   height: 100%;
 } */
-
-.bm--card-equal-height .card-footer {
-  margin-top: auto;
-}
 
 /* .bm--card-equal-height p {
   display:block;
@@ -15,10 +49,10 @@
   text-overflow: ellipsis;
 } */
 
-#mapCluster {
-  width: 100%; 
-  height: 500px;
+.bm--card-equal-height .card-footer {
+  margin-top: auto;
 }
+
 
 .index-image {
   height: 300px;
@@ -48,28 +82,6 @@
 .counterTag{
   border-bottom-right-radius: 4px !important;
   border-top-right-radius: 4px !important;
-}
-
-.navbar {
-  max-width: 1360px;
-  margin: 0 auto;
-}
-
-
-#navbar-logo {
-  background: url(../media/dRisorsa4-100.jpg) no-repeat center center;
-  background-size: cover;
-  
-  width: 161px;
-  height: 70px;
-}
-
-@media (max-width: 1024px) {
-  #navbar-logo {
-    margin-left: 0;
-    width: 107px;
-    height: 47px;
-  }
 }
 
 #map{
