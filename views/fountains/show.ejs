@@ -4,7 +4,7 @@
 
 <% if(currentUser){ %>
 <script type="module" src="/js/comments/index.js?v6" async defer></script>
-<script src="/js/verifications/index.js?v6" async defer></script>
+<script type="module" src="/js/verifications/index.js?v6" async defer></script>
 <script src="/js/formValidation/index.js?v6" async defer></script>
 <script type="module" src="/js/reports/index.js?v6" async defer></script>
 <% } %>
@@ -14,8 +14,26 @@
         <div class="block">
             <div class="columns is-multiline" id="imageAndMap">
                 <div class="column is-4">
-                    <div class="block" id="verifications">
-                        <%- include('../verifications/index')%>
+                    <div class="block">
+                        <p class="title is-4">
+                            Verifications: <button type="button" class="button is-small"
+                                id="modal-launch_verifications"><%= fountain.verificationCount %></button>
+                            <br>
+                            <br>
+                            <progress class="progress is-success" id="progress_verifications"
+                                value=<%= fountain.verificationCount %> max="10"></progress>
+                        </p>
+                    </div>
+                    <div class="modal" id="modal_verifications">
+                        <div class="modal-background"></div>
+                        <div class="modal-card">
+                            <div class="modal-card-body" id="verifications">
+                                <% for(let verification of fountain.verifications){ %>
+                                <%- include('../verifications/showOne',{verification})%>
+                                <% } %>
+                            </div>
+                        </div>
+                        <button class="modal-close is-large" aria-label="close"></button>
                     </div>
                     <% if (fountain.images.length > 0){ %>
                     <div class="glide">
@@ -153,8 +171,8 @@
             <% } %>
 
             <div class="block" id="comments">
-                <% for(comment of fountain.comments){ %>
-                <%- include('../comments/showOne')%>
+                <% for(let comment of fountain.comments){ %>
+                <%- include('../comments/showOne', {comment})%>
                 <% } %>
             </div>
 
@@ -163,8 +181,8 @@
         <div class="block pt-2 is-hidden" id="tabContent_reports">
             <div class="block">
                 <div class="column is-8" id="reports">
-                    <% for(report of fountain.reports){ %>
-                    <%- include('../reports/showOne')%>
+                    <% for(let report of fountain.reports){ %>
+                    <%- include('../reports/showOne',{report})%>
                     <% } %>
                 </div>
             </div>

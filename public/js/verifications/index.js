@@ -1,3 +1,5 @@
+import { postVerification } from "./postVerification.js"
+import { deleteVerification } from "./deleteVerification.js"
 
 const verifyButtonContainer = document.getElementById("verifyButtonContainer")
 
@@ -33,13 +35,16 @@ verifyButton.addEventListener("mouseup", async event => {
 
     try {
 
-        const updatedVerifications = await fetchVerification(method, uri)
+        if (method === "POST") {
+            await postVerification(uri, verifications)
+            updateVerificationCount(1)
+            changeButton(verifyButton, unverifyOpts)
 
-        verifications.innerHTML = updatedVerifications
-
-        setButtonState(verifyButton, method)
-
-
+        } else if (method === "DELETE") {
+            await deleteVerification(uri)
+            updateVerificationCount(-1)
+            changeButton(verifyButton, verifyOpts)
+        }
 
     } catch (e) {
         if (e.message === "401") {
@@ -54,39 +59,23 @@ verifyButton.addEventListener("mouseup", async event => {
 })
 
 
-const fetchVerification = async (method, uri) => {
-
-    const options = {
-        method,
-        headers: {
-            'Content-Type': 'text/plain'
-        },
-        body: method
-    }
-
-    const res = await fetch(uri, options)
-
-    if (!res.ok) {
-        throw new Error(res.status)
-    }
-
-    const resText = await res.text()
-
-    return resText
-}
-
-const setButtonState = (button, method) => {
-    if (method === "POST") {
-        changeButton(button, unverifyOpts)
-
-    } else if (method === "DELETE") {
-        changeButton(button, verifyOpts)
-    }
-}
-
 const changeButton = (button, { styleToRemove, styleToAdd, text, method }) => {
     button.classList.remove(styleToRemove)
     button.classList.add(styleToAdd)
     button.innerText = text
     button.setAttribute("data-method", method)
+}
+
+const updateVerificationCount = (inc) => {
+    const button = document.getElementById("modal-launch_verifications")
+    const progress = document.getElementById("progress_verifications")
+
+    let verifCount = parseInt(button.innerText) + inc
+
+    if (verifCount < 0) {
+        verifCount = 0
+    }
+
+    button.innerText = verifCount
+    progress.setAttribute("value", verifCount)
 }
