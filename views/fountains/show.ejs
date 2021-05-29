@@ -27,13 +27,19 @@
                     <div class="modal" id="modal_verifications">
                         <div class="modal-background"></div>
                         <div class="modal-card">
-                            <div class="modal-card-body" id="verifications">
+                            <header class=" modal-card-head">
+                                <p class="modal-card-title">Verified by</p>
+                                <button class="delete" aria-label="close"></button>
+                            </header>
+                            <section class="modal-card-body" id="verifications">
                                 <% for(let verification of fountain.verifications){ %>
                                 <%- include('../verifications/showOne',{verification})%>
                                 <% } %>
-                            </div>
+                            </section>
+                            <footer class="modal-card-foot">
+                            </footer>
                         </div>
-                        <button class="modal-close is-large" aria-label="close"></button>
+
                     </div>
                     <% if (fountain.images.length > 0){ %>
                     <div class="glide">

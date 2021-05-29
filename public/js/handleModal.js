@@ -17,6 +17,7 @@ const handleModal = (launchButton) => {
 
     const modalBackground = modal.querySelector(".modal-background")
     const modalClose = modal.querySelector(".modal-close")
+    const modalDelete = modal.querySelector(".delete")
 
 
     launchButton.addEventListener("click", event => {
@@ -31,11 +32,21 @@ const handleModal = (launchButton) => {
         modal.classList.remove("is-active")
     })
 
-    modalClose.addEventListener("click", event => {
-        event.preventDefault()
+    if (modalClose) {
+        modalClose.addEventListener("click", event => {
+            event.preventDefault()
 
-        modal.classList.remove("is-active")
-    })
+            modal.classList.remove("is-active")
+        })
+    }
+
+    if (modalDelete) {
+        modalDelete.addEventListener("click", event => {
+            event.preventDefault()
+
+            modal.classList.remove("is-active")
+        })
+    }
 }
 
 
