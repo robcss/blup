@@ -1,9 +1,73 @@
-<% layout('layouts/boilerplate')%>
+<!DOCTYPE html>
+<html>
 
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Blup</title>
+    <link rel="stylesheet" href="/css/mybulma.css">
+    <link rel="stylesheet" href="/css/app.css">
+    <script src="https://kit.fontawesome.com/312b6a7170.js" crossorigin="anonymous"></script>
+</head>
 
-<h1 class="title">
-    Hello World
-</h1>
-<p class="subtitle">
-    My first website with <strong>Bulma</strong>!
-</p>
+<body>
+
+    <section class="hero is-info is-fullheight">
+        <div class="hero-head">
+            <nav class="navbar py-3 px-4 mb-2" role="navigation" aria-label="main navigation">
+                <div class="navbar-brand">
+                    <a id="navbar-logo-landing" class="navbar-item" href="/">
+                    </a>
+                </div>
+
+                <div class="navbar-end is-hidden-mobile">
+                    <div class="navbar-item">
+                        <div class="buttons">
+                            <% if (currentUser){ %>
+                            <a class="button is-white is-outlined" href="/logout">
+                                Logout
+                            </a>
+                            <% } else { %>
+                            <a class="button is-white is-outlined" href="/register">
+                                <strong>Sign up</strong>
+                            </a>
+                            <a class="button is-white is-outlined" href="/login">
+                                Login
+                            </a>
+                            <% } %>
+                        </div>
+                    </div>
+                </div>
+
+            </nav>
+        </div>
+
+        <div class="hero-body pt-0">
+            <div class="container has-text-centered">
+                <div class="column is-6 is-offset-3">
+                    <h1 class="title">
+                        Find drinking fountains near you
+                    </h1>
+                    <h2 class="subtitle">
+                        Use the map to find the nearest water fountain or contribute by adding new ones
+                    </h2>
+                    <div class="field is-grouped is-justify-content-center">
+                        <p class="control">
+                            <a class="button is-white is-outlined" href="/fountains">
+                                View Map
+                            </a>
+                        </p>
+                        <p class="control">
+                            <a class="button is-white is-outlined" href="/fountains/new">
+                                Add a fountain
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</body>
+
+</html>

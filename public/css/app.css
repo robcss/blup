@@ -1,12 +1,36 @@
+/* @font-face {
+  font-family: blupFont;
+  src: url(../assets/fonts/Rounded_Elegance.ttf);
+} */
 
 body {
   display: flex;
   min-height: 100vh;
   flex-direction: column;
+  /* font-family: blupFont, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-stroke: 0.45px; */
 }
 
 #wrapper {
   flex: 1;
+}
+
+.hero.is-info {
+  background: linear-gradient(
+      rgba(0, 0, 0, 0.5),
+      rgba(0, 0, 0, 0.5)
+    ), url('../assets/images/pexels-fabio-lima-770225.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.hero .subtitle {
+  padding: 2rem 0;
+  line-height: 1.5;
 }
 
 .navbar {
@@ -14,9 +38,15 @@ body {
   margin: 0 auto;
 }
 
+#navbar-logo{
+  background: url(../assets/images/brand_transparent.png) no-repeat center center;
+}
 
-#navbar-logo {
-  background: url(../media/dRisorsa4-100.jpg) no-repeat center center;
+#navbar-logo-landing{
+  background: url(../assets/images/brand_landing_transparent.png) no-repeat center center;
+}
+
+#navbar-logo, #navbar-logo-landing {
   background-size: cover;
   
   width: 161px;
@@ -24,7 +54,7 @@ body {
 }
 
 @media (max-width: 1024px) {
-  #navbar-logo {
+  #navbar-logo, #navbar-logo-landing {
     margin-left: 0;
     width: 107px;
     height: 47px;
