@@ -18,6 +18,8 @@ const commentsRoutes = require("../routes/comments")
 const verificationsRoutes = require("../routes/verifications")
 const reportsRoutes = require("../routes/reports")
 
+const isEnvProduction = require("../utils/isEnvProduction")
+
 module.exports = (rootName) => {
     const app = express();
 
@@ -36,11 +38,13 @@ module.exports = (rootName) => {
     }))
 
     const sessionConfig = {
+        name: "session",
         secret: 'replaceMePlease',
         resave: false,
         saveUninitialized: true,
         cookie: {
             httpOnly: true,
+            secure: isEnvProduction(),
             expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
             maxAge: 1000 * 60 * 60 * 24 * 7
         }
