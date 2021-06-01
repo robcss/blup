@@ -4,8 +4,9 @@ const methodOverride = require('method-override')
 const ejsMate = require('ejs-mate')
 const session = require('express-session')
 const flash = require('connect-flash')
-const passport = require('passport');
-const LocalStrategy = require('passport-local');
+const passport = require('passport')
+const LocalStrategy = require('passport-local')
+const mongoSanitize = require('express-mongo-sanitize')
 
 const ExpressError = require("../utils/ExpressError")
 
@@ -29,6 +30,10 @@ module.exports = (rootName) => {
     app.use(express.text())
 
     app.use(express.static(path.join(rootName, 'public')))
+
+    app.use(mongoSanitize({
+        replaceWith: '_'
+    }))
 
     const sessionConfig = {
         secret: 'replaceMePlease',
