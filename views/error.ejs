@@ -8,9 +8,13 @@
                     <%=err.message%>
                 </p>
             </div>
+
+            <% if(process.env.NODE_ENV !== "production"){ %>
             <div class="message-body">
                 <%= err.stack %>
             </div>
+            <% } %>
+
         </article>
     </div>
 </div>
