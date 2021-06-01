@@ -125,7 +125,7 @@ body {
   }
 
   .marker {
-    background-image: url('../assets/images/dRisorsa_17.png');
+    background-image: url('../assets/images/map_marker.png');
     background-size: cover;
     width: 25px;
     height: 32px;
