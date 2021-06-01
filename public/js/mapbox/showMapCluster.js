@@ -42,11 +42,11 @@ map.on('load', function () {
             'circle-color': [
                 'step',
                 ['get', 'point_count'],
-                '#00BCD4',
+                '#83cddf',
                 10,
-                '#2196F3',
+                '#447fd4',
                 30,
-                '#3F51B5'
+                '#265aa6'
             ],
             'circle-radius': [
                 'step',

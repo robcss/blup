@@ -15,6 +15,9 @@ const map = new mapboxgl.Map({
 
 map.addControl(new mapboxgl.NavigationControl());
 
-new mapboxgl.Marker()
+const el = document.createElement('div');
+el.className = 'marker';
+
+new mapboxgl.Marker(el)
     .setLngLat(geometry.coordinates)
     .addTo(map)
