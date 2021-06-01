@@ -8,6 +8,8 @@ const passport = require('passport')
 const LocalStrategy = require('passport-local')
 const mongoSanitize = require('express-mongo-sanitize')
 
+const { helmet, contentSecurityPolicyOpts } = require("./helmet")
+
 const ExpressError = require("../utils/ExpressError")
 
 const User = require('../models/user');
@@ -52,6 +54,9 @@ module.exports = (rootName) => {
 
     app.use(session(sessionConfig))
     app.use(flash())
+
+    app.use(helmet())
+    app.use(helmet.contentSecurityPolicy(contentSecurityPolicyOpts))
 
     app.use(passport.initialize());
     app.use(passport.session());
