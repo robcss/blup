@@ -88,6 +88,9 @@ module.exports = (rootName) => {
         res.render("home")
     })
 
+    app.get("/about", (req, res) => {
+        res.render("about")
+    })
 
     app.all('*', (req, res, next) => {
         next(new ExpressError('Page Not Found', 404))

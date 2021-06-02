@@ -132,3 +132,15 @@ body {
     border-radius: 50%;
     cursor: pointer;
   }
+
+
+  /* @media (max-width: 769px)  {
+    .reverse-row-order {
+      display: inline-flexbox;
+      flex-direction: row-reverse;
+    }
+  } */
+
+  .reverse-row-order{
+    flex-direction:row-reverse;
+   }
