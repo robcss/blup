@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const municipalitiesDataset = require("./italy_munic_geocoded500.json");
-const randomInt = require("../utils/randomInt");
+const { randomInt, weightedRandom } = require("../utils/random");
 const getImageSeeds = require("./getImageSeeds")
 
 const Fountain = require("../models/fountain");
@@ -35,9 +35,7 @@ const seedDB = async () => {
 
     for (let i = 0; i < seedsNumber; i++) {
 
-        const randIndex = randomInt(municMaxIndex)
-
-        const munic = municipalitiesDataset[randIndex]
+        const munic = municipalitiesDataset[randomInt(municMaxIndex)]
 
         const address = {
             street: munic.indirizzo,
@@ -48,15 +46,30 @@ const seedDB = async () => {
 
         const geometry = munic.geometry
 
-        const author = '60b8b72a56bb1632a05b6746' //John
+        const images = getRandomImages(imagesSeeds)
 
-        const images = [imagesSeeds[randomInt(imagesSeeds.length - 1)]]
+        const author = '60b8b72a56bb1632a05b6746' //John
 
         const fountain = new Fountain({ address, author, geometry, images })
 
         await fountain.save()
     }
 }
+
+
+const getRandomImages = (imagesSeeds) => {
+    const imageCount = weightedRandom([[0, 50], [1, 25], [2, 20], [3, 5]]) //half probs of having no image
+
+    const images = []
+
+    for (let i = 1; i <= imageCount; i++) {
+        const randomImage = imagesSeeds[randomInt(imagesSeeds.length - 1)]
+        images.push(randomImage)
+    }
+
+    return images
+}
+
 
 seedDB().then(() => {
     console.log("DB seeded")
