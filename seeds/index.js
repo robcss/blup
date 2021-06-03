@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const municipalitiesDataset = require("./italy_munic_geocoded500.json");
 const { randomInt, weightedRandom } = require("../utils/random");
 const getImageSeeds = require("./getImageSeeds")
+const authorSeeds = require("./authorSeeds")
 
 const Fountain = require("../models/fountain");
 const Comment = require("../models/comment");
@@ -32,6 +33,7 @@ const seedDB = async () => {
     await Report.deleteMany({});
 
     const imagesSeeds = await getImageSeeds()
+    const authors = authorSeeds.local
 
     for (let i = 0; i < seedsNumber; i++) {
 
@@ -48,7 +50,7 @@ const seedDB = async () => {
 
         const images = getRandomImages(imagesSeeds)
 
-        const author = '60b8b72a56bb1632a05b6746' //John
+        const author = authors[randomInt(authors.length - 1)]
 
         const fountain = new Fountain({ address, author, geometry, images })
 
