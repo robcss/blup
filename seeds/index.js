@@ -24,7 +24,7 @@ db.once("open", () => {
 
 const municMaxIndex = municipalitiesDataset.length - 3 // avoid selecting the last two objects in the array
 
-const seedsNumber = 20
+const seedsNumber = 100
 
 const seedDB = async () => {
 
@@ -52,7 +52,9 @@ const seedDB = async () => {
 
         const author = authors[randomInt(authors.length - 1)]
 
-        const fountain = new Fountain({ address, author, geometry, images })
+        const { verificationCount, verifications } = getRandomVerifications(authors)
+
+        const fountain = new Fountain({ address, author, geometry, images, verificationCount, verifications })
 
         await fountain.save()
     }
@@ -70,6 +72,14 @@ const getRandomImages = (imagesSeeds) => {
     }
 
     return images
+}
+
+const getRandomVerifications = (authors) => {
+    const verificationCount = randomInt(authors.length) * randomInt(1) //half probs of having no verif
+
+    const verifications = authors.slice(0, verificationCount)
+
+    return { verificationCount, verifications }
 }
 
 
