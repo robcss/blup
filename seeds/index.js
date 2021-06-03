@@ -4,6 +4,7 @@ const { randomInt, randArrayElem, weightedRandom } = require("../utils/random");
 const getImageSeeds = require("./getImageSeeds")
 const authorSeeds = require("./authorSeeds")
 const commentSeeds = require("./commentSeeds")
+const reportSeeds = require("./reportsSeeds")
 
 const Fountain = require("../models/fountain");
 const Comment = require("../models/comment");
@@ -25,7 +26,7 @@ db.once("open", () => {
 
 const municMaxIndex = municipalitiesDataset.length - 3 // avoid selecting the last two objects in the array
 
-const seedsNumber = 100
+const seedsNumber = 350
 
 const seedDB = async () => {
 
@@ -57,7 +58,11 @@ const seedDB = async () => {
 
         const comments = await getRandomComments(commentSeeds, authors)
 
-        const fountain = new Fountain({ address, author, geometry, images, verificationCount, verifications, comments })
+        const { reportCount, reports } = await getRandomReports(reportSeeds, authors)
+
+        const fountain = new Fountain({
+            address, author, geometry, images, verificationCount, verifications, comments, reportCount, reports
+        })
 
         await fountain.save()
     }
@@ -102,6 +107,36 @@ const getRandomComments = async (commentSeeds, authors) => {
     }
 
     return comments
+}
+
+const getRandomReports = async (reportSeeds, authors) => {
+    const count = randomInt(3) * randomInt(1) //half probs of having no reports
+
+    const reports = []
+    let reportCount = 0
+
+    for (let i = 1; i <= count; i++) {
+        const newReport = new Report(
+            {
+                ...randArrayElem(reportSeeds),
+                author: randArrayElem(authors)
+            })
+
+        const isResolved = weightedRandom([[false, 70], [true, 30]])
+
+        if (isResolved) {
+            newReport.resolved = true
+            newReport.resolvedAuthor = randArrayElem(authors)
+        } else {
+            reportCount += 1
+        }
+
+        await newReport.save()
+
+        reports.push(newReport._id)
+    }
+
+    return { reportCount, reports }
 }
 
 
