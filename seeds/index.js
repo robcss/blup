@@ -1,8 +1,9 @@
 const mongoose = require("mongoose");
 const municipalitiesDataset = require("./italy_munic_geocoded500.json");
-const { randomInt, weightedRandom } = require("../utils/random");
+const { randomInt, randArrayElem, weightedRandom } = require("../utils/random");
 const getImageSeeds = require("./getImageSeeds")
 const authorSeeds = require("./authorSeeds")
+const commentSeeds = require("./commentSeeds")
 
 const Fountain = require("../models/fountain");
 const Comment = require("../models/comment");
@@ -50,11 +51,13 @@ const seedDB = async () => {
 
         const images = getRandomImages(imagesSeeds)
 
-        const author = authors[randomInt(authors.length - 1)]
+        const author = randArrayElem(authors)
 
         const { verificationCount, verifications } = getRandomVerifications(authors)
 
-        const fountain = new Fountain({ address, author, geometry, images, verificationCount, verifications })
+        const comments = await getRandomComments(commentSeeds, authors)
+
+        const fountain = new Fountain({ address, author, geometry, images, verificationCount, verifications, comments })
 
         await fountain.save()
     }
@@ -67,7 +70,7 @@ const getRandomImages = (imagesSeeds) => {
     const images = []
 
     for (let i = 1; i <= imageCount; i++) {
-        const randomImage = imagesSeeds[randomInt(imagesSeeds.length - 1)]
+        const randomImage = randArrayElem(imagesSeeds)
         images.push(randomImage)
     }
 
@@ -80,6 +83,25 @@ const getRandomVerifications = (authors) => {
     const verifications = authors.slice(0, verificationCount)
 
     return { verificationCount, verifications }
+}
+
+const getRandomComments = async (commentSeeds, authors) => {
+    const commentCount = randomInt(2)
+
+    const comments = []
+
+    for (let i = 1; i <= commentCount; i++) {
+        const newComment = new Comment({
+            body: randArrayElem(commentSeeds),
+            author: randArrayElem(authors)
+        })
+
+        await newComment.save()
+
+        comments.push(newComment._id)
+    }
+
+    return comments
 }
 
 

@@ -1,7 +1,10 @@
-module.exports.randomInt = (n) => {
+const randomInt = (n) => {
     return Math.round(Math.random() * n);
 };
 
+const randArrayElem = (array) => {
+    return array[randomInt(array.length - 1)]
+}
 
 const weightedRandom = (data) => {
 
@@ -26,4 +29,8 @@ const weightedRandom = (data) => {
 
 // console.log(weightedRandom(data))
 
-module.exports.weightedRandom = weightedRandom
+module.exports = {
+    randomInt,
+    randArrayElem,
+    weightedRandom
+}
