@@ -16,8 +16,7 @@ const styleSrcUrls = [
 
 const connectSrcUrls = [
     "https://api.mapbox.com/",
-    "https://a.tiles.mapbox.com/",
-    "https://b.tiles.mapbox.com/",
+    "https://*.tiles.mapbox.com/",
     "https://events.mapbox.com/",
     "https://ka-f.fontawesome.com/"
 ]
@@ -31,6 +30,7 @@ const contentSecurityPolicyOpts = {
         scriptSrc: ["'unsafe-inline'", "'self'", ...scriptSrcUrls],
         styleSrc: ["'self'", "'unsafe-inline'", ...styleSrcUrls],
         workerSrc: ["'self'", "blob:"],
+        childSrc: ["blob:"],
         objectSrc: [],
         imgSrc: [
             "'self'",
