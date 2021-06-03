@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const municipalitiesDataset = require("./italy_munic_geocoded500.json");
 const randomInt = require("../utils/randomInt");
+const getImageSeeds = require("./getImageSeeds")
 
 const Fountain = require("../models/fountain");
 const Comment = require("../models/comment");
@@ -22,13 +23,15 @@ db.once("open", () => {
 
 const municMaxIndex = municipalitiesDataset.length - 3 // avoid selecting the last two objects in the array
 
-const seedsNumber = 200
+const seedsNumber = 20
 
 const seedDB = async () => {
 
     await Fountain.deleteMany({});
     await Comment.deleteMany({});
     await Report.deleteMany({});
+
+    const imagesSeeds = await getImageSeeds()
 
     for (let i = 0; i < seedsNumber; i++) {
 
@@ -45,9 +48,11 @@ const seedDB = async () => {
 
         const geometry = munic.geometry
 
-        const author = '60786352e744661d4027be62'
+        const author = '60b8b72a56bb1632a05b6746' //John
 
-        const fountain = new Fountain({ address, author, geometry })
+        const images = [imagesSeeds[randomInt(imagesSeeds.length - 1)]]
+
+        const fountain = new Fountain({ address, author, geometry, images })
 
         await fountain.save()
     }
