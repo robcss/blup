@@ -7,6 +7,8 @@ module.exports = {
 
     NODE_ENV: process.env.NODE_ENV,
 
+    PORT: process.env.PORT || 3100,
+
     MULTER_MAX_COUNT: 5,
     MULTER_MAX_SIZE: 5 * 1024 * 1024,// 10MB
 

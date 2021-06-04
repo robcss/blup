@@ -1,7 +1,7 @@
 const expressApp = require("./loaders")(__dirname)
 
-const port = 3100
+const { PORT } = require("./config")
 
-expressApp.listen(port, () => {
-    console.log(`Serving on port ${port}`)
+expressApp.listen(PORT, () => {
+    console.log(`Serving on port ${PORT}`)
 })
