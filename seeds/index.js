@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 const mongoose = require("mongoose");
 const municipalitiesDataset = require("./italy_munic_geocoded500.json");
 const { randomInt, randArrayElem, weightedRandom } = require("../utils/random");
@@ -10,7 +12,20 @@ const Fountain = require("../models/fountain");
 const Comment = require("../models/comment");
 const Report = require("../models/report");
 
-mongoose.connect('mongodb://localhost:27017/fountain-finder', {
+let dbToSeed;
+const arg = process.argv[2]
+
+if (!arg || (arg !== "cloud" && arg != "local")) {
+    dbToSeed = "local"
+} else {
+    dbToSeed = arg
+}
+
+console.log(`Seeding ${dbToSeed} db`)
+
+const dbUrls = { local: "mongodb://localhost:27017/fountain-finder", cloud: process.env.DB_URL }
+
+mongoose.connect(dbUrls[dbToSeed], {
     useNewUrlParser: true,
     useCreateIndex: true,
     useUnifiedTopology: true
@@ -35,7 +50,7 @@ const seedDB = async () => {
     await Report.deleteMany({});
 
     const imagesSeeds = await getImageSeeds()
-    const authors = authorSeeds.local
+    const authors = authorSeeds[dbToSeed]
 
     for (let i = 0; i < seedsNumber; i++) {
 
