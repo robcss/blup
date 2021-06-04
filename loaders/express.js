@@ -10,6 +10,8 @@ const mongoSanitize = require('express-mongo-sanitize')
 const { session, sessionConfig } = require("./session")
 const { helmet, contentSecurityPolicyOpts } = require("./helmet")
 
+const isEnvProduction = require("../utils/isEnvProduction")
+
 const ExpressError = require("../utils/ExpressError")
 
 const User = require('../models/user');
@@ -37,6 +39,9 @@ module.exports = (rootName) => {
         replaceWith: '_'
     }))
 
+    if (isEnvProduction()) {
+        app.set('trust proxy', 1) //heroku uses a proxy
+    }
     app.use(session(sessionConfig))
     app.use(flash())
 
