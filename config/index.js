@@ -1,5 +1,8 @@
 require('dotenv').config()
 
+const DB_URL = 'mongodb://localhost:27017/fountain-finder'
+// const DB_URL = process.env.DB_URL
+
 module.exports = {
 
     NODE_ENV: process.env.NODE_ENV,
@@ -13,5 +16,8 @@ module.exports = {
 
     MAPBOX_TOKEN: process.env.MAPBOX_TOKEN,
 
-    DB_URL: process.env.DB_URL
+    DB_URL,
+
+    SESSION_SECRET: process.env.SESSION_SECRET,
+    MONGOSTORE_SECRET: process.env.MONGOSTORE_SECRET
 }

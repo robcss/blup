@@ -2,12 +2,12 @@ const express = require("express")
 const path = require('path');
 const methodOverride = require('method-override')
 const ejsMate = require('ejs-mate')
-const session = require('express-session')
 const flash = require('connect-flash')
 const passport = require('passport')
 const LocalStrategy = require('passport-local')
 const mongoSanitize = require('express-mongo-sanitize')
 
+const { session, sessionConfig } = require("./session")
 const { helmet, contentSecurityPolicyOpts } = require("./helmet")
 
 const ExpressError = require("../utils/ExpressError")
@@ -19,8 +19,6 @@ const fountainsRoutes = require("../routes/fountains")
 const commentsRoutes = require("../routes/comments")
 const verificationsRoutes = require("../routes/verifications")
 const reportsRoutes = require("../routes/reports")
-
-const isEnvProduction = require("../utils/isEnvProduction")
 
 module.exports = (rootName) => {
     const app = express();
@@ -38,19 +36,6 @@ module.exports = (rootName) => {
     app.use(mongoSanitize({
         replaceWith: '_'
     }))
-
-    const sessionConfig = {
-        name: "session",
-        secret: 'replaceMePlease',
-        resave: false,
-        saveUninitialized: true,
-        cookie: {
-            httpOnly: true,
-            secure: isEnvProduction(),
-            expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
-            maxAge: 1000 * 60 * 60 * 24 * 7
-        }
-    }
 
     app.use(session(sessionConfig))
     app.use(flash())
