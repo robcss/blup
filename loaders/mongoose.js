@@ -1,7 +1,11 @@
 const mongoose = require("mongoose")
+const { DB_URL } = require("../config")
+
+// const dbUrl = 'mongodb://localhost:27017/fountain-finder'
+const dbUrl = DB_URL
 
 module.exports = () => {
-    mongoose.connect('mongodb://localhost:27017/fountain-finder', {
+    mongoose.connect(dbUrl, {
         useNewUrlParser: true,
         useCreateIndex: true,
         useUnifiedTopology: true,

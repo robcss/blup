@@ -11,5 +11,7 @@ module.exports = {
     CLOUDINARY_KEY: process.env.CLOUDINARY_KEY,
     CLOUDINARY_SECRET: process.env.CLOUDINARY_SECRET,
 
-    MAPBOX_TOKEN: process.env.MAPBOX_TOKEN
+    MAPBOX_TOKEN: process.env.MAPBOX_TOKEN,
+
+    DB_URL: process.env.DB_URL
 }
